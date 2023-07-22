@@ -13,6 +13,9 @@ const Header: React.FC = () => {
             <li>
               <a href="/dashboard" className="text-white hover:text-gray-300">Dashboard</a>
             </li>
+            <li>
+              <a href="/account/signup" className="text-white hover:text-gray-300">Sign up</a>
+            </li>
           </ul>
         </nav>
       </div>
