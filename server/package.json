@@ -5,7 +5,8 @@
   "type": "commonjs",
   "license": "MIT",
   "scripts": {
-    "server": "nodemon index.ts"
+    "server": "nodemon index.ts",
+    "build": "tsc"
   },
   "dependencies": {
     "cors": "^2.8.5",

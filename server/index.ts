@@ -1,14 +1,17 @@
-const express = require('express');
+import express, { Express } from "express";
 const http = require('http');
 const app = express();
 const server = http.createServer(app);
+import cors from "cors";
 require('dotenv').config();
 
 import { Server } from 'socket.io';
+const serverEx: Express = express();
+serverEx.use(cors());
 
 const io = new Server(server, {
     cors: {
-        origin: process.env.NODE_ENV === 'production' ? 'https://cinochar.netlify.app/' : 'http://localhost:3000/',
+        origin: process.env.NODE_ENV === 'production' ? 'https://cinochar.netlify.app' : 'http://localhost:3000',
     },
 });
 
