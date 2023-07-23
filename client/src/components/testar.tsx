@@ -38,6 +38,7 @@ const Testar: React.FC = () => {
     const handleClick = () => {
         console.log(data);
     };
+<<<<<<< HEAD:client/src/components/testar.tsx
   
   const handleJoin = () => {
     console.log("You are trying to connect with pseudo:", pseudo);
@@ -59,6 +60,14 @@ const Testar: React.FC = () => {
           </ul>
         </div>
       )}
+=======
+
+  return (
+      <div className="bg-gray-800 p-4 flex justify-center gap-10">
+          TESTAR COMPONENT
+        <button onClick={handleClick}>TEST</button>
+        {/* Code to put here */}
+>>>>>>> bb39597f896bb3ba824bb333208c89c3a4f046cd:src/components/testar.tsx
     </div>
   );
 };
