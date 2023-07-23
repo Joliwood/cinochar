@@ -1,16 +1,20 @@
 import express from "express";
-import http from "http";
 import cors from "cors";
 const app = express();
-const server = http.createServer(app);
+import { createServer } from "http";
+const httpServer = createServer();
 
-import { Server } from 'socket.io';
+import { Server } from "socket.io";
 
-const io = new Server(server, {
-    cors: {
-        origin: process.env.CORS_SUPPORTED,
-    },
+// const io = new Server(server, {
+//     cors: {
+//         origin: process.env.CORS_SUPPORTED,
+//     },
+// });
+const io = new Server(httpServer, {
+  // ...
 });
+
 // const serverEx = express();
 app.use(cors());
 
@@ -40,6 +44,6 @@ io.on("connection", (socket) => {
     });
   });
 
-server.listen(5000, () => {
+httpServer.listen(5000, () => {
     console.log('✔️ Server listening on port 5000')
 });
