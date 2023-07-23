@@ -1,7 +1,6 @@
-import express
-// , { Express }
-  from "express";
+import express from "express";
 import http from "http";
+import cors from "cors";
 const app = express();
 const server = http.createServer(app);
 
@@ -12,14 +11,10 @@ const io = new Server(server, {
         origin: process.env.CORS_SUPPORTED,
     },
 });
+const serverEx = express();
+serverEx.use(cors());
 
-// interface Player {
-//   pseudo: string;
-// }
-
-const players
-  // : { [socketId: string]: Player }
-  = {};
+const players = {};
 
 io.on("connection", (socket) => {
     // console.log('A user connected');
