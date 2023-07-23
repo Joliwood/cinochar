@@ -1,5 +1,5 @@
 import express, { Express } from "express";
-const http = require('http');
+import http from "http";
 const app = express();
 const server = http.createServer(app);
 import cors from "cors";
@@ -11,7 +11,7 @@ serverEx.use(cors());
 
 const io = new Server(server, {
     cors: {
-        origin: process.env.NODE_ENV === 'production' ? 'https://cinochar.netlify.app' : 'http://localhost:3000',
+        origin: process.env.CORS_SUPPORTED,
     },
 });
 
