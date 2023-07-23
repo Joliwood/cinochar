@@ -1,13 +1,11 @@
-import express, { Express } from "express";
+import express
+// , { Express }
+  from "express";
 import http from "http";
 const app = express();
 const server = http.createServer(app);
-import cors from "cors";
-require('dotenv').config();
 
 import { Server } from 'socket.io';
-const serverEx: Express = express();
-serverEx.use(cors());
 
 const io = new Server(server, {
     cors: {
@@ -15,11 +13,13 @@ const io = new Server(server, {
     },
 });
 
-interface Player {
-  pseudo: string;
-}
+// interface Player {
+//   pseudo: string;
+// }
 
-const players: { [socketId: string]: Player } = {};
+const players
+  // : { [socketId: string]: Player }
+  = {};
 
 io.on("connection", (socket) => {
     // console.log('A user connected');

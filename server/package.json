@@ -5,8 +5,7 @@
   "type": "commonjs",
   "license": "MIT",
   "scripts": {
-    "server": "nodemon index.ts",
-    "build": "tsc"
+    "server": "nodemon index.mjs"
   },
   "dependencies": {
     "@types/express": "^4.17.17",
