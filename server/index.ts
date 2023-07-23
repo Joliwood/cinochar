@@ -7,7 +7,7 @@ import { Server } from 'socket.io';
 
 const io = new Server(server, {
     cors: {
-        origin: "*",
+        origin: process.env.NODE_ENV === 'production' ? 'https://cinochar.netlify.app/' : '*',
     },
 });
 
