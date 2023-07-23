@@ -2,6 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "commonjs",
   "license": "MIT",
   "scripts": {
     "server": "nodemon index.ts"
