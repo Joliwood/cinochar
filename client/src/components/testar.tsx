@@ -3,7 +3,7 @@
 // To tell Next it is a client file, we have to use that before any import
 import React, { useEffect, useState } from 'react';
 import io from 'socket.io-client';
-const socket = io("http://localhost:5000");
+const socket = io(process.env.NEXT_PUBLIC_API_URL!);
 
 const Testar: React.FC = () => {
 
@@ -13,7 +13,6 @@ const Testar: React.FC = () => {
     
     useEffect(() => {
       fetchData();
-      const socket = io("http://localhost:5000");
       socket.on("player-list", (players) => {
         setPlayerList(players);
       });
