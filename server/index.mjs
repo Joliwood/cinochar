@@ -11,8 +11,8 @@ const io = new Server(server, {
         origin: process.env.CORS_SUPPORTED,
     },
 });
-const serverEx = express();
-serverEx.use(cors());
+// const serverEx = express();
+app.use(cors());
 
 const players = {};
 
