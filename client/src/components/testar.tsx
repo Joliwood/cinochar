@@ -44,7 +44,7 @@ const Testar: React.FC = () => {
   };
 
   return (
-      <div className="bg-gray-800 p-4 flex justify-center gap-10">
+    <div className="bg-gray-800 p-4 flex justify-center gap-10 flex-wrap">
       <button className="bg-red-700" onClick={handleClick}>TEST MONGODB</button>
       <input type="Pseudo" placeholder="Pseudo" className="text-orange-500" value={pseudo} onChange={(e) => setPseudo(e.target.value)}/> 
       <button className="bg-red-700" onClick={handleJoin}>JOIN THE ROOM</button>

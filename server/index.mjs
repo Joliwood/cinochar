@@ -7,7 +7,7 @@ import { Server } from 'socket.io';
 
 const io = new Server(server, {
     cors: {
-        origin: process.env.CORS_SUPPORTED,
+        origin: '*',
     },
 });
 
