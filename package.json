@@ -4,5 +4,13 @@
   "main": "index.js",
   "repository": "git@github.com:Joliwood/cinochar.git",
   "author": "Guillaume <jolibois.contact@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "start-server": "cd server && nodemon index.mjs",
+    "start-client": "cd client && next dev",
+    "dev": "concurrently \"yarn start-server\" \"yarn start-client\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  }
 }
