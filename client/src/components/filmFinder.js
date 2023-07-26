@@ -19,6 +19,7 @@ const Header = () => {
     const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
     const baseURL = "https://api.themoviedb.org/3";
     const requestFilm = baseURL + "/trending/all/week?api_key=" + apiKey + "&language=en-US";
+    const [randomZoomPosition, setRandomZoomPosition] = useState({ x: 0, y: 0 });
 
     // Others requests disponible
     // fetchTopRated: baseURL + "/movie/top_rated?api_key=" + apiKey + "&language=en-US"
@@ -30,6 +31,7 @@ const Header = () => {
     
     useEffect(() => {
         socket.on("new-film-url", (url) => {
+            setRandomZoomPosition(getRandomPosition());
             setMovieUrl(url);
         });
 
@@ -37,7 +39,19 @@ const Header = () => {
             setRandomMovieName(filmName);
             setMatchResult(null);
         });
-      }, []);
+    }, []);
+
+    // Function to generate random X and Y position
+    const getRandomPosition = () => {
+      
+        const randomX = Math.floor(Math.random() * 51);
+        const randomY = Math.floor(Math.random() * 51);
+
+        setRandomZoomPosition({ x: -randomX, y: -randomY });
+      
+        return { x: -randomX, y: -randomY };
+      };
+    
 
     const filmFinder = async () => {
         try {
@@ -72,10 +86,17 @@ const Header = () => {
     };
     
     return (
-  <div className="bg-gray-500 flex justify-center flex-col items-center gap-5 py-3">
+  <div className=" flex justify-center flex-col items-center gap-5 py-3">
         <button className="bg-gray-800 px-3" onClick={filmFinder}>Toggle a new film to find</button>
-        {randomMovieName && movieUrl ? (
-        <img src={movieUrl} alt="film to find" className="max-w-[200px]" />
+            {randomMovieName && movieUrl ? (
+                <div className="film-square bg-red-700">
+                    <img
+                        src={movieUrl}
+                        alt="film to find"
+                        className="film-img"
+                        style={{ transform: `scale(2) translate(${randomZoomPosition.x}%, ${randomZoomPosition.y}%)` }}
+                    />
+                </div>
         ) : (
         <h3>No film to find</h3>
         )}
