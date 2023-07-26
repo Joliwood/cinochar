@@ -12,30 +12,49 @@ const io = new Server(server, {
 });
 
 const players = {};
+let filmUrl = "";
+let filmName = "";
 
 io.on("connection", (socket) => {
-    // console.log('A user connected');
-  
-    socket.on("player-connect", (data) => {
-      console.log("Player connected with pseudo:", data.pseudo);
+    
+  // Connections in and out
+  socket.on("player-connect", (data) => {
+    console.log("Player connected with pseudo:", data.pseudo);
 
-      players[socket.id] = {
-        pseudo: data?.pseudo ?? 'Unknown Player',
-      };
+    players[socket.id] = {
+      pseudo: data?.pseudo ?? 'Unknown Player',
+    };
 
-      io.emit("player-list", Object.values(players).map((player) => player.pseudo));
-    });
-  
-    socket.on('disconnect', () => {
-      console.log('A user disconnected');
-
-      // Remove the player data when a player disconnects
-      delete players[socket.id];
-
-      // Broadcast the updated player list to all clients
-      io.emit("player-list", Object.values(players).map((player) => player.pseudo));
-    });
+    io.emit("player-list", Object.values(players).map((player) => player.pseudo));
   });
+
+  socket.on('disconnect', () => {
+    console.log('A user disconnected');
+
+    // Remove the player data when a player disconnects
+    delete players[socket.id];
+
+    // Broadcast the updated player list to all clients
+    io.emit("player-list", Object.values(players).map((player) => player.pseudo));
+  });
+
+  // New film name and url
+  socket.on("new-film-name", (film) => {
+    film.name ? filmName = film.name : filmName = film.title;
+
+    console.log("We are in the new-film. The film to find is : ", filmName);
+
+    io.emit("new-film-name", filmName);
+  });
+  
+  socket.on("new-film-url", (url) => {
+    filmUrl = url;
+
+    console.log("We are in the new-film-url, the url picture is : ", filmUrl);
+
+    io.emit("new-film-url", filmUrl);
+  });
+});
 
 server.listen(5000, () => {
     console.log('✔️ Server listening on port 5000')

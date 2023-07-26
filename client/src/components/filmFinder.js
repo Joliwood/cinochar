@@ -1,15 +1,16 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import io from 'socket.io-client';
 
 const Header = () => {
 
+    const socket = io(process.env.NEXT_PUBLIC_API_URL);
+
     // Main movie picture
     const [movieUrl, setMovieUrl] = useState("");
-    // All films selected from a specific category
-    const [movies, setMovies] = useState([]);
     // Random film to find by the user
-    const [randomMovie, setRandomMovie] = useState();
+    const [randomMovieName, setRandomMovieName] = useState();
     // User result
     const [userAnswer, setUserAnswer] = useState("");
     // Match between film to find and user result, null at initialization and bollean after a first try
@@ -27,27 +28,40 @@ const Header = () => {
     // fetchRomanceMovies: baseURL + "/discover/movie?api_key=" + apiKey + "&with_genres=10749"
     // fetchDocumentaries: baseURL + "/discover/movie?api_key=" + apiKey + "&with_genres=99"
     
+    useEffect(() => {
+        socket.on("new-film-url", (url) => {
+            setMovieUrl(url);
+        });
+
+        socket.on("new-film-name", (filmName) => {
+            setRandomMovieName(filmName);
+            setMatchResult(null);
+        });
+      }, []);
+
     const filmFinder = async () => {
         try {
             const response = await axios.request(requestFilm);
-            setMovies(response.data.results);
     
             // Select a random movie from the movies array
             const randomIndex = Math.floor(Math.random() * response.data.results.length);
             const selectedMovie = response.data.results[randomIndex];
-            setRandomMovie(selectedMovie)
-    
-            // Update the movieUrl and display the selected movie's title
-            setMovieUrl(`https://image.tmdb.org/t/p/original/${selectedMovie.poster_path}`);
+
+            // Send the new url film name to the socket
+            socket.emit("new-film-name", (selectedMovie));
+
+            // Send the new url film picture to the socket
+            socket.emit("new-film-url", `https://image.tmdb.org/t/p/original/${selectedMovie.poster_path}`);
+
             console.log("The film is : ", selectedMovie.name ? selectedMovie.name : selectedMovie.title);
         } catch (error) {
             console.error(error);
         }
+
     };
 
     // Compare film to find and user result
     const testMatchingResult = () => {
-        const randomMovieName = randomMovie.name ? randomMovie.name : randomMovie.title;
 
         if (userAnswer == randomMovieName) {
             setMatchResult("IT IS GOOD !");
@@ -60,7 +74,7 @@ const Header = () => {
     return (
   <div className="bg-gray-500 flex justify-center flex-col items-center gap-5 py-3">
         <button className="bg-gray-800 px-3" onClick={filmFinder}>Toggle a new film to find</button>
-        {randomMovie && randomMovie.poster_path ? (
+        {randomMovieName && movieUrl ? (
         <img src={movieUrl} alt="film to find" className="max-w-[200px]" />
         ) : (
         <h3>No film to find</h3>
