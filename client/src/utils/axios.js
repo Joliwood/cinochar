@@ -1,7 +1,7 @@
-import axios from "axios";
+import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: "https://api.themoviedb.org/3",
+  baseURL: 'https://api.themoviedb.org/3',
 });
 
 instance.interceptors.response.use(
@@ -9,7 +9,7 @@ instance.interceptors.response.use(
   (error) => {
     console.error(error);
     return Promise.reject(error);
-  }
+  },
 );
 
 export default instance;
