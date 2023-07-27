@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+// WIP // import axios from 'axios';
 import io from 'socket.io-client';
 import Image from 'next/image';
 
@@ -18,9 +18,9 @@ function Header() {
   // bollean after a first try
   const [matchResult, setMatchResult] = useState(null);
   // Others basic requests
-  const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
-  const baseURL = 'https://api.themoviedb.org/3';
-  const requestFilm = `${baseURL}/trending/all/week?api_key=${apiKey}&language=en-US`;
+  // WIP // const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
+  // WIP // const baseURL = 'https://api.themoviedb.org/3';
+  // WIP // const requestFilm = `${baseURL}/trending/all/week?api_key=${apiKey}&language=en-US`;
   const zoom = 2;
   const [randomZoomPosition, setRandomZoomPosition] = useState(null);
 
@@ -58,19 +58,22 @@ function Header() {
 
   const filmFinder = async () => {
     try {
-      const response = await axios.request(requestFilm);
+      // WIP // const response = await axios.request(requestFilm);
+      const response = await fetch('/api/getData');
+      const selectedMovie = await response.json();
 
-      // Select a random movie from the movies array
-      const randomIndex = Math.floor(Math.random() * response.data.results.length);
-      const selectedMovie = response.data.results[randomIndex];
+      // WIP // Select a random movie from the movies array
+      // WIP // const randomIndex = Math.floor(Math.random() * response.data.results.length);
+      // WIP // const selectedMovie = response.data.results[randomIndex];
 
       // Send the new url film name to the socket
-      socket.emit('new-film-name', (selectedMovie));
+      socket.emit('new-film-name', (selectedMovie[0].name));
 
       // Send the new url film picture to the socket
-      socket.emit('new-film-url', `https://image.tmdb.org/t/p/original/${selectedMovie.poster_path}`);
+      socket.emit('new-film-url', (selectedMovie[0].picture_url));
 
-      console.log('The film is : ', selectedMovie.name ? selectedMovie.name : selectedMovie.title);
+      console.log('The film is : ', selectedMovie[0].name);
+      console.log('The film url picture is : ', selectedMovie[0].picture_url);
     } catch (error) {
       console.error(error);
     }
@@ -99,11 +102,6 @@ function Header() {
               className="film-img"
               style={{ transform: `scale(${zoom}) translate(${randomZoomPosition.x}%, ${randomZoomPosition.y}%)` }}
             />
-            // <img src={movieUrl} alt="film to find" className="film-img"
-            //   style={{ transform: `scale(${zoom})
-            //   translate(${randomZoomPosition.x}%, ${randomZoomPosition.y}%)`
-            //   }}
-            // />
           )}
         </div>
       ) : (

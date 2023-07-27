@@ -1,10 +1,11 @@
-import { connectToDatabase } from '../../utils/mongo';
+import connectToDatabase from '../../utils/mongo';
 
 export default async function handler(_: any, res: any) {
   const client = await connectToDatabase();
   const db = client.db();
-  const collection = db.collection('test-collection-name');
-  const datas = await collection.find().toArray();
+  const collection = db.collection('films-collection');
+  // WIP // const datas = await collection.find().toArray();
+  const datas = await collection.aggregate([{ $sample: { size: 1 } }]).toArray();
 
   // If I want only one result
   // const datas = await collection.find().toArray();

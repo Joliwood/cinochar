@@ -39,20 +39,19 @@ io.on("connection", (socket) => {
   });
 
   // New film name and url
-  socket.on("new-film-name", (film) => {
-    film.name ? filmName = film.name : filmName = film.title;
+  socket.on("new-film-name", (filmName) => {
+    console.log(filmName);
 
     console.log("We are in the new-film. The film to find is : ", filmName);
 
     io.emit("new-film-name", filmName);
   });
   
-  socket.on("new-film-url", (url) => {
-    filmUrl = url;
+  socket.on("new-film-url", (filmPictureUrl) => {
 
-    console.log("We are in the new-film-url, the url picture is : ", filmUrl);
+    console.log("We are in the new-film-url, the url picture is : ", filmPictureUrl);
 
-    io.emit("new-film-url", filmUrl);
+    io.emit("new-film-url", filmPictureUrl);
   });
 });
 

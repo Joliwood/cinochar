@@ -37,7 +37,8 @@ function Testar() {
   }, [pseudo]);
 
   const handleClick = () => {
-    console.log(data);
+    fetchData();
+    console.log(data[0]);
   };
 
   const handleJoin = () => {
