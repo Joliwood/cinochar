@@ -30,7 +30,8 @@
     "**/*.js", 
     "**/*.tsx", 
     ".next/types/**/*.ts", 
-    "src/utils/mongo.ts"
+    "src/utils/mongo.ts",
+    ".eslintrc.js"
   ],
   "exclude": ["node_modules"]
 }

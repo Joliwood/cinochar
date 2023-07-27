@@ -21,7 +21,7 @@ function Header() {
   // WIP // const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
   // WIP // const baseURL = 'https://api.themoviedb.org/3';
   // WIP // const requestFilm = `${baseURL}/trending/all/week?api_key=${apiKey}&language=en-US`;
-  const zoom = 2;
+  const zoom = 3;
   const [randomZoomPosition, setRandomZoomPosition] = useState(null);
 
   // Others requests disponible
