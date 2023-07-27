@@ -5,7 +5,7 @@
     "airbnb-typescript"
   ],
   "parserOptions": {
-    "project": "./client/tsconfig.json"
+    "project": "./tsconfig.json"
   },
   "rules": {
     "linebreak-style": "off",
