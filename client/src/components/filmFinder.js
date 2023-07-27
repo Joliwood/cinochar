@@ -19,7 +19,8 @@ const Header = () => {
     const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
     const baseURL = "https://api.themoviedb.org/3";
     const requestFilm = baseURL + "/trending/all/week?api_key=" + apiKey + "&language=en-US";
-    const [randomZoomPosition, setRandomZoomPosition] = useState({ x: 0, y: 0 });
+    const zoom = 2;
+    const [randomZoomPosition, setRandomZoomPosition] = useState(null);
 
     // Others requests disponible
     // fetchTopRated: baseURL + "/movie/top_rated?api_key=" + apiKey + "&language=en-US"
@@ -31,11 +32,13 @@ const Header = () => {
     
     useEffect(() => {
         socket.on("new-film-url", (url) => {
-            setRandomZoomPosition(getRandomPosition());
+            setRandomZoomPosition(null);
             setMovieUrl(url);
+            setRandomZoomPosition(getRandomPosition());
         });
 
         socket.on("new-film-name", (filmName) => {
+            setRandomZoomPosition(null);
             setRandomMovieName(filmName);
             setMatchResult(null);
         });
@@ -44,8 +47,8 @@ const Header = () => {
     // Function to generate random X and Y position
     const getRandomPosition = () => {
       
-        const randomX = Math.floor(Math.random() * 51);
-        const randomY = Math.floor(Math.random() * 51);
+        const randomX = Math.floor(Math.random() * (100 / zoom + 1));
+        const randomY = Math.floor(Math.random() * (100 / zoom + 1));
 
         setRandomZoomPosition({ x: -randomX, y: -randomY });
       
@@ -57,6 +60,7 @@ const Header = () => {
         try {
             const response = await axios.request(requestFilm);
     
+            
             // Select a random movie from the movies array
             const randomIndex = Math.floor(Math.random() * response.data.results.length);
             const selectedMovie = response.data.results[randomIndex];
@@ -89,13 +93,15 @@ const Header = () => {
   <div className=" flex justify-center flex-col items-center gap-5 py-3">
         <button className="bg-gray-800 px-3" onClick={filmFinder}>Toggle a new film to find</button>
             {randomMovieName && movieUrl ? (
-                <div className="film-square bg-red-700">
+                <div className="film-square">
+                    {randomZoomPosition !== null && (
                     <img
                         src={movieUrl}
                         alt="film to find"
                         className="film-img"
-                        style={{ transform: `scale(2) translate(${randomZoomPosition.x}%, ${randomZoomPosition.y}%)` }}
-                    />
+                        style={{ transform: `scale(${zoom}) translate(${randomZoomPosition.x}%, ${randomZoomPosition.y}%)` }}
+                        />
+                        )}
                 </div>
         ) : (
         <h3>No film to find</h3>
