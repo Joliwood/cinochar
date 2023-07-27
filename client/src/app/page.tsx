@@ -1,10 +1,11 @@
-import Header from "@/components/header";
-import Testar from "@/components/testar";
-import FilmFinder from "@/components/filmFinder";
+import React from 'react';
+import Header from '../components/header';
+import Testar from '../components/testar';
+import FilmFinder from '../components/filmFinder';
 
-const Home = () => {
+function Home() {
   return (
-    <div className="min-h-screen" >
+    <div className="min-h-screen">
       <Header />
       <Testar />
       <main className="flex flex-col items-center justify-between p-24">

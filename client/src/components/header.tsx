@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Header: React.FC = () => {
+function Header() {
   return (
     <header className="bg-gray-800 p-4">
       <div className="container mx-auto">
@@ -21,6 +21,6 @@ const Header: React.FC = () => {
       </div>
     </header>
   );
-};
+}
 
 export default Header;
