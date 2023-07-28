@@ -37,7 +37,14 @@ function FilmFinder() {
     socket.on('random-position-zoom', (position) => {
       setZoomPosition(position);
     });
-  });
+
+    return () => {
+      // Clean up the event listeners when the component is unmounted
+      socket.off('new-film-name');
+      socket.off('new-film-url');
+      socket.off('random-position-zoom');
+    };
+  }, []);
 
   // Compare film to find and user result
   const testMatchingResult = () => {
