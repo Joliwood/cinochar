@@ -36,11 +36,15 @@ function Header() {
     return randomZoomPosition;
   };
 
+  // useEffect(() => {
+  //   socket.emit('init');
+  // }, []);
+
   useEffect(() => {
     // It is the first emit send to the socket, so we reset all
-    socket.on('new-film-name', (filmName) => {
+    socket.on('new-film-name', (name) => {
       setZoomPosition(null);
-      setRandomMovieName(filmName);
+      setRandomMovieName(name);
       setMatchResult(null);
     });
 
@@ -49,8 +53,8 @@ function Header() {
       setMovieUrl(url);
     });
 
-    socket.on('random-position-zoom', (zoomPositionFromSocket) => {
-      setZoomPosition(zoomPositionFromSocket);
+    socket.on('random-position-zoom', (position) => {
+      setZoomPosition(position);
     });
   }, [socket]);
 

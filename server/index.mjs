@@ -12,8 +12,19 @@ const io = new Server(server, {
 });
 
 const players = {};
+let filmUrlFromSocket = "";
+let filmNameFromSocket = "";
+let zoomPositionFromSocket = "";
 
 io.on("connection", (socket) => {
+
+  // Initialization players
+  socket.on("init", () => {
+    io.emit("player-list", Object.values(players).map((player) => player.pseudo));
+    io.emit("new-film-name", filmNameFromSocket);
+    io.emit("random-position-zoom", zoomPositionFromSocket);
+    io.emit("new-film-url", filmUrlFromSocket);
+  });
     
   // Connections in and out
   socket.on("player-connect", (data) => {
@@ -27,38 +38,32 @@ io.on("connection", (socket) => {
   });
 
   socket.on('disconnect', () => {
-    console.log('A user disconnected');
-
-    // Remove the player data when a player disconnects
+  if (players[socket.id]) {
+    console.log(players[socket.id].pseudo, ' has disconnected');
     delete players[socket.id];
-
-    // Broadcast the updated player list to all clients
     io.emit("player-list", Object.values(players).map((player) => player.pseudo));
-  });  
+  }
+});
 
   // New film name
   socket.on("new-film-name", (filmName) => {
-    console.log(filmName);
-
-    console.log("We are in the new-film. The film to find is : ", filmName);
-
-    io.emit("new-film-name", filmName);
+    console.log("The film to find is : ", filmName);
+    filmNameFromSocket = filmName;
+    io.emit("new-film-name", filmNameFromSocket);
   });
 
   // New random zoom position
   socket.on('random-position-zoom', (randomZoomPosition) => {
     console.log('The new random position is : ', randomZoomPosition.x, randomZoomPosition.y);
-    const zoomPositionFromSocket = randomZoomPosition;
-
+    zoomPositionFromSocket = randomZoomPosition;
     io.emit("random-position-zoom", zoomPositionFromSocket);
   });
   
   // New film url
   socket.on("new-film-url", (filmPictureUrl) => {
-
     console.log("The url picture is : ", filmPictureUrl);
-
-    io.emit("new-film-url", filmPictureUrl);
+    filmUrlFromSocket = filmPictureUrl;
+    io.emit("new-film-url", filmUrlFromSocket);
   });
 
 });

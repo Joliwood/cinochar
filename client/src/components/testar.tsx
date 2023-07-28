@@ -9,37 +9,16 @@ import io from 'socket.io-client';
 const socket = io(process.env.NEXT_PUBLIC_API_URL!);
 
 function Testar() {
-  const [data, setData] = useState([]);
   const [pseudo, setPseudo] = useState('');
   const [playerList, setPlayerList] = useState<string[]>([]);
 
-  const fetchData = async () => {
-    try {
-      const response = await fetch('/api/getData');
-      const dataReq = await response.json();
-      setData(dataReq);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
-
   useEffect(() => {
-    fetchData();
     socket.on('player-list', (players) => {
       setPlayerList(players);
     });
 
-    socket.emit('player-connect', { pseudo });
-
-    return () => {
-      socket.disconnect();
-    };
-  }, [pseudo]);
-
-  const handleClick = () => {
-    fetchData();
-    console.log(data[0]);
-  };
+    socket.emit('init');
+  }, []);
 
   const handleJoin = () => {
     console.log('You are trying to connect with pseudo:', pseudo);
@@ -48,19 +27,18 @@ function Testar() {
 
   return (
     <div className="bg-gray-800 p-4 flex justify-center gap-10 flex-wrap">
-      <button type="button" className="bg-red-700" onClick={handleClick}>TEST MONGODB</button>
       <input type="Pseudo" placeholder="Pseudo" className="text-orange-500" value={pseudo} onChange={(e) => setPseudo(e.target.value)} />
       <button type="button" className="bg-red-700" onClick={handleJoin}>JOIN THE ROOM</button>
-      {playerList.length > 0 && (
-        <div>
-          <h2>Connected Players:</h2>
+      <div>
+        <h2>Connected Players:</h2>
+        {playerList.length > 0 && (
           <ul>
-            {playerList.map((player) => (
-              <li key={player}>{player}</li>
+            {playerList.map((player, index) => (
+              <li key={player[index]}>{player}</li>
             ))}
           </ul>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
