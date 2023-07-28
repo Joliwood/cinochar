@@ -23,28 +23,27 @@ function FilmFinder() {
 
   useEffect(() => {
     // It is the first emit send to the socket, so we reset all
-    socket.on('new-film-name', (name) => {
+    socket.once('new-film-name', (name) => {
       setZoomPosition(null);
       setRandomMovieName(name);
       setMatchResult(null);
     });
 
-    socket.on('new-film-url', (url) => {
-      // WIP // getRandomPosition();
+    socket.once('new-film-url', (url) => {
       setMovieUrl(url);
     });
 
-    socket.on('random-position-zoom', (position) => {
+    socket.once('random-position-zoom', (position) => {
       setZoomPosition(position);
     });
 
-    return () => {
-      // Clean up the event listeners when the component is unmounted
-      socket.off('new-film-name');
-      socket.off('new-film-url');
-      socket.off('random-position-zoom');
-    };
-  }, []);
+    // return () => {
+    //   // Clean up the event listeners when the component is unmounted
+    //   socket.off('new-film-name');
+    //   socket.off('new-film-url');
+    //   socket.off('random-position-zoom');
+    // };
+  }, [socket]);
 
   // Compare film to find and user result
   const testMatchingResult = () => {
