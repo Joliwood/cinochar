@@ -15,6 +15,8 @@ const players = {};
 let filmUrlFromSocket = "";
 let filmNameFromSocket = "";
 let zoomPositionFromSocket = "";
+let cooldownDuration = 5;
+let cooldownCounter = 0;
 
 io.on("connection", (socket) => {
 
@@ -24,6 +26,7 @@ io.on("connection", (socket) => {
     io.emit("new-film-name", filmNameFromSocket);
     io.emit("random-position-zoom", zoomPositionFromSocket);
     io.emit("new-film-url", filmUrlFromSocket);
+    io.emit("cooldown", cooldownCounter);
   });
     
   // Connections in and out
@@ -64,6 +67,20 @@ io.on("connection", (socket) => {
     console.log("The url picture is : ", filmPictureUrl);
     filmUrlFromSocket = filmPictureUrl;
     io.emit("new-film-url", filmUrlFromSocket);
+  });
+
+  // Cooldown counter
+  socket.on("get-cooldown", () => {
+    cooldownCounter = cooldownDuration;
+    for (let i = 0; i < cooldownDuration + 1; i++) {
+      setTimeout(() => {
+        if (cooldownCounter >= 0) {
+          console.log(cooldownCounter);
+          io.emit("cooldown", cooldownCounter);
+          cooldownCounter--;
+        }
+      }, i * 1000);
+    }
   });
 
 });

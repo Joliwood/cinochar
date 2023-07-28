@@ -8,16 +8,11 @@ function FilmButton({ zoom }) {
   const [counter, setCounter] = useState(0);
 
   useEffect(() => {
-    if (counter > 0) {
-      const timeout = setTimeout(() => {
-        setCounter(counter - 1);
-      }, 1000);
-
-      if (counter === 0) {
-        clearTimeout(timeout);
-      }
-    }
-  }, [counter]);
+    // Listen for cooldown updates from the server
+    socket.on('cooldown', (counterFromSocket) => {
+      setCounter(counterFromSocket);
+    });
+  }, [socket]);
 
   // Function to generate random X and Y position
   const getRandomPosition = () => {
@@ -50,6 +45,8 @@ function FilmButton({ zoom }) {
 
       // Send the new url film picture to the socket
       socket.emit('new-film-url', (pictureUrls[pictureKeys[randomUrlIndex]]));
+
+      socket.emit('get-cooldown');
 
       // console.log('The film is : ', selectedMovie[0].name);
       // console.log('The new random position is : ', getRandomPosition().x, getRandomPosition().y);
