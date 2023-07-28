@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-// WIP // import axios from 'axios';
 import io from 'socket.io-client';
 import Image from 'next/image';
 
@@ -18,11 +17,8 @@ function Header() {
   // bollean after a first try
   const [matchResult, setMatchResult] = useState(null);
   // Others basic requests
-  // WIP // const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
-  // WIP // const baseURL = 'https://api.themoviedb.org/3';
-  // WIP // const requestFilm = `${baseURL}/trending/all/week?api_key=${apiKey}&language=en-US`;
   const zoom = 3;
-  const [randomZoomPosition, setRandomZoomPosition] = useState(null);
+  const [zoomPosition, setZoomPosition] = useState(null);
 
   // Others requests disponible
   // fetchTopRated: baseURL + "/movie/top_rated?api_key=" + apiKey + "&language=en-US"
@@ -36,44 +32,53 @@ function Header() {
   const getRandomPosition = () => {
     const randomX = Math.floor(Math.random() * (100 / zoom + 1));
     const randomY = Math.floor(Math.random() * (100 / zoom + 1));
-
-    setRandomZoomPosition({ x: -randomX, y: -randomY });
-
-    return { x: -randomX, y: -randomY };
+    const randomZoomPosition = { x: -randomX, y: -randomY };
+    return randomZoomPosition;
   };
 
   useEffect(() => {
+    // It is the first emit send to the socket, so we reset all
     socket.on('new-film-name', (filmName) => {
-      setRandomZoomPosition(null);
+      setZoomPosition(null);
       setRandomMovieName(filmName);
       setMatchResult(null);
     });
 
     socket.on('new-film-url', (url) => {
-      setRandomZoomPosition(null);
-      setRandomZoomPosition(getRandomPosition());
+      getRandomPosition();
       setMovieUrl(url);
+    });
+
+    socket.on('random-position-zoom', (zoomPositionFromSocket) => {
+      setZoomPosition(zoomPositionFromSocket);
     });
   }, [socket]);
 
   const filmFinder = async () => {
     try {
-      // WIP // const response = await axios.request(requestFilm);
       const response = await fetch('/api/getData');
       const selectedMovie = await response.json();
 
-      // WIP // Select a random movie from the movies array
-      // WIP // const randomIndex = Math.floor(Math.random() * response.data.results.length);
-      // WIP // const selectedMovie = response.data.results[randomIndex];
+      // Extract the picture_urls object
+      const pictureUrls = selectedMovie[0].picture_urls;
+
+      // Get all the keys (picture URLs) from the 'picture_urls' object
+      const pictureKeys = Object.keys(pictureUrls);
+
+      // Randomaly select an url in the object
+      const randomUrlIndex = Math.floor(Math.random() * pictureKeys.length);
 
       // Send the new url film name to the socket
       socket.emit('new-film-name', (selectedMovie[0].name));
 
-      // Send the new url film picture to the socket
-      socket.emit('new-film-url', (selectedMovie[0].picture_url));
+      // Send the new random zoom position to the socket
+      socket.emit('random-position-zoom', (getRandomPosition()));
 
-      console.log('The film is : ', selectedMovie[0].name);
-      console.log('The film url picture is : ', selectedMovie[0].picture_url);
+      // Send the new url film picture to the socket
+      socket.emit('new-film-url', (pictureUrls[pictureKeys[randomUrlIndex]]));
+
+      // console.log('The film is : ', selectedMovie[0].name);
+      // console.log('The new random position is : ', getRandomPosition().x, getRandomPosition().y);
     } catch (error) {
       console.error(error);
     }
@@ -93,14 +98,14 @@ function Header() {
       <button type="button" className="bg-gray-800 px-3" onClick={filmFinder}>Toggle a new film to find</button>
       {randomMovieName && movieUrl ? (
         <div className="film-square">
-          {randomZoomPosition !== null && (
+          {zoomPosition !== null && (
             <Image
               src={movieUrl}
               width={500}
               height={500}
               alt="film to find"
               className="film-img"
-              style={{ transform: `scale(${zoom}) translate(${randomZoomPosition.x}%, ${randomZoomPosition.y}%)` }}
+              style={{ transform: `scale(${zoom}) translate(${zoomPosition.x}%, ${zoomPosition.y}%)` }}
             />
           )}
         </div>

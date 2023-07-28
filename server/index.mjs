@@ -12,8 +12,6 @@ const io = new Server(server, {
 });
 
 const players = {};
-let filmUrl = "";
-let filmName = "";
 
 io.on("connection", (socket) => {
     
@@ -36,9 +34,9 @@ io.on("connection", (socket) => {
 
     // Broadcast the updated player list to all clients
     io.emit("player-list", Object.values(players).map((player) => player.pseudo));
-  });
+  });  
 
-  // New film name and url
+  // New film name
   socket.on("new-film-name", (filmName) => {
     console.log(filmName);
 
@@ -46,13 +44,23 @@ io.on("connection", (socket) => {
 
     io.emit("new-film-name", filmName);
   });
+
+  // New random zoom position
+  socket.on('random-position-zoom', (randomZoomPosition) => {
+    console.log('The new random position is : ', randomZoomPosition.x, randomZoomPosition.y);
+    const zoomPositionFromSocket = randomZoomPosition;
+
+    io.emit("random-position-zoom", zoomPositionFromSocket);
+  });
   
+  // New film url
   socket.on("new-film-url", (filmPictureUrl) => {
 
-    console.log("We are in the new-film-url, the url picture is : ", filmPictureUrl);
+    console.log("The url picture is : ", filmPictureUrl);
 
     io.emit("new-film-url", filmPictureUrl);
   });
+
 });
 
 server.listen(5000, () => {
