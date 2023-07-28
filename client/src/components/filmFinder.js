@@ -37,7 +37,7 @@ function FilmFinder() {
     socket.on('random-position-zoom', (position) => {
       setZoomPosition(position);
     });
-  }, [socket]);
+  });
 
   // Compare film to find and user result
   const testMatchingResult = () => {
