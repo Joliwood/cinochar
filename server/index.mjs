@@ -8,16 +8,16 @@ const server = http.createServer(app);
 import { Server } from 'socket.io';
 
 const io = new Server(server, {
-    cors: {
-        origin: '*',
-    },
+  cors: {
+    origin: '*',
+  },
 });
 
 const players = {};
 let filmUrlFromSocket = "";
 let filmNameFromSocket = "";
 let zoomPositionFromSocket = "";
-let cooldownDuration = 1;
+let cooldownDuration = 5;
 let cooldownCounter = 0;
 
 // Function to generate random X and Y position
@@ -35,7 +35,7 @@ const getRandomPosition = async (zoom, filmDimensionsContainer) => {
   // after zoom render
   const aspectRatio = width / height;
   const xMax = filmDimensionsContainer - filmDimensionsContainer / zoom;
-  const yMax = ((zoom * filmDimensionsContainer / aspectRatio) - filmDimensionsContainer ) / zoom;
+  const yMax = ((zoom * filmDimensionsContainer / aspectRatio) - filmDimensionsContainer) / zoom;
 
   console.log("zoom : ", zoom, ". FilmDimensionsContainer : ", filmDimensionsContainer)
   console.log("Width pixel : ", width, "px. Height pixel : ", height, "px. Aspect ratio is : ", aspectRatio, ". Xmax = ", xMax, ". Ymax = ", yMax);
@@ -56,7 +56,7 @@ io.on("connection", (socket) => {
     io.emit("new-film-url", filmUrlFromSocket);
     io.emit("cooldown", cooldownCounter);
   });
-    
+
   // Connections in and out
   socket.on("player-connect", (data) => {
     console.log("Player connected with pseudo:", data.pseudo);
@@ -69,12 +69,12 @@ io.on("connection", (socket) => {
   });
 
   socket.on('disconnect', () => {
-  if (players[socket.id]) {
-    console.log(players[socket.id].pseudo, ' has disconnected');
-    delete players[socket.id];
-    io.emit("player-list", Object.values(players).map((player) => player.pseudo));
-  }
-});
+    if (players[socket.id]) {
+      console.log(players[socket.id].pseudo, ' has disconnected');
+      delete players[socket.id];
+      io.emit("player-list", Object.values(players).map((player) => player.pseudo));
+    }
+  });
 
   // New film name
   socket.on("new-film-name", (filmName) => {
@@ -85,15 +85,15 @@ io.on("connection", (socket) => {
 
   // New random zoom position
   socket.on('random-position-zoom', async ({ zoom, filmDimensionsContainer }) => {
-    
-    const randomZoomPosition = await getRandomPosition(zoom, filmDimensionsContainer);
+
+    let randomZoomPosition = await getRandomPosition(zoom, filmDimensionsContainer);
 
     console.log('The new random position is : ', randomZoomPosition.x, randomZoomPosition.y);
 
     zoomPositionFromSocket = randomZoomPosition;
-    io.emit("random-position-zoom", zoomPositionFromSocket);
+    await io.emit("random-position-zoom", zoomPositionFromSocket);
   });
-  
+
   // New film url
   socket.on("new-film-url", (filmPictureUrl) => {
     console.log("The url picture is : ", filmPictureUrl);
@@ -118,5 +118,5 @@ io.on("connection", (socket) => {
 });
 
 server.listen(5000, () => {
-    console.log('✔️ Server listening on port 5000')
+  console.log('✔️ Server listening on port 5000')
 });

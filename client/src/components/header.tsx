@@ -2,19 +2,19 @@ import React from 'react';
 
 function Header() {
   return (
-    <header className="bg-gray-800 p-4">
-      <div className="container mx-auto">
+    <header className="sticky w-full p-4 shadow-sm ">
+      <div className="flex-none">
         <nav className="flex items-center justify-between">
-          <div className="text-white font-semibold text-xl">Your Logo</div>
-          <ul className="flex space-x-4">
+          <div className="font-semibold text-xl">Cinochar</div>
+          <ul className="menu menu-horizontal px-1">
             <li>
-              <a href="/" className="text-white hover:text-gray-300">Home</a>
+              <a href="/">Accueil</a>
             </li>
             <li>
-              <a href="/dashboard" className="text-white hover:text-gray-300">Dashboard</a>
+              <a href="/">Se connecter</a>
             </li>
             <li>
-              <a href="/account/signup" className="text-white hover:text-gray-300">Sign up</a>
+              <a href="/">S&apos;enregistrer</a>
             </li>
           </ul>
         </nav>
