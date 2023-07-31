@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 
 // eslint-disable-next-line react/prop-types
-function FilmButton({ zoom }) {
+function FilmButton({ zoom, filmDimensionsContainer }) {
   const socket = io(process.env.NEXT_PUBLIC_API_URL);
   const cooldownDuration = 5;
   const [counter, setCounter] = useState(0);
@@ -13,14 +13,6 @@ function FilmButton({ zoom }) {
       setCounter(counterFromSocket);
     });
   }, [socket]);
-
-  // Function to generate random X and Y position
-  const getRandomPosition = () => {
-    const randomX = Math.floor(Math.random() * (100 / zoom + 1));
-    const randomY = Math.floor(Math.random() * (100 / zoom + 1));
-    const randomZoomPosition = { x: -randomX, y: -randomY };
-    return randomZoomPosition;
-  };
 
   const filmFinder = async () => {
     setCounter(cooldownDuration);
@@ -40,11 +32,11 @@ function FilmButton({ zoom }) {
       // Send the new url film name to the socket
       socket.emit('new-film-name', (selectedMovie[0].name));
 
-      // Send the new random zoom position to the socket
-      socket.emit('random-position-zoom', (getRandomPosition()));
-
       // Send the new url film picture to the socket
       socket.emit('new-film-url', (pictureUrls[pictureKeys[randomUrlIndex]]));
+
+      // Send the new random zoom position to the socket
+      socket.emit('random-position-zoom', { zoom, filmDimensionsContainer });
 
       socket.emit('get-cooldown');
 

@@ -32,12 +32,10 @@ body {
   z-index: -1;
   overflow: hidden;
   aspect-ratio: 1/1;
-  width: 300px;
 }
 
 .film-img {
   object-fit: cover;
   object-position: left top;
-  aspect-ratio: 1/1;
   transform-origin: top left;
 }

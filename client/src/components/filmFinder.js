@@ -19,6 +19,7 @@ function FilmFinder() {
   const [matchResult, setMatchResult] = useState(null);
   // Others basic requests
   const zoom = 3;
+  const filmDimensionsContainer = 350;
   const [zoomPosition, setZoomPosition] = useState(null);
 
   useEffect(() => {
@@ -49,9 +50,12 @@ function FilmFinder() {
 
   return (
     <div className=" flex justify-center flex-col items-center gap-5 py-3">
-      <FilmButton zoom={zoom} />
+      <FilmButton zoom={zoom} filmDimensionsContainer={filmDimensionsContainer} />
       {randomMovieName && movieUrl ? (
-        <div className="film-square">
+        <div
+          className="film-square"
+          style={{ width: `${filmDimensionsContainer}px`, height: `${filmDimensionsContainer}px` }}
+        >
           {zoomPosition !== null && (
             <Image
               src={movieUrl}
@@ -59,7 +63,7 @@ function FilmFinder() {
               height={500}
               alt="film to find"
               className="film-img"
-              style={{ transform: `scale(${zoom}) translate(${zoomPosition.x}%, ${zoomPosition.y}%)` }}
+              style={{ transform: `scale(${zoom}) translate(${zoomPosition.x}px, ${zoomPosition.y}px)` }}
             />
           )}
         </div>
