@@ -29,8 +29,8 @@ function UtilityFilmBar({ zoom, filmDimensionsContainer }) {
   }, [initialCountdownValue]);
 
   return (
-    <div className="flex items-center justify-between w-full px-22 h-12">
-      <span className="countdown font-mono text-4xl shadow bg-base-300 rounded-lg h-full flex items-center justify-center px-3">
+    <div className="flex items-center justify-center w-full px-22 h-12">
+      <span className="countdown font-mono text-4xl shadow bg-base-300 rounded-lg h-full flex items-center justify-center px-3 hidden">
         <span style={{ '--value': countdownValue }} />
       </span>
       <FilmButton
@@ -39,7 +39,7 @@ function UtilityFilmBar({ zoom, filmDimensionsContainer }) {
       />
       <button
         type="button"
-        className=" btn-square flex items-center justify-center shadow bg-base-300 rounded-lg h-full w-auto"
+        className=" btn-square flex items-center justify-center shadow bg-base-300 rounded-lg h-full w-auto hover:bg-gray-300 hidden"
       >
         <span className="pl-3">3</span>
         <Image
