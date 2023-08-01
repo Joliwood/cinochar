@@ -19,6 +19,7 @@ function PlayersList() {
     <div className="absolute top-[150px] right-[50px] shadow rounded-lg p-5 flex flex-col items-center">
       <h2 className="mb-3 font-bold">Classement</h2>
       <div className="overflow-x-auto">
+        <button type="button">click me</button>
         <table className="table">
           {/* head */}
           <thead>
@@ -31,10 +32,10 @@ function PlayersList() {
           </thead>
           <tbody>
             {playerList.map((player, index) => (
-              <tr key={player[index]}>
-                <th>1</th>
-                <td>{player}</td>
-                <td>24</td>
+              <tr key={player.id || index}>
+                <th>{index + 1}</th>
+                <td>{player.name}</td>
+                <td>{player.points}</td>
               </tr>
             ))}
           </tbody>

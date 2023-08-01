@@ -1,36 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import io from 'socket.io-client';
+import React from 'react';
 import Image from 'next/image';
 import FilmButton from './filmButton';
 import jokerSvg from '../../public/images/joker.svg';
 
-//! This line MUST BE before the component -> High risk of inifity loop
-const socket = io(process.env.NEXT_PUBLIC_API_URL);
-
 // eslint-disable-next-line react/prop-types
-function UtilityFilmBar({ zoom, filmDimensionsContainer }) {
-  const [countdownValue, setCountdownValue] = useState(30);
-  const initialCountdownValue = 30;
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      if (countdownValue > 0) {
-        setCountdownValue((prevValue) => prevValue - 1);
-      }
-    }, 1000);
-
-    return () => clearInterval(intervalId);
-  }, [countdownValue]);
-
-  useEffect(() => {
-    socket.on('new-film-name', () => {
-      setCountdownValue(initialCountdownValue);
-    });
-  }, [initialCountdownValue]);
-
+function UtilityFilmBar({ zoom, filmDimensionsContainer, countdownValue }) {
   return (
-    <div className="flex items-center justify-center w-full px-22 h-12">
-      <span className="countdown font-mono text-4xl shadow bg-base-300 rounded-lg h-full flex items-center justify-center px-3 hidden">
+    <div className="flex items-center justify-between w-full px-22 h-12">
+      <span className="countdown font-mono text-4xl shadow bg-base-300 rounded-lg h-full flex items-center justify-center px-3">
         <span style={{ '--value': countdownValue }} />
       </span>
       <FilmButton

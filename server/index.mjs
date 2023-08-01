@@ -59,13 +59,18 @@ io.on("connection", (socket) => {
 
   // Connections in and out
   socket.on("player-connect", (data) => {
-    console.log("Player connected with pseudo:", data.pseudo);
+    console.log("Player connected with pseudo:", data.pseudo, "he has : ", data.points, " points.");
 
-    players[socket.id] = {
-      pseudo: data?.pseudo ?? 'Unknown Player',
+    const newPlayer = {
+      // name: pseudo?.name ?? 'Unknown Player',
+      name: data.pseudo,
+      // points: data?.points ?? 0,
+      points: data.points,
     };
 
-    io.emit("player-list", Object.values(players).map((player) => player.pseudo));
+    players[socket.id] = newPlayer;
+
+    io.emit("player-list", Object.values(players).map((player) => ({ name: player.name, points: player.points })));
   });
 
   socket.on('disconnect', () => {

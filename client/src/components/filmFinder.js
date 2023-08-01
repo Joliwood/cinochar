@@ -23,6 +23,24 @@ function FilmFinder() {
   const zoom = 3;
   const filmDimensionsContainer = 350;
   const [zoomPosition, setZoomPosition] = useState(null);
+  const [countdownValue, setCountdownValue] = useState(30);
+  const initialCountdownValue = 30;
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      if (countdownValue > 0) {
+        setCountdownValue((prevValue) => prevValue - 1);
+      }
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [countdownValue]);
+
+  useEffect(() => {
+    socket.on('new-film-name', () => {
+      setCountdownValue(initialCountdownValue);
+    });
+  }, [initialCountdownValue]);
 
   useEffect(() => {
     lottie.loadAnimation({
@@ -54,16 +72,22 @@ function FilmFinder() {
 
   // Compare film to find and user result
   const testMatchingResult = () => {
-    if (userAnswer === randomMovieName) {
+    if (countdownValue === 0) {
+      setMatchResult('Vous avez dépassé le temps imparti.');
+    } else if (userAnswer === randomMovieName) {
       setMatchResult('Bien joué !');
     } else {
-      setMatchResult('Mauvaise réponse');
+      setMatchResult('Mauvaise réponse.');
     }
   };
 
   return (
     <div className=" flex justify-center flex-col items-center gap-5 py-3 mt-[50px]">
-      <UtilityFilmBar zoom={zoom} filmDimensionsContainer={filmDimensionsContainer} />
+      <UtilityFilmBar
+        zoom={zoom}
+        filmDimensionsContainer={filmDimensionsContainer}
+        countdownValue={countdownValue}
+      />
       <div
         className="film-square shadow-md flex"
         style={{ width: `${filmDimensionsContainer}px`, height: `${filmDimensionsContainer}px` }}

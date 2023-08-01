@@ -52,7 +52,7 @@ function FilmButton({ zoom, filmDimensionsContainer }) {
   return (
     <button
       type="button"
-      className={`px-3 shadow-md rounded-lg h-full ${counter > 0 ? 'bg-red-700' : 'bg-green-500'}`}
+      className={`px-3 shadow-md rounded-lg h-full ${counter > 0 ? 'bg-red-700 text-white' : 'bg-green-500'}`}
       onClick={() => filmFinder()}
       disabled={counter > 0}
     >
