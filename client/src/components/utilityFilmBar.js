@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
+import Image from 'next/image';
 import FilmButton from './filmButton';
+import jokerSvg from '../../public/images/joker.svg';
 
 //! This line MUST BE before the component -> High risk of inifity loop
 const socket = io(process.env.NEXT_PUBLIC_API_URL);
@@ -12,11 +14,13 @@ function UtilityFilmBar({ zoom, filmDimensionsContainer }) {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setCountdownValue((prevValue) => prevValue - 1);
+      if (countdownValue > 0) {
+        setCountdownValue((prevValue) => prevValue - 1);
+      }
     }, 1000);
 
     return () => clearInterval(intervalId);
-  }, []);
+  }, [countdownValue]);
 
   useEffect(() => {
     socket.on('new-film-name', () => {
@@ -35,9 +39,16 @@ function UtilityFilmBar({ zoom, filmDimensionsContainer }) {
       />
       <button
         type="button"
-        className=" btn-square flex items-center justify-center shadow bg-base-300 rounded-lg h-full"
+        className=" btn-square flex items-center justify-center shadow bg-base-300 rounded-lg h-full w-auto"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
+        <span className="pl-3">3</span>
+        <Image
+          src={jokerSvg}
+          width={50}
+          height={50}
+          alt="joker chance"
+          className="p-1 pr-1"
+        />
       </button>
     </div>
   );
