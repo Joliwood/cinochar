@@ -50,7 +50,7 @@ io.on("connection", (socket) => {
 
   // Initialization players
   socket.on("init", () => {
-    io.emit("player-list", Object.values(players).map((player) => player.pseudo));
+    io.emit("player-list", Object.values(players).map((player) => ({ name: player.name, points: player.points })));
     io.emit("new-film-name", filmNameFromSocket);
     io.emit("random-position-zoom", zoomPositionFromSocket);
     io.emit("new-film-url", filmUrlFromSocket);
@@ -75,9 +75,9 @@ io.on("connection", (socket) => {
 
   socket.on('disconnect', () => {
     if (players[socket.id]) {
-      console.log(players[socket.id].pseudo, ' has disconnected');
+      console.log(`${players[socket.id].name} has disconnected`);
       delete players[socket.id];
-      io.emit("player-list", Object.values(players).map((player) => player.pseudo));
+      io.emit('player-list', Object.values(players).map((player) => ({ name: player.pseudo, points: player.points })));
     }
   });
 
@@ -117,6 +117,32 @@ io.on("connection", (socket) => {
           cooldownCounter--;
         }
       }, i * 1000);
+    }
+  });
+
+  // Add points to a player
+  socket.on('player-add-points', ({ pseudo, points }) => {
+    console.log(players, typeof points);
+
+    if (typeof pseudo !== 'string' || typeof points !== 'number') {
+      console.error('Invalid data received for player-add-points:', pseudo, points);
+      return;
+    }
+
+    let foundPlayer = false;
+
+    Object.keys(players).forEach((playerId) => {
+      if (players[playerId].name === pseudo) {
+        players[playerId].points += points;
+        foundPlayer = true;
+        console.log(`${pseudo} received ${points} points. Total points now: ${players[playerId].points}`);
+      }
+    });
+
+    if (foundPlayer) {
+      io.emit('player-list', Object.values(players).map((player) => ({ name: player.name, points: player.points })));
+    } else {
+      console.error(`Player ${pseudo} not found.`);
     }
   });
 

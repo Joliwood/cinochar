@@ -4,7 +4,9 @@ import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import Image from 'next/image';
 import lottie from 'lottie-web';
+import { useSelector } from 'react-redux';
 import UtilityFilmBar from './utilityFilmBar';
+// import { setPlayerPseudo } from '../utils/reducers/playersReducer';
 
 //! This line MUST BE before the component -> High risk of inifity loop
 const socket = io(process.env.NEXT_PUBLIC_API_URL);
@@ -25,6 +27,8 @@ function FilmFinder() {
   const [zoomPosition, setZoomPosition] = useState(null);
   const [countdownValue, setCountdownValue] = useState(30);
   const initialCountdownValue = 30;
+  const pseudo = useSelector((state) => state.players.playerPseudo);
+  const [filmFound, isFilmFound] = useState(false);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -59,6 +63,7 @@ function FilmFinder() {
       setZoomPosition(null);
       setRandomMovieName(name);
       setMatchResult(null);
+      isFilmFound(false);
     });
 
     socket.on('new-film-url', (url) => {
@@ -75,8 +80,13 @@ function FilmFinder() {
     if (countdownValue === 0) {
       setMatchResult('Vous avez dépassé le temps imparti.');
     } else if (userAnswer === randomMovieName) {
-      socket.emit('player-connect', { pseudo, points: 0 });
-      setMatchResult('Bien joué !');
+      if (filmFound === false) {
+        socket.emit('player-add-points', { pseudo, points: 5 });
+        setMatchResult('Bien joué !');
+        isFilmFound(true);
+      } else {
+        setMatchResult('Vous avez déjà trouvé ce film.');
+      }
     } else {
       setMatchResult('Mauvaise réponse.');
     }

@@ -7,7 +7,7 @@ function Header() {
         <nav className="flex items-center justify-between">
           <div className="font-semibold text-xl">Cinochar</div>
           <ul className="menu menu-horizontal px-1">
-            <li>
+            {/* <li>
               <a href="/">Accueil</a>
             </li>
             <li>
@@ -15,7 +15,7 @@ function Header() {
             </li>
             <li>
               <a href="/">S&apos;enregistrer</a>
-            </li>
+            </li> */}
           </ul>
         </nav>
       </div>
