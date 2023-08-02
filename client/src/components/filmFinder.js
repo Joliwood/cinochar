@@ -75,6 +75,7 @@ function FilmFinder() {
     if (countdownValue === 0) {
       setMatchResult('Vous avez dépassé le temps imparti.');
     } else if (userAnswer === randomMovieName) {
+      socket.emit('player-connect', { pseudo, points: 0 });
       setMatchResult('Bien joué !');
     } else {
       setMatchResult('Mauvaise réponse.');

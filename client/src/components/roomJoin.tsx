@@ -18,7 +18,7 @@ function RoomJoin() {
 
   const handleJoin = () => {
     console.log('You are trying to connect with pseudo:', pseudo);
-    socket.emit('player-connect', { pseudo, points: 5 });
+    socket.emit('player-connect', { pseudo, points: 0 });
   };
 
   return (

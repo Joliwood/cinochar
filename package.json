@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "start-server": "cd server && nodemon index.mjs",
-    "start-client": "cd client && next dev",
+    "start-client": "cd client && yarn dev",
     "dev": "concurrently \"yarn start-server\" \"yarn start-client\""
   },
   "devDependencies": {
