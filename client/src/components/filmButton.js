@@ -40,7 +40,13 @@ function FilmButton({ zoom, filmDimensionsContainer }) {
       // Send the new random zoom position to the socket
       socket.emit('random-position-zoom', { zoom, filmDimensionsContainer });
 
+      socket.emit('reset-countdown');
+
       socket.emit('get-cooldown');
+
+      // Solution to have less exchange with the socket but create < 1sec of
+      // difference between each player depends on when they enter in the game
+      // socket.emit('get-countdown');
 
       // console.log('The film is : ', selectedMovie[0].name);
       // console.log('The new random position is : ', getRandomPosition().x, getRandomPosition().y);

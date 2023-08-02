@@ -19,6 +19,7 @@ let filmNameFromSocket = "";
 let zoomPositionFromSocket = "";
 let cooldownDuration = 5;
 let cooldownCounter = 0;
+let countdown;
 
 // Function to generate random X and Y position
 const getRandomPosition = async (zoom, filmDimensionsContainer) => {
@@ -55,6 +56,7 @@ io.on("connection", (socket) => {
     io.emit("random-position-zoom", zoomPositionFromSocket);
     io.emit("new-film-url", filmUrlFromSocket);
     io.emit("cooldown", cooldownCounter);
+    io.emit('get-countdown', countdown);
   });
 
   // Connections in and out
@@ -117,7 +119,7 @@ io.on("connection", (socket) => {
           cooldownCounter--;
         }
       }, i * 1000);
-    }
+    }   
   });
 
   // Add points to a player
@@ -145,6 +147,21 @@ io.on("connection", (socket) => {
       console.error(`Player ${pseudo} not found.`);
     }
   });
+
+  // Reset the countdown
+  socket.on('reset-countdown', () => {
+    countdown = 30;
+    io.emit('get-countdown', countdown);
+    const countDownInterval = setInterval(() => {
+      if (countdown > 0) {
+        countdown--;
+        io.emit('get-countdown', countdown);
+      } else {
+        clearInterval(countDownInterval);
+      }
+    }, 1000);
+  })
+
 
 });
 

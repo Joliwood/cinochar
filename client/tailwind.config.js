@@ -6,7 +6,10 @@ module.exports = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   daisyui: {
-    themes: ['cupcake', 'dracula'],
+    themes: [
+      'cupcake',
+      'dracula',
+    ],
     // prefix: 'border-radius',
   },
   // eslint-disable-next-line global-require

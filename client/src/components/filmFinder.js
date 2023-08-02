@@ -25,26 +25,15 @@ function FilmFinder() {
   const zoom = 3;
   const filmDimensionsContainer = 350;
   const [zoomPosition, setZoomPosition] = useState(null);
-  const [countdownValue, setCountdownValue] = useState(30);
-  const initialCountdownValue = 30;
+  const [countdownValue, setCountdownValue] = useState(null);
   const pseudo = useSelector((state) => state.players.playerPseudo);
   const [filmFound, isFilmFound] = useState(false);
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      if (countdownValue > 0) {
-        setCountdownValue((prevValue) => prevValue - 1);
-      }
-    }, 1000);
-
-    return () => clearInterval(intervalId);
-  }, [countdownValue]);
-
-  useEffect(() => {
-    socket.on('new-film-name', () => {
-      setCountdownValue(initialCountdownValue);
+    socket.on('get-countdown', (countdown) => {
+      setCountdownValue(countdown);
     });
-  }, [initialCountdownValue]);
+  }, []);
 
   useEffect(() => {
     lottie.loadAnimation({
