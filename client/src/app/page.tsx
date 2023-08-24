@@ -3,6 +3,7 @@ import Header from '../components/header';
 import FilmFinder from '../components/filmFinder';
 import RoomJoin from '../components/roomJoin';
 import PlayersList from '../components/playersList';
+import PlayersClassement from '../components/playersClassement';
 
 function Home() {
   return (
@@ -10,6 +11,7 @@ function Home() {
       <Header />
       <RoomJoin />
       <FilmFinder />
+      <PlayersClassement />
       <PlayersList />
     </div>
   );

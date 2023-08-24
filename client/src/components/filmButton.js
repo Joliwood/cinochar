@@ -19,7 +19,7 @@ function FilmButton({ zoom, filmDimensionsContainer }) {
   const filmFinder = async () => {
     setCounter(cooldownDuration);
     try {
-      const response = await fetch('/api/getData');
+      const response = await fetch('/api/getFilm');
       const selectedMovie = await response.json();
 
       // Extract the picture_urls object

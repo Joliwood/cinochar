@@ -17,8 +17,8 @@ function PlayersList() {
   }, [playerList]);
 
   return (
-    <div className="absolute top-[150px] right-[50px] shadow rounded-lg p-5 flex flex-col items-center">
-      <h2 className="mb-3 font-bold">Classement</h2>
+    <div className="absolute top-[150px] left-[50px] shadow rounded-lg p-5 flex flex-col items-center">
+      <h2 className="mb-3 font-bold">Joueurs connectés</h2>
       <div className="overflow-x-auto">
         <table className="table">
           {/* head */}
