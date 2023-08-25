@@ -1,33 +1,32 @@
-import express from 'express';
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import User from '../../models/User';
+import connectToDatabase from '../../utils/mongo';
 
-const router = express.Router();
+export default async function handler(req, res) {
+  const { email, password } = req.body;
 
-router.post('/', async (req, res) => {
-  try {
-    const { email, password } = req.body;
+  // Fetch user from the database based on the email
+  const client = await connectToDatabase();
+  const db = client.db();
+  const collection = db.collection('players-ranking');
+  const user = await collection.findOne({ email });
 
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-
-    const isPasswordValid = await user.comparePassword(password);
-    if (!isPasswordValid) {
-      return res.status(401).json({ message: 'Invalid credentials' });
-    }
-
-    // eslint-disable-next-line no-underscore-dangle
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-      expiresIn: '1h',
-    });
-
-    return res.status(200).json({ message: 'Login successful', token });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: 'Internal server error' });
+  if (!user) {
+    return res.status(404).json({ message: 'User not found' });
   }
-});
 
-export default router;
+  // Compare provided password with the hashed password in the database
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+
+  if (!isPasswordValid) {
+    return res.status(401).json({ message: 'Invalid credentials' });
+  }
+
+  // Generate a JWT
+  const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRATION_TIME,
+  });
+
+  // Respond with the JWT
+  return res.status(200).json({ message: 'Login successful', token });
+}
