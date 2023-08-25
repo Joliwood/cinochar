@@ -5,10 +5,10 @@ import axios from 'axios';
 import Header from '../../components/header';
 
 function Signup() {
-  const [pseudo, setPseudo] = useState('Guigui');
-  const [email, setEmail] = useState('joliboisgui@gmail.com');
-  const [password, setPassword] = useState('Azpoazpo5!');
-  const [confirmPassword, setConfirmPassword] = useState('Azpoazpo5!');
+  const [pseudo, setPseudo] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
 
   const handleSubmit = async (e: any) => {
@@ -26,10 +26,14 @@ function Signup() {
         password,
       });
       setMessage(response.data.message);
-      // You can perform further actions, such as redirecting to a login page.
-    } catch (error) {
-      console.error(error);
-      setMessage('An error occurred during registration.');
+    } catch (error: any) {
+      if (error.response) {
+        setMessage(error.response.data.message);
+      } else {
+        console.log(error);
+
+        setMessage('An error occurred during registration.');
+      }
     }
   };
 
@@ -40,59 +44,68 @@ function Signup() {
         <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
 
           <form
-            className="bg-white px-6 py-8 rounded shadow-md text-black w-full"
+            className="bg-white px-6 py-8 rounded-2xl shadow-md text-black w-full flex flex-col"
             onSubmit={handleSubmit}
           >
-            <h1 className="mb-8 text-3xl text-center">S'enregistrer</h1>
-            <input
-              type="text"
-              className="block border border-grey-light w-full p-3 rounded mb-4"
-              name="pseudo"
-              placeholder="Votre pseudo"
-              value={pseudo}
-              onChange={(e) => setPseudo(e.target.value)}
-              required
-            />
+            <h1 className="mb-6 text-3xl text-center">S'enregistrer</h1>
 
-            <input
-              type="email"
-              className="block border border-grey-light w-full p-3 rounded mb-4"
-              name="email"
-              placeholder="email@domain.com"
-              // value={email}
-              value="joliboisgui@gmail.com"
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
+            <label className="label flex flex-col items-start gap-2" htmlFor="pseudo">
+              <span className="text-base label-text">Pseudo</span>
+              <input
+                type="text"
+                className="w-full input input-bordered"
+                name="pseudo"
+                placeholder="Votre pseudo"
+                value={pseudo}
+                onChange={(e) => setPseudo(e.target.value)}
+                required
+              />
+            </label>
 
-            <input
-              type="password"
-              className="block border border-grey-light w-full p-3 rounded mb-4"
-              name="password"
-              placeholder="Password"
-              value="Azpoazpo5!"
-              // value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+            <label className="label flex flex-col items-start gap-2" htmlFor="email">
+              <span className="text-base label-text">Adresse email</span>
+              <input
+                type="email"
+                className="w-full input input-bordered"
+                name="email"
+                placeholder="email@domain.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </label>
 
-            <input
-              type="password"
-              className="block border border-grey-light w-full p-3 rounded mb-4"
-              name="confirm_password"
-              placeholder="Confirm Password"
-              // value={confirmPassword}
-              value="Azpoazpo5!"
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-            />
+            <label className="label flex flex-col items-start gap-2" htmlFor="password">
+              <span className="text-base label-text">Mot de passe</span>
+              <input
+                type="password"
+                className="w-full input input-bordered"
+                name="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </label>
+
+            <label className="label flex flex-col items-start gap-2" htmlFor="password">
+              <span className="text-base label-text">Mot de passe</span>
+              <input
+                type="password"
+                className="w-full input input-bordered"
+                name="confirm_password"
+                placeholder="Confirm Password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+              />
+            </label>
 
             <button
               type="submit"
-              className="w-full text-center py-3 rounded bg-green-700 text-white hover:bg-green-dark focus:outline-none my-1"
+              className="btn bg-green-700 btn-block text-white hover:text-neutral mt-5"
             >
               Créer un compte
-
             </button>
 
           </form>

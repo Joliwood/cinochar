@@ -6,7 +6,7 @@ export default async function handler(req: any, res: any) {
   const { email, password, pseudo } = req.body;
 
   if (!email || !password) {
-    return res.status(400).json({ message: 'Email and password are required' });
+    return res.status(400).json({ message: 'Veuillez remplir les champs s\'\'il vous plaît' });
   }
 
   const client = await connectToDatabase();
@@ -17,10 +17,10 @@ export default async function handler(req: any, res: any) {
   const existingEmail = await collection.findOne({ email });
 
   if (existingPseudo) {
-    return res.status(400).json({ message: 'Pseudo already registered' });
+    return res.status(400).json({ message: 'Ce pseudo est déjà utilisé' });
   }
   if (existingEmail) {
-    return res.status(400).json({ message: 'Email already registered' });
+    return res.status(400).json({ message: 'Cette adresse email est déjà enregistrée' });
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -33,5 +33,5 @@ export default async function handler(req: any, res: any) {
 
   const newUser = await collection.insertOne(user);
 
-  return res.status(201).json({ message: 'User registered successfully' }, newUser);
+  return res.status(201).json({ message: 'Votre compte a bien été créé' }, newUser);
 }
