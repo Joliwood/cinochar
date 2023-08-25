@@ -11,5 +11,6 @@ module.exports = {
     'linebreak-style': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.tsx'] }],
     'no-console': 'off',
+    'react/no-unescaped-entities': 0,
   },
 };
