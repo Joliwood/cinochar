@@ -3,6 +3,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import ReduxProvider from '../utils/reduxProvider';
+import { AuthProvider } from '../utils/authContext';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -45,9 +46,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ReduxProvider>
-          {children}
-        </ReduxProvider>
+        <AuthProvider>
+          <ReduxProvider>
+            {children}
+          </ReduxProvider>
+        </AuthProvider>
       </body>
     </html>
   );

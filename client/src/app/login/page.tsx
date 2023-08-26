@@ -2,14 +2,18 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
+import jwt_decode from 'jwt-decode';
 import Header from '../../components/header';
+// import { useAuth } from '../../utils/authContext';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
 
-  const handleSubmit = async (e: any) => {
+  // const { setUser } = useAuth();
+
+  const handleLogin = async (e: any) => {
     e.preventDefault();
 
     try {
@@ -22,6 +26,13 @@ function Login() {
 
       // Store the JWT in local storage or a secure cookie
       localStorage.setItem('token', response.data.token);
+
+      // Decode the JWT to access user information
+      const decodedToken: any = jwt_decode(response.data.token);
+      const userPseudo = decodedToken.pseudo;
+
+      console.log(userPseudo);
+      // setUser(userPseudo);
 
       setMessage(response.data.message);
       // The player can be redirected on the main page to join the game
@@ -43,7 +54,7 @@ function Login() {
         action="/login"
         method="POST"
         className="space-y-4 relative mt-[100px] flex flex-col bg-white shadow-md px-6 py-8 rounded-2xl"
-        onSubmit={handleSubmit}
+        onSubmit={handleLogin}
       >
         <div>
           <label className="label flex flex-col items-start gap-2" htmlFor="email">
