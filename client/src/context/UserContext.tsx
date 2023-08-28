@@ -5,6 +5,11 @@ export type UserContextType = {
   points?: number;
 };
 
-const UserContext = createContext<UserContextType>({});
+// TODO ici infos de l'user doivent arriver
+
+const UserContext = createContext<UserContextType>({
+  pseudo: '',
+  points: 0,
+});
 
 export default UserContext;

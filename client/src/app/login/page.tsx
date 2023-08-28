@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
+// import { redirect } from 'next/navigation';
 import Header from '../../components/header';
 
 function Login() {
@@ -21,10 +22,18 @@ function Login() {
       setMessage(response.data.message);
 
       // Store the JWT in local storage or a secure cookie
-      localStorage.setItem('token', response.data.token);
+      // localStorage.setItem('token', response.data.token);
 
-      setMessage(response.data.message);
+      // setMessage(response.data.message);
+
+      // TODO je dois recevoir les infos de l'user depuis la response API next
+      // TODO et je l'enregistre dans le context
+
+      const redirect = '/';
+      window.location.href = redirect; // Redirect the user
+
       // The player can be redirected on the main page to join the game
+      // redirect('/');
     } catch (error: any) {
       if (error.response) {
         setMessage(error.response.data.message);

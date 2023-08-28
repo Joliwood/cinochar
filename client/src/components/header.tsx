@@ -24,20 +24,20 @@ function Header() {
             </button>
 
             {!pseudo && (
-              <button type="button" className="flex items-center">
-                <a className="btn" href="/login">Se connecter</a>
-              </button>
-            )}
+              <>
+                <button type="button" className="flex items-center">
+                  <a className="btn" href="/login">Se connecter</a>
+                </button>
 
-            {!pseudo && (
-              <button type="button" className="flex items-center">
-                <a className="btn" href="/signup">S'enregistrer</a>
-              </button>
+                <button type="button" className="flex items-center">
+                  <a className="btn" href="/signup">S'enregistrer</a>
+                </button>
+              </>
             )}
 
             {pseudo && (
               <button type="button" className="flex items-center" onClick={handleLogout}>
-                <a className="btn" href="/logout">Se deconnecter</a>
+                <a className="btn" href="/">Se deconnecter</a>
               </button>
             )}
 

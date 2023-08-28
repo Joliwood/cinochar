@@ -32,6 +32,9 @@ export default async function handler(req, res) {
     expiresIn: process.env.JWT_EXPIRATION_TIME,
   });
 
+  // TODO // Ici enregistrer le JWT
+
   // Respond with the JWT
+  // TODO envoyer les infos de l'user
   return res.status(200).json({ message: 'Login successful', token });
 }
