@@ -1,47 +1,23 @@
 'use client';
 
-import React, { useState } from 'react';
-import axios from 'axios';
-// import { redirect } from 'next/navigation';
+import React, { useState, useContext } from 'react';
 import Header from '../../components/header';
+import handleLogin from '../../utils/handleLogin';
+import { UserContext } from '../../context/UserContext';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const { setPseudo } = useContext(UserContext);
 
-  const handleLogin = async (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    try {
-      const response = await axios.post('/api/login', {
-        email,
-        password,
-      });
+    const result = await handleLogin(email, password);
 
-      setMessage(response.data.message);
-
-      // Store the JWT in local storage or a secure cookie
-      // localStorage.setItem('token', response.data.token);
-
-      // setMessage(response.data.message);
-
-      // TODO je dois recevoir les infos de l'user depuis la response API next
-      // TODO et je l'enregistre dans le context
-
-      const redirect = '/';
-      window.location.href = redirect; // Redirect the user
-
-      // The player can be redirected on the main page to join the game
-      // redirect('/');
-    } catch (error: any) {
-      if (error.response) {
-        setMessage(error.response.data.message);
-      } else {
-        console.error(error);
-        setMessage('An error occurred during login.');
-      }
-    }
+    setMessage(result.message);
+    setPseudo(result.user.pseudo);
   };
 
   return (
@@ -52,7 +28,7 @@ function Login() {
         action="/login"
         method="POST"
         className="space-y-4 relative mt-[100px] flex flex-col bg-white shadow-md px-6 py-8 rounded-2xl"
-        onSubmit={handleLogin}
+        onSubmit={handleSubmit}
       >
         <div>
           <label className="label flex flex-col items-start gap-2" htmlFor="email">

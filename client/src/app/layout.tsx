@@ -1,14 +1,11 @@
-/* eslint-disable react/jsx-no-constructed-context-values */
-
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import jwt_decode from 'jwt-decode';
 import ReduxProvider from '../utils/reduxProvider';
-import UserContext from '../context/UserContext';
+import { UserContextProvider } from '../context/UserContext';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -48,33 +45,14 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const [pseudo, setPseudo] = useState<string>('');
-
-  async function getUser() {
-    try {
-      const storedToken: string | null = localStorage.getItem('token');
-
-      // Decode the JWT to access user information
-      const decodedToken: any = jwt_decode(storedToken!);
-
-      return setPseudo(decodedToken.pseudo);
-    } catch (error) {
-      return null;
-    }
-  }
-
-  useEffect(() => {
-    getUser();
-  }, []);
-
   return (
     <html lang="en">
       <body className={inter.className}>
-        <UserContext.Provider value={{ pseudo }}>
+        <UserContextProvider>
           <ReduxProvider>
             {children}
           </ReduxProvider>
-        </UserContext.Provider>
+        </UserContextProvider>
       </body>
     </html>
   );
