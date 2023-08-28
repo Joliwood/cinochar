@@ -7,7 +7,6 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import jwt_decode from 'jwt-decode';
-import axios from 'axios';
 import ReduxProvider from '../utils/reduxProvider';
 import UserContext from '../context/UserContext';
 
@@ -57,12 +56,6 @@ export default function RootLayout({
 
       // Decode the JWT to access user information
       const decodedToken: any = jwt_decode(storedToken!);
-
-      // const response = await axios.post('/api/getUser', {
-      //   id: decodedToken.userId,
-      // });
-
-      // console.log(decodedToken.pseudo);
 
       return setPseudo(decodedToken.pseudo);
     } catch (error) {
