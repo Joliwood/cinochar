@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import Header from '../components/header';
 import FilmFinder from '../components/filmFinder';
@@ -6,6 +8,9 @@ import PlayersList from '../components/playersList';
 import PlayersClassement from '../components/playersClassement';
 
 function Home() {
+  // Use this line to test after login & logout implemented
+  // const foo = useMemo(() => ({ pseudo }), [pseudo]);
+
   return (
     <div className="min-h-screen flex flex-col items-center">
       <Header />

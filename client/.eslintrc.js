@@ -9,7 +9,7 @@ module.exports = {
   },
   rules: {
     'linebreak-style': 'off',
-    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.tsx'] }],
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', 'ts', '.tsx'] }],
     'no-console': 'off',
     'react/no-unescaped-entities': 0,
     'no-underscore-dangle': 'off',
