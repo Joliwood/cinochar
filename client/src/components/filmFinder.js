@@ -1,12 +1,14 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import io from 'socket.io-client';
 import Image from 'next/image';
 import lottie from 'lottie-web';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import UtilityFilmBar from './utilityFilmBar';
 // import { setPlayerPseudo } from '../utils/reducers/playersReducer';
+import { UserContext } from '../context/UserContext';
+import handleAddPoints from '../utils/handleAddPoints';
 
 //! This line MUST BE before the component -> High risk of inifity loop
 const socket = io(process.env.NEXT_PUBLIC_API_URL);
@@ -22,18 +24,36 @@ function FilmFinder() {
   // bollean after a first try
   const [matchResult, setMatchResult] = useState(null);
   // Others basic requests
-  const zoom = 3;
+  const [zoom/* , setZoom */] = useState(3);
   const filmDimensionsContainer = 350;
   const [zoomPosition, setZoomPosition] = useState(null);
   const [countdownValue, setCountdownValue] = useState(null);
-  const pseudo = useSelector((state) => state.players.playerPseudo);
+  // const pseudo = useSelector((state) => state.players.playerPseudo);
   const [filmFound, isFilmFound] = useState(false);
+  const { pseudo } = useContext(UserContext);
+  const [playerList, setPlayerList] = useState([]);
+  const [isUserPlaying, setIsUserPlaying] = useState(false);
 
   useEffect(() => {
     socket.on('get-countdown', (countdown) => {
       setCountdownValue(countdown);
     });
   }, []);
+
+  useEffect(() => {
+    socket.on('player-list', (players) => {
+      setPlayerList(players);
+    });
+
+    // Check if the pseudo is in the playerList
+    const isPseudoInPlayerList = playerList.some((player) => player.name === pseudo);
+
+    if (isPseudoInPlayerList) {
+      setIsUserPlaying(true);
+    } else {
+      setIsUserPlaying(false);
+    }
+  }, [playerList, pseudo]);
 
   useEffect(() => {
     lottie.loadAnimation({
@@ -72,6 +92,7 @@ function FilmFinder() {
       if (filmFound === false) {
         socket.emit('player-add-points', { pseudo, points: 5 });
         setMatchResult('Bien joué !');
+        handleAddPoints(5);
         isFilmFound(true);
       } else {
         setMatchResult('Vous avez déjà trouvé ce film.');
@@ -115,11 +136,24 @@ function FilmFinder() {
 
       <div className="form-control w-full">
         <div className="input-group">
-          <input type="text" placeholder="Entre le nom du film..." className="input input-bordered w-full rounded-lg" value={userAnswer} onChange={(e) => setUserAnswer(e.target.value)} />
-          <button type="submit" className="btn btn-square border-1 border-l-0 border-gray-300  hover:bg-gray-300" onClick={testMatchingResult}>
+          <input
+            type="text"
+            placeholder="Entre le nom du film..."
+            className="input input-bordered w-full rounded-lg"
+            value={userAnswer}
+            disabled={!isUserPlaying}
+            onChange={(e) => setUserAnswer(e.target.value)}
+          />
+          <button
+            type="submit"
+            className="btn btn-square border-1 border-l-0 border-gray-300  hover:bg-gray-300"
+            onClick={testMatchingResult}
+            disabled={!isUserPlaying}
+          >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
           </button>
         </div>
+        {!isUserPlaying && <p className="text-xs text-gray-500 mx-auto my-1">Vous devez rejoindre la partie pour participer</p>}
       </div>
     </div>
   );

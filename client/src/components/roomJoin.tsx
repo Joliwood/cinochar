@@ -3,7 +3,7 @@
 // Since the Next.js version >= 13, every component in the app folder is
 // considered to be a server file To tell Next it is a client file, we have to
 // use that before any import
-import React, { useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import io from 'socket.io-client';
 // import { useDispatch, useSelector } from 'react-redux';
 import Image from 'next/image';
@@ -18,10 +18,27 @@ function RoomJoin() {
   // const pseudo = useSelector((state: any) => state.players.playerPseudo || '');
 
   const { pseudo } = useContext(UserContext);
+  const [playerList, setPlayerList] = useState([]);
+  const [isUserPlaying, setIsUserPlaying] = useState(false);
 
   useEffect(() => {
     socket.emit('init');
   }, []);
+
+  useEffect(() => {
+    socket.on('player-list', (players) => {
+      setPlayerList(players);
+    });
+
+    // Check if the pseudo is in the playerList
+    const isPseudoInPlayerList = playerList.some((player: any) => player.name === pseudo);
+
+    if (isPseudoInPlayerList) {
+      setIsUserPlaying(true);
+    } else {
+      setIsUserPlaying(false);
+    }
+  }, [playerList, pseudo]);
 
   const handleJoin = () => {
     // console.log('You are trying to connect with pseudo:', pseudo);
@@ -42,6 +59,7 @@ function RoomJoin() {
         <>
           <div className="avatar flex gap-3 items-center">
             <h3 className="font-bold text-primary-content">{pseudo}</h3>
+
             <div className="w-[48px] rounded h-[48px]">
               <Image
                 src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
@@ -50,9 +68,14 @@ function RoomJoin() {
                 height={100}
               />
             </div>
+
           </div>
-          <div className="divider divider-horizontal" />
-          <button type="button" className="btn btn-accent rounded-full" onClick={handleJoin}>Rejoindre la partie</button>
+          {!isUserPlaying && (
+            <>
+              <div className="divider divider-horizontal" />
+              <button type="button" className="btn btn-accent rounded-full" onClick={handleJoin}>Rejoindre la partie</button>
+            </>
+          )}
         </>
       )}
     </div>

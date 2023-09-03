@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import Image from 'next/image';
 import FilmButton from './filmButton';
 import jokerSvg from '../../public/images/joker.svg';
+import { UserContext } from '../context/UserContext';
 
 // eslint-disable-next-line react/prop-types
 function UtilityFilmBar({ zoom, filmDimensionsContainer, countdownValue }) {
-  const [jokerCounter, setJokerCounter] = useState(3);
+  const { jokers, setJokers } = useContext(UserContext);
 
   const handleJokerClick = () => {
-    if (jokerCounter > 0) {
-      setJokerCounter(jokerCounter - 1);
+    if (jokers > 0) {
+      setJokers(jokers - 1);
     }
   };
 
@@ -26,9 +27,9 @@ function UtilityFilmBar({ zoom, filmDimensionsContainer, countdownValue }) {
         type="button"
         className="btn-square flex items-center justify-center shadow bg-base-300 rounded-lg h-full w-auto hover:bg-gray-300"
         onClick={handleJokerClick}
-        disabled={jokerCounter === 0}
+        disabled={jokers === 0}
       >
-        <span className="pl-3">{jokerCounter}</span>
+        <span className="pl-3">{jokers}</span>
         <Image
           src={jokerSvg}
           width={50}

@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import io from 'socket.io-client';
+import { UserContext } from '../context/UserContext';
 
 //! This line MUST BE before the component -> High risk of inifity loop
 const socket = io(process.env.NEXT_PUBLIC_API_URL);
 
 // eslint-disable-next-line react/prop-types
 function FilmButton({ zoom, filmDimensionsContainer }) {
+  const { setJokers } = useContext(UserContext);
   const cooldownDuration = 5;
   const [counter, setCounter] = useState(0);
 
@@ -43,6 +45,8 @@ function FilmButton({ zoom, filmDimensionsContainer }) {
       socket.emit('reset-countdown');
 
       socket.emit('get-cooldown');
+
+      setJokers(2);
 
       // Solution to have less exchange with the socket but create < 1sec of
       // difference between each player depends on when they enter in the game
