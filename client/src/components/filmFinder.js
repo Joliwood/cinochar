@@ -24,13 +24,15 @@ function FilmFinder() {
   // bollean after a first try
   const [matchResult, setMatchResult] = useState(null);
   // Others basic requests
-  const [zoom/* , setZoom */] = useState(3);
+  const [zoom, setZoom] = useState(3);
   const filmDimensionsContainer = 350;
   const [zoomPosition, setZoomPosition] = useState(null);
   const [countdownValue, setCountdownValue] = useState(null);
   // const pseudo = useSelector((state) => state.players.playerPseudo);
   const [filmFound, isFilmFound] = useState(false);
-  const { pseudo } = useContext(UserContext);
+  const {
+    pseudo, jokers, revealImg, setRevealImg,
+  } = useContext(UserContext);
   const [playerList, setPlayerList] = useState([]);
   const [isUserPlaying, setIsUserPlaying] = useState(false);
 
@@ -39,6 +41,16 @@ function FilmFinder() {
       setCountdownValue(countdown);
     });
   }, []);
+
+  useEffect(() => {
+    if (jokers === 2) setZoom(3);
+    if (jokers === 1) setZoom(2.5);
+    if (jokers === 0) setZoom(2);
+    if (revealImg) {
+      setZoom(1);
+      setRevealImg(true);
+    }
+  }, [jokers, revealImg, setRevealImg]);
 
   useEffect(() => {
     socket.on('player-list', (players) => {
@@ -73,6 +85,7 @@ function FilmFinder() {
       setRandomMovieName(name);
       setMatchResult(null);
       isFilmFound(false);
+      setRevealImg(false);
     });
 
     socket.on('new-film-url', (url) => {
@@ -82,7 +95,7 @@ function FilmFinder() {
     socket.on('random-position-zoom', (position) => {
       setZoomPosition(position);
     });
-  }, []);
+  }, [setRevealImg]);
 
   // Compare film to find and user result
   const testMatchingResult = () => {
@@ -120,7 +133,14 @@ function FilmFinder() {
             height={500}
             alt="film to find"
             className="film-img"
-            style={{ display: zoomPosition !== null ? 'inherit' : 'none', transform: zoomPosition !== null && `scale(${zoom}) translate(${zoomPosition.x}px, ${zoomPosition.y}px)` }}
+            style={{
+              display: zoomPosition !== null
+                ? 'inherit'
+                : 'none',
+              transform: zoomPosition !== null && `
+              scale(${zoom}) 
+              translate(${zoomPosition.x}px, ${zoomPosition.y}px)`,
+            }}
           />
         ) : (
           <div className="flex w-full self-center" id="lottie-container" />

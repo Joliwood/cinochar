@@ -2,16 +2,21 @@ import React, { useContext } from 'react';
 import Image from 'next/image';
 import FilmButton from './filmButton';
 import jokerSvg from '../../public/images/joker.svg';
+import revealSvg from '../../public/images/reveal.svg';
 import { UserContext } from '../context/UserContext';
 
 // eslint-disable-next-line react/prop-types
 function UtilityFilmBar({ zoom, filmDimensionsContainer, countdownValue }) {
-  const { jokers, setJokers } = useContext(UserContext);
+  const { jokers, setJokers, setRevealImg } = useContext(UserContext);
 
   const handleJokerClick = () => {
     if (jokers > 0) {
       setJokers(jokers - 1);
     }
+  };
+
+  const revealImage = () => {
+    setRevealImg(true);
   };
 
   return (
@@ -26,16 +31,17 @@ function UtilityFilmBar({ zoom, filmDimensionsContainer, countdownValue }) {
       <button
         type="button"
         className="btn-square flex items-center justify-center shadow bg-base-300 rounded-lg h-full w-auto hover:bg-gray-300"
-        onClick={handleJokerClick}
-        disabled={jokers === 0}
+        onClick={jokers > 0 ? handleJokerClick : revealImage}
       >
-        <span className="pl-3">{jokers}</span>
+        {jokers > 0 && (
+          <span className="pl-3">{jokers}</span>
+        )}
         <Image
-          src={jokerSvg}
+          src={jokers > 0 ? jokerSvg : revealSvg}
           width={50}
           height={50}
           alt="joker chance"
-          className="p-1 pr-1"
+          className={`p-1 pr-1 ${jokers === 0 && 'mx-2'}`}
         />
       </button>
     </div>
