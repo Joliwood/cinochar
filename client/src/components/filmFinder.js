@@ -35,6 +35,7 @@ function FilmFinder() {
   } = useContext(UserContext);
   const [playerList, setPlayerList] = useState([]);
   const [isUserPlaying, setIsUserPlaying] = useState(false);
+  const [pointsEarned, setPointsEarned] = useState(5);
 
   useEffect(() => {
     socket.on('get-countdown', (countdown) => {
@@ -43,12 +44,22 @@ function FilmFinder() {
   }, []);
 
   useEffect(() => {
-    if (jokers === 2) setZoom(3);
-    if (jokers === 1) setZoom(2.5);
-    if (jokers === 0) setZoom(2);
+    if (jokers === 2) {
+      setZoom(3);
+      setPointsEarned(5);
+    }
+    if (jokers === 1) {
+      setZoom(2.5);
+      setPointsEarned(3);
+    }
+    if (jokers === 0) {
+      setZoom(2);
+      setPointsEarned(1);
+    }
     if (revealImg) {
       setZoom(1);
       setRevealImg(true);
+      setPointsEarned(0);
     }
   }, [jokers, revealImg, setRevealImg]);
 
@@ -103,9 +114,9 @@ function FilmFinder() {
       setMatchResult('Vous avez dépassé le temps imparti.');
     } else if (userAnswer === randomMovieName) {
       if (filmFound === false) {
-        socket.emit('player-add-points', { pseudo, points: 5 });
+        socket.emit('player-add-points', { pseudo, points: pointsEarned });
         setMatchResult('Bien joué !');
-        handleAddPoints(5);
+        handleAddPoints(pointsEarned);
         isFilmFound(true);
       } else {
         setMatchResult('Vous avez déjà trouvé ce film.');
