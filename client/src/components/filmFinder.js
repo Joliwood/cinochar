@@ -148,7 +148,7 @@ function FilmFinder() {
               display: zoomPosition !== null
                 ? 'inherit'
                 : 'none',
-              transform: zoomPosition !== null && `
+              transform: (zoomPosition !== null && !revealImg) && `
               scale(${zoom}) 
               translate(${zoomPosition.x}px, ${zoomPosition.y}px)`,
             }}

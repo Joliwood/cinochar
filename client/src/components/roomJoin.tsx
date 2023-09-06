@@ -17,9 +17,8 @@ function RoomJoin() {
   // const dispatch = useDispatch();
   // const pseudo = useSelector((state: any) => state.players.playerPseudo || '');
 
-  const { pseudo } = useContext(UserContext);
+  const { pseudo, isUserPlaying, setIsUserPlaying } = useContext(UserContext);
   const [playerList, setPlayerList] = useState([]);
-  const [isUserPlaying, setIsUserPlaying] = useState(false);
 
   useEffect(() => {
     socket.emit('init');
@@ -38,7 +37,7 @@ function RoomJoin() {
     } else {
       setIsUserPlaying(false);
     }
-  }, [playerList, pseudo]);
+  }, [playerList, pseudo, setIsUserPlaying]);
 
   const handleJoin = () => {
     // console.log('You are trying to connect with pseudo:', pseudo);

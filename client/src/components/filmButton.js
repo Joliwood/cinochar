@@ -7,12 +7,14 @@ const socket = io(process.env.NEXT_PUBLIC_API_URL);
 
 // eslint-disable-next-line react/prop-types
 function FilmButton({ zoom, filmDimensionsContainer }) {
-  const { setJokers } = useContext(UserContext);
+  const {
+    pseudo, revealImg, setJokers, isUserPlaying,
+  } = useContext(UserContext);
   const cooldownDuration = 5;
   const [counter, setCounter] = useState(0);
 
   useEffect(() => {
-  // Listen for cooldown updates from the server
+    // Listen for cooldown updates from the server
     socket.on('cooldown', (counterFromSocket) => {
       setCounter(counterFromSocket);
     });
@@ -60,15 +62,32 @@ function FilmButton({ zoom, filmDimensionsContainer }) {
   };
 
   return (
-    <button
-      type="button"
-      className={`px-3 shadow-md rounded-lg h-full ${counter > 0 ? 'bg-red-700 text-white' : 'bg-green-500'}`}
-      onClick={() => filmFinder()}
-      disabled={counter > 0}
-    >
-      Nouveau film
-      {counter > 0 && ` (${counter})`}
-    </button>
+    pseudo === '' || !isUserPlaying ? (
+      <div
+        className="h-full tooltip"
+        data-tip="Vous devez vous connecter et rejoindre la partie pour participer"
+      >
+        <button
+          type="button"
+          className={`px-3 shadow-md rounded-lg h-full ${counter > 0 ? 'bg-red-700 text-white' : 'bg-green-500'} cursor-not-allowed`}
+          onClick={() => filmFinder()}
+          disabled
+        >
+          Nouveau film
+          {counter > 0 && ` (${counter})`}
+        </button>
+      </div>
+    ) : (
+      <button
+        type="button"
+        className={`px-3 shadow-md rounded-lg h-full ${counter > 0 ? 'bg-red-700 text-white' : 'bg-green-500'} ${revealImg && 'cursor-not-allowed'}`}
+        onClick={() => filmFinder()}
+        disabled={counter > 0}
+      >
+        Nouveau film
+        {counter > 0 && ` (${counter})`}
+      </button>
+    )
   );
 }
 

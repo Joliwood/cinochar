@@ -7,16 +7,17 @@ import { UserContext } from '../context/UserContext';
 
 // eslint-disable-next-line react/prop-types
 function UtilityFilmBar({ zoom, filmDimensionsContainer, countdownValue }) {
-  const { jokers, setJokers, setRevealImg } = useContext(UserContext);
+  const {
+    pseudo,
+    jokers, setJokers,
+    revealImg, setRevealImg,
+    isUserPlaying,
+  } = useContext(UserContext);
 
   const handleJokerClick = () => {
     if (jokers > 0) {
       setJokers(jokers - 1);
     }
-  };
-
-  const revealImage = () => {
-    setRevealImg(true);
   };
 
   return (
@@ -28,22 +29,47 @@ function UtilityFilmBar({ zoom, filmDimensionsContainer, countdownValue }) {
         zoom={zoom}
         filmDimensionsContainer={filmDimensionsContainer}
       />
-      <button
-        type="button"
-        className="btn-square flex items-center justify-center shadow bg-base-300 rounded-lg h-full w-auto hover:bg-gray-300"
-        onClick={jokers > 0 ? handleJokerClick : revealImage}
-      >
-        {jokers > 0 && (
+      {(pseudo === '' || !isUserPlaying) ? (
+        <div className="tooltip" data-tip="Vous devez vous connecter et rejoindre la partie pour participer">
+          <button
+            type="button"
+            className="btn-square flex items-center justify-center shadow bg-base-300 rounded-lg h-full w-auto hover:bg-gray-300 cursor-not-allowed"
+            onClick={jokers > 0 ? handleJokerClick : () => setRevealImg(true)}
+            disabled
+          >
+
+            {jokers > 0 && (
+              <span className="pl-3">{jokers}</span>
+            )}
+            <Image
+              src={jokers > 0 ? jokerSvg : revealSvg}
+              width={50}
+              height={50}
+              alt="joker chance"
+              className={`p-1 pr-1 ${jokers === 0 && 'mx-2'}`}
+            />
+          </button>
+        </div>
+      ) : (
+        <button
+          type="button"
+          className={`btn-square flex items-center justify-center shadow bg-base-300 rounded-lg h-full w-auto hover:bg-gray-300 ${revealImg && 'cursor-not-allowed'}`}
+          onClick={jokers > 0 ? handleJokerClick : () => setRevealImg(true)}
+          disabled={revealImg}
+        >
+
+          {jokers > 0 && (
           <span className="pl-3">{jokers}</span>
-        )}
-        <Image
-          src={jokers > 0 ? jokerSvg : revealSvg}
-          width={50}
-          height={50}
-          alt="joker chance"
-          className={`p-1 pr-1 ${jokers === 0 && 'mx-2'}`}
-        />
-      </button>
+          )}
+          <Image
+            src={jokers > 0 ? jokerSvg : revealSvg}
+            width={50}
+            height={50}
+            alt="joker chance"
+            className={`p-1 pr-1 ${jokers === 0 && 'mx-2'}`}
+          />
+        </button>
+      )}
     </div>
   );
 }
