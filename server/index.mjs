@@ -30,6 +30,7 @@ const getRandomPosition = async (zoom, filmDimensionsContainer) => {
 
   const width = metadata.width;
   const height = metadata.height;
+  console.log(metadata)
 
   // Width after zoom render = filmDimensionsContainer x zoom, whatever real
   // width before but we still need it for the aspect ratio to have the height
