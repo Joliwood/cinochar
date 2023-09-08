@@ -32,12 +32,17 @@ const getRandomPosition = async (zoom, filmDimensionsContainer) => {
   const height = metadata.height;
   console.log(metadata)
 
+  const widthRendered = filmDimensionsContainer * (width / height);
+  const heightRendered = filmDimensionsContainer;
+
   // Width after zoom render = filmDimensionsContainer x zoom, whatever real
   // width before but we still need it for the aspect ratio to have the height
   // after zoom render
   const aspectRatio = width / height;
-  const xMax = filmDimensionsContainer - filmDimensionsContainer / zoom;
-  const yMax = ((zoom * filmDimensionsContainer / aspectRatio) - filmDimensionsContainer) / zoom;
+  // const xMax = filmDimensionsContainer - filmDimensionsContainer / zoom;
+  // const yMax = ((zoom * filmDimensionsContainer / aspectRatio) - filmDimensionsContainer) / zoom;
+  const xMax = widthRendered - (filmDimensionsContainer / zoom);
+  const yMax = heightRendered - (heightRendered / zoom);
 
   console.log("zoom : ", zoom, ". FilmDimensionsContainer : ", filmDimensionsContainer)
   console.log("Width pixel : ", width, "px. Height pixel : ", height, "px. Aspect ratio is : ", aspectRatio, ". Xmax = ", xMax, ". Ymax = ", yMax);
