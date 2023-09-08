@@ -53,7 +53,7 @@ function UtilityFilmBar({ zoom, filmDimensionsContainer, countdownValue }) {
       ) : (
         <button
           type="button"
-          className={`btn-square flex items-center justify-center shadow bg-base-300 rounded-lg h-full w-auto hover:bg-gray-300 ${revealImg && 'cursor-not-allowed'}`}
+          className={`btn-square flex items-center justify-center shadow bg-base-300 rounded-lg h-full w-auto hover:bg-gray-300 ${revealImg ? 'cursor-not-allowed' : 'cursor-pointer'}`}
           onClick={jokers > 0 ? handleJokerClick : () => setRevealImg(true)}
           disabled={revealImg}
         >

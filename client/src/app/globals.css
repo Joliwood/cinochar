@@ -24,4 +24,6 @@ body {
   object-fit: cover;
   object-position: left top;
   transform-origin: top left;
+  max-width: none;
+  max-height: none;
 }

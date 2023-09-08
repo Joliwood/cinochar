@@ -6,8 +6,8 @@
   "author": "Guillaume <jolibois.contact@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start-server": "cd server && nodemon index.mjs",
-    "start-client": "cd client && yarn dev",
+    "front": "cd client && yarn dev",
+    "back": "cd server && yarn server",
     "dev": "concurrently \"yarn start-server\" \"yarn start-client\""
   },
   "devDependencies": {

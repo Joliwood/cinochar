@@ -135,16 +135,23 @@ function FilmFinder() {
       />
       <div
         className="film-square shadow-md flex"
-        style={{ width: `${filmDimensionsContainer}px`, height: `${filmDimensionsContainer}px` }}
+        style={{
+          width: `${filmDimensionsContainer}px`,
+          /* , height: `${filmDimensionsContainer}px` */
+          overflowX: revealImg ? 'scroll' : 'hidden',
+        }}
       >
         {randomMovieName && movieUrl ? (
           <Image
             src={movieUrl}
-            width={500}
-            height={500}
+            width={1920}
+            height={1080}
             alt="film to find"
             className="film-img"
+            priority
             style={{
+              // width: '1280px',
+              // height: '720px',
               display: zoomPosition !== null
                 ? 'inherit'
                 : 'none',

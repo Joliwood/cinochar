@@ -8,7 +8,7 @@ const socket = io(process.env.NEXT_PUBLIC_API_URL);
 // eslint-disable-next-line react/prop-types
 function FilmButton({ zoom, filmDimensionsContainer }) {
   const {
-    pseudo, revealImg, setJokers, isUserPlaying,
+    pseudo, setJokers, isUserPlaying,
   } = useContext(UserContext);
   const cooldownDuration = 5;
   const [counter, setCounter] = useState(0);
@@ -80,7 +80,7 @@ function FilmButton({ zoom, filmDimensionsContainer }) {
     ) : (
       <button
         type="button"
-        className={`px-3 shadow-md rounded-lg h-full ${counter > 0 ? 'bg-red-700 text-white' : 'bg-green-500'} ${revealImg && 'cursor-not-allowed'}`}
+        className={`px-3 shadow-md rounded-lg h-full ${counter > 0 ? 'bg-red-700 text-white' : 'bg-green-500'} ${counter > 0 ? 'cursor-not-allowed' : 'cursor-pointer'}`}
         onClick={() => filmFinder()}
         disabled={counter > 0}
       >
