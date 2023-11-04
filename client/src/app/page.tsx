@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useContext, useEffect } from 'react';
-import Header from '../components/header';
+import Header from '../components/header/header';
 import FilmFinder from '../components/filmFinder';
 import RoomJoin from '../components/roomJoin';
 import PlayersList from '../components/playersList';
