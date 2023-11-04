@@ -12,6 +12,11 @@ module.exports = {
     ],
     // prefix: 'border-radius',
   },
+  theme: {
+    screens: {
+      xs: '350px',
+    },
+  },
   // eslint-disable-next-line global-require
   plugins: [require('daisyui')],
 };

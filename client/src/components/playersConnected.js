@@ -17,9 +17,9 @@ function PlayersConnected() {
   }, [playerList]);
 
   return (
-    <div className="lg:absolute my-5 top-[150px] left-[50px] shadow rounded-lg p-5 flex flex-col items-center">
+    <div className="lg:absolute my-5 top-[150px] left-[50px] shadow rounded-lg p-5 flex flex-col items-center w-[85vw] xs:w-auto">
       <h2 className="mb-3 font-bold">Joueurs connectés</h2>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto w-full">
         <table className="table">
           {/* head */}
           <thead>

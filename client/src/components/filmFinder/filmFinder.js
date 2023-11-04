@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect, useContext } from 'react';
 import io from 'socket.io-client';
-import Image from 'next/image';
 import lottie from 'lottie-web';
+import FilmViewer from './filmViewer';
 // import { useSelector } from 'react-redux';
 import UtilityFilmBar from './utilityFilmBar';
 // import { setPlayerPseudo } from '../utils/reducers/playersReducer';
@@ -127,43 +127,19 @@ function FilmFinder() {
   };
 
   return (
-    <div className="overflow-hidden flex justify-center flex-col items-center gap-5 py-3 mt-[50px]">
+    <div className="overflow-hidden flex justify-center flex-col items-center gap-5 py-3 mt-[50px] max-w-[90vw]">
       <UtilityFilmBar
         zoom={zoom}
         filmDimensionsContainer={filmDimensionsContainer}
         countdownValue={countdownValue}
       />
-      <div
-        className="film-square shadow-md flex"
-        style={{
-          width: `${filmDimensionsContainer}px`,
-          /* , height: `${filmDimensionsContainer}px` */
-          overflowX: revealImg ? 'scroll' : 'hidden',
-        }}
-      >
-        {randomMovieName && movieUrl ? (
-          <Image
-            src={movieUrl}
-            width={1920}
-            height={1080}
-            alt="film to find"
-            className="film-img"
-            priority
-            style={{
-              // width: '1280px',
-              // height: '720px',
-              display: zoomPosition !== null
-                ? 'inherit'
-                : 'none',
-              transform: (zoomPosition !== null && !revealImg) && `
-              scale(${zoom}) 
-              translate(${zoomPosition.x}px, ${zoomPosition.y}px)`,
-            }}
-          />
-        ) : (
-          <div className="flex w-full self-center" id="lottie-container" />
-        )}
-      </div>
+      <FilmViewer
+        filmDimensionsContainer={filmDimensionsContainer}
+        randomMovieName={randomMovieName}
+        movieUrl={movieUrl}
+        zoomPosition={zoomPosition}
+        zoom={zoom}
+      />
 
       {/* Only show the message if the matchResult isn't null */}
       {matchResult ? (
