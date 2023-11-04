@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import io from 'socket.io-client';
-import { UserContext } from '../context/UserContext';
+import { UserContext } from '../../context/UserContext';
 
 //! This line MUST BE before the component -> High risk of inifity loop
 const socket = io(process.env.NEXT_PUBLIC_API_URL);

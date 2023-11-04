@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import Image from 'next/image';
 import FilmButton from './filmButton';
-import jokerSvg from '../../public/images/joker.svg';
-import revealSvg from '../../public/images/reveal.svg';
-import { UserContext } from '../context/UserContext';
+import jokerSvg from '../../../public/images/joker.svg';
+import revealSvg from '../../../public/images/reveal.svg';
+import { UserContext } from '../../context/UserContext';
 
 // eslint-disable-next-line react/prop-types
 function UtilityFilmBar({ zoom, filmDimensionsContainer, countdownValue }) {
@@ -59,7 +59,7 @@ function UtilityFilmBar({ zoom, filmDimensionsContainer, countdownValue }) {
         >
 
           {jokers > 0 && (
-          <span className="pl-3">{jokers}</span>
+            <span className="pl-3">{jokers}</span>
           )}
           <Image
             src={jokers > 0 ? jokerSvg : revealSvg}

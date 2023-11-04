@@ -7,8 +7,8 @@ import lottie from 'lottie-web';
 // import { useSelector } from 'react-redux';
 import UtilityFilmBar from './utilityFilmBar';
 // import { setPlayerPseudo } from '../utils/reducers/playersReducer';
-import { UserContext } from '../context/UserContext';
-import handleAddPoints from '../utils/handleAddPoints';
+import { UserContext } from '../../context/UserContext';
+import handleAddPoints from '../../utils/handleAddPoints';
 
 //! This line MUST BE before the component -> High risk of inifity loop
 const socket = io(process.env.NEXT_PUBLIC_API_URL);
@@ -82,7 +82,7 @@ function FilmFinder() {
     lottie.loadAnimation({
       container: document.getElementById('lottie-container'),
       // eslint-disable-next-line global-require
-      animationData: require('../../public/images/animation_lkrazake.json'),
+      animationData: require('../../../public/images/animation_lkrazake.json'),
       renderer: 'svg',
       loop: true,
       autoplay: true,
@@ -127,7 +127,7 @@ function FilmFinder() {
   };
 
   return (
-    <div className=" flex justify-center flex-col items-center gap-5 py-3 mt-[50px]">
+    <div className="overflow-hidden flex justify-center flex-col items-center gap-5 py-3 mt-[50px]">
       <UtilityFilmBar
         zoom={zoom}
         filmDimensionsContainer={filmDimensionsContainer}

@@ -2,12 +2,12 @@
 
 import React, { useContext, useEffect } from 'react';
 import Header from '../components/header/header';
-import FilmFinder from '../components/filmFinder';
+import FilmFinder from '../components/filmFinder/filmFinder';
 import RoomJoin from '../components/roomJoin';
-import PlayersList from '../components/playersList';
 import PlayersClassement from '../components/playersClassement';
 import { UserContext } from '../context/UserContext';
 import auth from '../utils/auth';
+import PlayersConnected from '../components/playersConnected';
 
 function Home() {
   const { setPseudo } = useContext(UserContext);
@@ -33,7 +33,7 @@ function Home() {
       <RoomJoin />
       <FilmFinder />
       <PlayersClassement />
-      <PlayersList />
+      <PlayersConnected />
     </div>
   );
 }

@@ -46,7 +46,7 @@ function RoomJoin() {
   };
 
   return (
-    <div className="flex w-auto lg:flex-row m-5">
+    <div className={`${pseudo && 'none'}flex w-auto lg:flex-row m-5`}>
       {/* <input
         type="text"
         placeholder="Pseudo"
