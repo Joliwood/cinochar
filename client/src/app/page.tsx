@@ -28,7 +28,7 @@ function Home() {
   }, [setPseudo]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center">
+    <div className="min-h-screen flex flex-col items-center mt-[80px]">
       <Header />
       <RoomJoin />
       <FilmFinder />

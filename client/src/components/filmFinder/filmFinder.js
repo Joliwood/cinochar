@@ -127,7 +127,7 @@ function FilmFinder() {
   };
 
   return (
-    <div className="overflow-hidden flex justify-center flex-col items-center gap-5 py-3 mt-[50px] max-w-[90vw]">
+    <div className="overflow-hidden flex justify-center flex-col items-center gap-5 py-3 mt-5 max-w-[90vw]">
       <UtilityFilmBar
         zoom={zoom}
         filmDimensionsContainer={filmDimensionsContainer}

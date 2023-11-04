@@ -9,7 +9,7 @@ function Header() {
   const { pseudo } = useContext(UserContext);
 
   return (
-    <header className="fixed w-screen p-4 shadow-sm z-10 bg-[#ffffffe5]">
+    <header className="fixed top-0 w-screen p-4 shadow-sm z-10 bg-[#ffffffe5]">
       <div className="flex-none">
         <nav className="flex items-center justify-between">
           <div className="font-semibold text-xl">Cinochar</div>

@@ -27,7 +27,7 @@ function PlayersClassement() {
   }, []);
 
   return (
-    <div className="my-5 lg:my-0 top-[150px] right-[50px] shadow rounded-lg p-5 flex flex-col items-center lg:absolute w-[85vw] xs:w-auto">
+    <div className="my-5 lg:my-0 lg:absolute top-[150px] right-5 bg-white shadow rounded-lg p-5 flex flex-col items-center w-[85vw] xs:w-auto">
       <h2 className="mb-3 font-bold">Classement global</h2>
       <div className="overflow-x-auto w-full">
         <table className="table">
