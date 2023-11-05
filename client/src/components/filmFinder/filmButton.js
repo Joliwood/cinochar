@@ -100,7 +100,7 @@ function FilmButton({ zoom, filmDimensionsContainer }) {
         onClick={() => filmFinder()}
         disabled={counter > 0}
       >
-        <span className="inherit xs:hidden">
+        <span className={`inherit xs:hidden ${counter > 0 && 'hidden'}`}>
           <svg
             height="65%"
             version="1.1"

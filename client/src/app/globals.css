@@ -12,8 +12,8 @@ body {
     rgb(var(--background-start-rgb));
 }
 
-/* index.css or your style file */
 .film-square {
+  max-width: 90vw;
   position: relative;
   overflow: hidden;
   aspect-ratio: 1/1;
@@ -21,6 +21,7 @@ body {
 }
 
 .film-img {
+  max-width: 90vw;
   object-fit: cover;
   object-position: left top;
   transform-origin: top left;

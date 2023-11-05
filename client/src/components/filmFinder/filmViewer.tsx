@@ -18,7 +18,7 @@ function FilmViewer({
 
   return (
     <div
-      className="film-square shadow-md flex"
+      className="film-square shadow-md flex max-w-[95vw]"
       style={{
         width: `${filmDimensionsContainer}px`,
         /* , height: `${filmDimensionsContainer}px` */
