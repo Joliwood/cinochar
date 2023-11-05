@@ -2,9 +2,9 @@ import { MongoClient, MongoClientOptions } from 'mongodb';
 
 const MONGODB_URI: any = process.env.MONGO_DB_CONNECT;
 
-if (typeof MONGODB_URI === 'undefined') {
+if (!MONGODB_URI) {
   throw new Error(
-    'Please define the MONGODB_URI environment variable inside .env.local',
+    'Please define the MONGODB_URI environment variable inside .env',
   );
 }
 

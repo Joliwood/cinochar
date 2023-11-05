@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState, useEffect, useContext } from 'react';
-import io from 'socket.io-client';
-import lottie from 'lottie-web';
+import { io } from 'socket.io-client';
+import lottie from 'lottie-web/build/player/lottie_light.min';
 import FilmViewer from './filmViewer';
 // import { useSelector } from 'react-redux';
 import UtilityFilmBar from './utilityFilmBar';

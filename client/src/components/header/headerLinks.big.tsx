@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import handleLogout from '../../utils/handleLogout';
 
 function headerLinksBig({ pseudo }: any) {
@@ -16,7 +17,7 @@ function headerLinksBig({ pseudo }: any) {
         </button>
 
         <button type="button" className="flex items-center">
-          <a className="btn" href="/signup">S'enregistrer</a>
+          <Link className="btn" href="/signup">S'enregistrer</Link>
         </button>
       </>
       )}

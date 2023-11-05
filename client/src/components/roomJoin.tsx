@@ -4,7 +4,7 @@
 // considered to be a server file To tell Next it is a client file, we have to
 // use that before any import
 import React, { useState, useEffect, useContext } from 'react';
-import io from 'socket.io-client';
+import { io } from 'socket.io-client';
 // import { useDispatch, useSelector } from 'react-redux';
 import Image from 'next/image';
 import { UserContext } from '../context/UserContext';

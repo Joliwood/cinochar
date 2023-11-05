@@ -10,7 +10,6 @@ module.exports = {
       'cupcake',
       'dracula',
     ],
-    // prefix: 'border-radius',
   },
   theme: {
     screens: {
@@ -21,6 +20,5 @@ module.exports = {
       xl: '1280px',
     },
   },
-  // eslint-disable-next-line global-require
   plugins: [require('daisyui')],
 };

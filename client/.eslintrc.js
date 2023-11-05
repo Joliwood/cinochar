@@ -15,4 +15,5 @@ module.exports = {
     'no-underscore-dangle': 'off',
     'react/function-component-definition': 'off',
   },
+  ignorePatterns: ['tailwind.config.js'],
 };
