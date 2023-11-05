@@ -127,7 +127,7 @@ function FilmFinder() {
   };
 
   return (
-    <div className="overflow-hidden flex justify-center flex-col items-center gap-5 py-3 mt-5 max-w-[90vw]">
+    <div className="flex justify-center flex-col items-center gap-5 py-3 mt-5 max-w-[90vw]">
       <UtilityFilmBar
         zoom={zoom}
         filmDimensionsContainer={filmDimensionsContainer}
@@ -139,6 +139,7 @@ function FilmFinder() {
         movieUrl={movieUrl}
         zoomPosition={zoomPosition}
         zoom={zoom}
+        revealImg={revealImg}
       />
 
       {/* Only show the message if the matchResult isn't null */}

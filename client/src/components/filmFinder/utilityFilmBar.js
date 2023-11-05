@@ -57,7 +57,6 @@ function UtilityFilmBar({ zoom, filmDimensionsContainer, countdownValue }) {
           onClick={jokers > 0 ? handleJokerClick : () => setRevealImg(true)}
           disabled={revealImg}
         >
-
           {jokers > 0 && (
             <span className="pl-3">{jokers}</span>
           )}
