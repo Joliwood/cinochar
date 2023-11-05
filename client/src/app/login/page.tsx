@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useContext } from 'react';
-import Header from '../../components/header';
+import Header from '../../components/header/header';
 import handleLogin from '../../utils/handleLogin';
 import { UserContext } from '../../context/UserContext';
 

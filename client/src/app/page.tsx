@@ -1,13 +1,13 @@
 'use client';
 
 import React, { useContext, useEffect } from 'react';
-import Header from '../components/header';
-import FilmFinder from '../components/filmFinder';
+import Header from '../components/header/header';
+import FilmFinder from '../components/filmFinder/filmFinder';
 import RoomJoin from '../components/roomJoin';
-import PlayersList from '../components/playersList';
 import PlayersClassement from '../components/playersClassement';
 import { UserContext } from '../context/UserContext';
 import auth from '../utils/auth';
+import PlayersConnected from '../components/playersConnected';
 
 function Home() {
   const { setPseudo } = useContext(UserContext);
@@ -28,12 +28,12 @@ function Home() {
   }, [setPseudo]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center">
+    <div className="min-h-screen flex flex-col items-center mt-[80px]">
       <Header />
       <RoomJoin />
       <FilmFinder />
       <PlayersClassement />
-      <PlayersList />
+      <PlayersConnected />
     </div>
   );
 }
