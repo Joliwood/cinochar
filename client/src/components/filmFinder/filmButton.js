@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import io from 'socket.io-client';
+import { io } from 'socket.io-client';
 import { UserContext } from '../../context/UserContext';
 
 //! This line MUST BE before the component -> High risk of inifity loop

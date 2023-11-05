@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import handleLogout from '../../utils/handleLogout';
 
 function headerLinksSmall({ pseudo }: any) {
@@ -21,8 +22,8 @@ function headerLinksSmall({ pseudo }: any) {
       </button>
       <ul className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
         <li><a href="/">Accueil</a></li>
-        {!pseudo && <li><a href="/login">Se connecter</a></li>}
-        {!pseudo && <li><a href="/signup">S'enregistrer</a></li>}
+        {!pseudo && <li><Link href="/login">Se connecter</Link></li>}
+        {!pseudo && <li><Link href="/signup">S'enregistrer</Link></li>}
         {pseudo && <li><a href="/" onClick={handleLogout}>Se deconnecter</a></li>}
       </ul>
     </div>

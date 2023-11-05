@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useContext } from 'react';
+import Link from 'next/link';
 import Header from '../../components/header/header';
 import handleLogin from '../../utils/handleLogin';
 import { UserContext } from '../../context/UserContext';
@@ -57,7 +58,7 @@ function Login() {
           <button className="btn bg-green-700 btn-block text-white hover:text-neutral" type="submit">Se connecter</button>
         </div>
         <div>
-          <a href="/signup" className="px-3 py-1 rounded">S'inscrire</a>
+          <Link href="/signup" className="px-3 py-1 rounded">S'inscrire</Link>
         </div>
         <div>
           <a href="/" className="px-3 py-1 rounded">Retourner à l'accueil</a>

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
+import Link from 'next/link';
 import Header from '../../components/header/header';
 
 function Signup() {
@@ -112,9 +113,9 @@ function Signup() {
 
           <div className="text-grey-dark mt-6">
             Vous avez déjà un compte ?
-            <a className="no-underline border-b mx-2 border-blue text-blue" href="/login">
+            <Link className="no-underline border-b mx-2 border-blue text-blue" href="/login">
               Se connecter
-            </a>
+            </Link>
           </div>
           <p>{message}</p>
         </div>
