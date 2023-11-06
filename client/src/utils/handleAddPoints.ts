@@ -1,5 +1,5 @@
 import axios from 'axios';
-import jwt_decode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
 const handleLogin = async (points: number) => {
   const storedToken: string | null = localStorage.getItem('token');
@@ -9,7 +9,7 @@ const handleLogin = async (points: number) => {
   }
 
   // Decode the JWT to access user information
-  const decodedToken: any = jwt_decode(storedToken!);
+  const decodedToken: any = jwtDecode(storedToken!);
 
   // OK //
   const { userId } = decodedToken;

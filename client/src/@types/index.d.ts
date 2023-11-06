@@ -20,3 +20,9 @@ export type FilmFromMongo = {
   name: string;
   picture_urls: string[];
 };
+
+export type UserDecodedToken = {
+  userId: string;
+  iat: number;
+  exp: number;
+};

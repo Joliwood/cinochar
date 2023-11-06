@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, FormEvent } from 'react';
 import Link from 'next/link';
 import Header from '../../components/header/header';
 import handleLogin from '../../utils/handleLogin';
@@ -12,7 +12,7 @@ function Login() {
   const [message, setMessage] = useState('');
   const { setPseudo } = useContext(UserContext);
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const result = await handleLogin(email, password);
