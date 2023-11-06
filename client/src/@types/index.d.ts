@@ -12,4 +12,4 @@ export type UserFromMongo = {
   email: string;
   points: number;
   password: string;
-} | null;
+};
