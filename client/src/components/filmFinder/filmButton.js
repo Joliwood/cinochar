@@ -26,20 +26,14 @@ function FilmButton({ zoom, filmDimensionsContainer }) {
       const response = await fetch('/api/getFilm');
       const selectedMovie = await response.json();
 
-      // Extract the picture_urls object
-      const pictureUrls = selectedMovie[0].picture_urls;
-
-      // Get all the keys (picture URLs) from the 'picture_urls' object
-      const pictureKeys = Object.keys(pictureUrls);
-
       // Randomaly select an url in the object
-      const randomUrlIndex = Math.floor(Math.random() * pictureKeys.length);
+      const randomUrlIndex = Math.floor(Math.random() * selectedMovie.picture_urls.length);
 
       // Send the new url film name to the socket
-      socket.emit('new-film-name', selectedMovie[0].name);
+      socket.emit('new-film-name', selectedMovie.name);
 
       // Send the new url film picture to the socket
-      socket.emit('new-film-url', pictureUrls[pictureKeys[randomUrlIndex]]);
+      socket.emit('new-film-url', selectedMovie.picture_urls[randomUrlIndex]);
 
       // Send the new random zoom position to the socket
       socket.emit('random-position-zoom', { zoom, filmDimensionsContainer });

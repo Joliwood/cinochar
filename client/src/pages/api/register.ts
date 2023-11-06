@@ -4,7 +4,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import type {
   Collection, Db, MongoClient,
 } from 'mongodb';
-import { UserFromMongo } from '@/@types';
+import type { UserFromMongo } from '@/@types';
 import connectToDatabase from '../../utils/mongo';
 
 export default async function register(req: NextApiRequest, res: NextApiResponse) {

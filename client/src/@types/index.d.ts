@@ -14,3 +14,9 @@ export type UserFromMongo = {
   points: number;
   password: string;
 };
+
+export type FilmFromMongo = {
+  _id: ObjectId
+  name: string;
+  picture_urls: string[];
+};
