@@ -1,7 +1,7 @@
-import mongoose from 'mongoose';
+import { Schema, model } from 'mongoose';
 import bcrypt from 'bcryptjs';
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
   pseudo: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
@@ -10,15 +10,15 @@ const userSchema = new mongoose.Schema({
 userSchema.pre('save', async function hashPassword(next) {
   if (!this.isModified('password')) return next();
 
-  const salt = await bcrypt.genSalt(10);
+  const salt: string = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
   return next();
 });
 
-userSchema.methods.comparePassword = async function comparePassword(password) {
+userSchema.methods.comparePassword = async function comparePassword(password: string) {
   return bcrypt.compare(password, this.password);
 };
 
-const Player = mongoose.model('Players', userSchema);
+const Player = model('Players', userSchema);
 
 export default Player;
