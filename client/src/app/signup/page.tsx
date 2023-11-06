@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import Header from '../../components/header/header';
 
 function Signup() {
@@ -11,6 +12,7 @@ function Signup() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
+  const router = useRouter();
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -27,6 +29,8 @@ function Signup() {
         password,
       });
       setMessage(response.data.message);
+      // if we receive response, we redirect to main page
+      if (response) router.push('/login');
     } catch (error: any) {
       if (error.response) {
         setMessage(error.response.data.message);

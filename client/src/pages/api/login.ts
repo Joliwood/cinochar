@@ -16,10 +16,8 @@ export default async function login(req: NextApiRequest, res: NextApiResponse) {
   // Fetch user from the database based on the email
   const client: MongoClient = await connectToDatabase();
   const db: Db = client.db();
-  const collection: Collection<Document> = db.collection('players-ranking');
-  // Normally returns WithId<Document> with findOne but here
-  // this findOne will return a very specific type of user
-  const user = await collection.findOne<UserFromMongo | null>({ email });
+  const collection: Collection<UserFromMongo> = db.collection('players-ranking');
+  const user: UserFromMongo | null = await collection.findOne({ email });
 
   if (!user) {
     return res.status(404).json({ message: 'User not found' });

@@ -7,7 +7,8 @@ export interface User {
 }
 
 export type UserFromMongo = {
-  _id: ObjectId
+  // _id? to accept user creation (so the _id doesn't exists yet)
+  _id?: ObjectId
   pseudo: string;
   email: string;
   points: number;
