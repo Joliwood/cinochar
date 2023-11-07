@@ -2,7 +2,7 @@
 
 import React from 'react';
 import './globals.css';
-import ReduxProvider from '../utils/reduxProvider';
+import ParticipantContextProvider from '@/context/ParticipantContext';
 import { UserContextProvider } from '../context/UserContext';
 import Metadata from './metadata';
 
@@ -16,9 +16,9 @@ export default function RootLayout({
       <Metadata />
       <body>
         <UserContextProvider>
-          <ReduxProvider>
+          <ParticipantContextProvider>
             {children}
-          </ReduxProvider>
+          </ParticipantContextProvider>
         </UserContextProvider>
       </body>
     </html>

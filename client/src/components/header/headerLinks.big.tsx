@@ -13,18 +13,18 @@ function headerLinksBig({ pseudo }: any) {
       {!pseudo && (
       <>
         <button type="button" className="flex items-center">
-          <a className="btn" href="/login">Se connecter</a>
+          <Link className="btn" href="/login" replace={false}>Se connecter</Link>
         </button>
 
         <button type="button" className="flex items-center">
-          <Link className="btn" href="/signup">S'enregistrer</Link>
+          <Link className="btn" href="/signup" replace={false}>S'enregistrer</Link>
         </button>
       </>
       )}
 
       {pseudo && (
       <button type="button" className="flex items-center" onClick={handleLogout}>
-        <a className="btn" href="/">Se deconnecter</a>
+        <Link className="btn" href="/" replace={false}>Se deconnecter</Link>
       </button>
       )}
 
