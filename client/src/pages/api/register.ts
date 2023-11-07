@@ -1,5 +1,4 @@
 import bcrypt from 'bcryptjs';
-// import User from '../../models/User';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import type {
   Collection, Db, MongoClient,

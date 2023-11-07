@@ -2,12 +2,9 @@
 
 import React from 'react';
 import './globals.css';
-import { Inter } from 'next/font/google';
 import ReduxProvider from '../utils/reduxProvider';
 import { UserContextProvider } from '../context/UserContext';
 import Metadata from './metadata';
-
-const inter = Inter({ subsets: ['latin'] });
 
 export default function RootLayout({
   children,
@@ -17,7 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Metadata />
-      <body className={inter.className}>
+      <body>
         <UserContextProvider>
           <ReduxProvider>
             {children}

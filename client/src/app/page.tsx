@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useContext, useEffect } from 'react';
+import type { UserFromMongo } from '@/@types';
 import Header from '../components/header/header';
 import FilmFinder from '../components/filmFinder/filmFinder';
 import RoomJoin from '../components/roomJoin';
@@ -14,13 +15,12 @@ function Home() {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const result = await auth();
-        if (result && result.pseudo) {
-          setPseudo(result.pseudo);
-        }
-      } catch (error) {
-        console.error('An error occurred while fetching user data:', error);
+      // If the type of return is string, so it show us an error
+      const result: string | UserFromMongo = await auth();
+      if (typeof result !== 'string' && result.pseudo) {
+        setPseudo(result.pseudo);
+      } else {
+        console.error(result);
       }
     };
 

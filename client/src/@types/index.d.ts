@@ -1,10 +1,11 @@
 import { ObjectId } from 'mongodb';
 
-export interface User {
-  id?: number;
-  pseudo?: string;
-  email?: string;
-}
+export type Login = {
+  // If the login fails, it will return only a message
+  message: string;
+  user: UserFromMongo;
+  token: string;
+};
 
 export type UserFromMongo = {
   // _id? to accept user creation (so the _id doesn't exists yet)
