@@ -15,14 +15,6 @@ export type UserInfos = {
   isUserPlaying: boolean;
 };
 
-// WIP //
-// type SetUserInfos = {
-//   setIsUserPlaying: (state: boolean) => void;
-//   setJokers: (number: number) => void;
-//   setPseudo: (name: string) => void;
-//   setRevealImg: (state: boolean) => void;
-// };
-
 export type UserContextType = {
   userInfos: UserInfos;
   setUserInfos: React.Dispatch<React.SetStateAction<UserInfos>>;
