@@ -4,9 +4,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { io } from 'socket.io-client';
 import lottie from 'lottie-web/build/player/lottie_light.min';
 import FilmViewer from './filmViewer';
-// import { useSelector } from 'react-redux';
 import UtilityFilmBar from './utilityFilmBar';
-// import { setPlayerPseudo } from '../utils/reducers/playersReducer';
 import { UserContext } from '../../context/UserContext';
 import handleAddPoints from '../../utils/handleAddPoints';
 
@@ -28,11 +26,8 @@ function FilmFinder() {
   const filmDimensionsContainer = 350;
   const [zoomPosition, setZoomPosition] = useState(null);
   const [countdownValue, setCountdownValue] = useState(null);
-  // const pseudo = useSelector((state) => state.players.playerPseudo);
   const [filmFound, isFilmFound] = useState(false);
-  const {
-    pseudo, jokers, revealImg, setRevealImg,
-  } = useContext(UserContext);
+  const { userInfos, setUserInfos } = useContext(UserContext);
   const [playerList, setPlayerList] = useState([]);
   const [isUserPlaying, setIsUserPlaying] = useState(false);
   const [pointsEarned, setPointsEarned] = useState(5);
@@ -44,24 +39,23 @@ function FilmFinder() {
   }, []);
 
   useEffect(() => {
-    if (jokers === 2) {
+    if (userInfos.jokers === 2) {
       setZoom(3);
       setPointsEarned(5);
     }
-    if (jokers === 1) {
+    if (userInfos.jokers === 1) {
       setZoom(2.5);
       setPointsEarned(3);
     }
-    if (jokers === 0) {
+    if (userInfos.jokers === 0) {
       setZoom(2);
       setPointsEarned(1);
     }
-    if (revealImg) {
+    if (userInfos.revealImg) {
       setZoom(1);
-      setRevealImg(true);
       setPointsEarned(0);
     }
-  }, [jokers, revealImg, setRevealImg]);
+  }, [userInfos]);
 
   useEffect(() => {
     socket.on('player-list', (players) => {
@@ -69,14 +63,14 @@ function FilmFinder() {
     });
 
     // Check if the pseudo is in the playerList
-    const isPseudoInPlayerList = playerList.some((player) => player.name === pseudo);
+    const isPseudoInPlayerList = playerList.some((player) => player.name === userInfos.pseudo);
 
     if (isPseudoInPlayerList) {
       setIsUserPlaying(true);
     } else {
       setIsUserPlaying(false);
     }
-  }, [playerList, pseudo]);
+  }, [playerList, userInfos.pseudo]);
 
   useEffect(() => {
     lottie.loadAnimation({
@@ -96,7 +90,7 @@ function FilmFinder() {
       setRandomMovieName(name);
       setMatchResult(null);
       isFilmFound(false);
-      setRevealImg(false);
+      setUserInfos({ ...userInfos, revealImg: false });
     });
 
     socket.on('new-film-url', (url) => {
@@ -106,7 +100,7 @@ function FilmFinder() {
     socket.on('random-position-zoom', (position) => {
       setZoomPosition(position);
     });
-  }, [setRevealImg]);
+  }, [userInfos, setUserInfos]);
 
   // Compare film to find and user result
   const testMatchingResult = () => {
@@ -114,7 +108,7 @@ function FilmFinder() {
       setMatchResult('Vous avez dépassé le temps imparti.');
     } else if (userAnswer === randomMovieName) {
       if (filmFound === false) {
-        socket.emit('player-add-points', { pseudo, points: pointsEarned });
+        socket.emit('player-add-points', { pseudo: userInfos.pseudo, points: pointsEarned });
         setMatchResult('Bien joué !');
         handleAddPoints(pointsEarned);
         isFilmFound(true);
@@ -139,7 +133,7 @@ function FilmFinder() {
         movieUrl={movieUrl}
         zoomPosition={zoomPosition}
         zoom={zoom}
-        revealImg={revealImg}
+        revealImg={userInfos.revealImg}
       />
 
       {/* Only show the message if the matchResult isn't null */}

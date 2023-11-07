@@ -6,17 +6,15 @@ import HeaderLinksBig from './headerLinks.big';
 import HeaderLinksSmall from './headerLinks.small';
 
 function Header() {
-  const { pseudo } = useContext(UserContext);
+  const { userInfos } = useContext(UserContext);
 
   return (
     <header className="fixed top-0 w-screen p-4 shadow-sm z-10 bg-[#ffffffe5]">
       <div className="flex-none">
         <nav className="flex items-center justify-between">
           <div className="font-semibold text-xl">Cinochar</div>
-
-          <HeaderLinksSmall pseudo={pseudo} />
-          <HeaderLinksBig pseudo={pseudo} />
-
+          <HeaderLinksSmall pseudo={userInfos.pseudo} />
+          <HeaderLinksBig pseudo={userInfos.pseudo} />
         </nav>
       </div>
     </header>

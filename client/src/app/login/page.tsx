@@ -13,7 +13,7 @@ function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-  const { setPseudo } = useContext(UserContext);
+  const { userInfos, setUserInfos } = useContext(UserContext);
   const router: AppRouterInstance = useRouter();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -24,7 +24,7 @@ function LoginPage() {
     if (typeof result === 'string') {
       setMessage(result);
     } else {
-      setPseudo(result.user.pseudo);
+      setUserInfos({ ...userInfos, pseudo: result.user.pseudo });
       router.push('/');
     }
   };

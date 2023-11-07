@@ -20,7 +20,7 @@ function headerLinksSmall({ pseudo }: any) {
           />
         </svg>
       </button>
-      <ul className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+      <ul className="dropdown-content z-[1] bg-white menu p-2 shadow rounded-box w-52">
         <li><Link href="/" replace={false}>Accueil</Link></li>
         {!pseudo && <li><Link href="/login" replace={false}>Se connecter</Link></li>}
         {!pseudo && <li><Link href="/signup" replace={false}>S'enregistrer</Link></li>}

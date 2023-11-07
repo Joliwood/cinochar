@@ -2,23 +2,21 @@
 
 import React from 'react';
 import './globals.css';
-import ParticipantContextProvider from '@/context/ParticipantContext';
+import type { Props } from '@/@types';
 import { UserContextProvider } from '../context/UserContext';
 import Metadata from './metadata';
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: Props
 }) {
   return (
     <html lang="en">
       <Metadata />
       <body>
         <UserContextProvider>
-          <ParticipantContextProvider>
-            {children}
-          </ParticipantContextProvider>
+          {children}
         </UserContextProvider>
       </body>
     </html>

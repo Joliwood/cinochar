@@ -7,6 +7,27 @@ export type Login = {
   token: string;
 };
 
+export type UserInfos = {
+  pseudo: string;
+  points?: number;
+  jokers: number;
+  revealImg: boolean,
+  isUserPlaying: boolean;
+};
+
+// WIP //
+// type SetUserInfos = {
+//   setIsUserPlaying: (state: boolean) => void;
+//   setJokers: (number: number) => void;
+//   setPseudo: (name: string) => void;
+//   setRevealImg: (state: boolean) => void;
+// };
+
+export type UserContextType = {
+  userInfos: UserInfos;
+  setUserInfos: React.Dispatch<React.SetStateAction<UserInfos>>;
+};
+
 export type UserFromMongo = {
   // _id? to accept user creation (so the _id doesn't exists yet)
   _id?: ObjectId
@@ -40,4 +61,12 @@ export type ParticipantContextType = {
 
 export interface Props {
   children: ReactNode;
+}
+
+export interface UserProps {
+  children: ReactNode;
+  initialPseudo: string;
+  initialJokers: number;
+  initialRevealImg: boolean;
+  initialIsPlaying: boolean;
 }

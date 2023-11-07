@@ -7,9 +7,7 @@ const socket = io(process.env.NEXT_PUBLIC_API_URL);
 
 // eslint-disable-next-line react/prop-types
 function FilmButton({ zoom, filmDimensionsContainer }) {
-  const {
-    pseudo, setJokers, isUserPlaying,
-  } = useContext(UserContext);
+  const { userInfos, setUserInfos } = useContext(UserContext);
   const cooldownDuration = 5;
   const [counter, setCounter] = useState(0);
 
@@ -42,7 +40,7 @@ function FilmButton({ zoom, filmDimensionsContainer }) {
 
       socket.emit('get-cooldown');
 
-      setJokers(2);
+      setUserInfos({ ...userInfos, jokers: 2 });
 
       // Solution to have less exchange with the socket but create < 1sec of
       // difference between each player depends on when they enter in the game
@@ -56,7 +54,7 @@ function FilmButton({ zoom, filmDimensionsContainer }) {
   };
 
   return (
-    pseudo === '' || !isUserPlaying ? (
+    userInfos.pseudo === '' || !userInfos.isUserPlaying ? (
       <div
         className="h-full tooltip"
         data-tip="Vous devez vous connecter et rejoindre la partie pour participer"
