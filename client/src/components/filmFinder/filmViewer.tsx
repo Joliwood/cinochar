@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
+// import { lottie } from 'lottie-web/build/player/lottie_light.min';
 
 function FilmViewer({
   randomMovieName,
@@ -16,6 +17,17 @@ function FilmViewer({
       : 'none',
   };
 
+  // useEffect(() => {
+  //   lottie.loadAnimation({
+  //     container: document.getElementById('lottie-container'),
+  //     // eslint-disable-next-line global-require
+  //     animationData: require('../../../public/images/animation_lkrazake.json'),
+  //     renderer: 'svg',
+  //     loop: true,
+  //     autoplay: true,
+  //   });
+  // }, []);
+
   return (
     <div
       className="film-square shadow-md flex max-w-[95vw]"
@@ -25,19 +37,19 @@ function FilmViewer({
         overflowX: revealImg ? 'scroll' : 'hidden',
       }}
     >
-      {randomMovieName && movieUrl ? (
-        <Image
-          src={movieUrl}
-          width={1920}
-          height={1080}
-          alt="film to find"
-          className="film-img"
-          priority
-          style={imageStyles}
-        />
-      ) : (
-        <div className="flex w-full self-center" id="lottie-container" />
-      )}
+      {/* {randomMovieName && movieUrl ? ( */}
+      <Image
+        src={movieUrl}
+        width={1920}
+        height={1080}
+        alt="film to find"
+        className="film-img"
+        priority
+        style={imageStyles}
+      />
+      {/* ) : ( */}
+      {/* <div className="flex w-full self-center" id="lottie-container" /> */}
+      {/* )} */}
     </div>
   );
 }

@@ -21,52 +21,16 @@ function FilmButton({
 
   useEffect(() => {
     // Listen for cooldown updates from the server
-    socket.on('cooldown', (counterFromSocket) => {
+    socket.on('cooldown', (counterFromSocket: number) => {
       setCounter(counterFromSocket);
     });
   }, []);
 
-  const filmFinder = async () => {
+  const filmFinder = () => {
     setCounter(cooldownDuration);
     getNewFilm(socket, zoom, filmDimensionsContainer);
     setUserInfos({ ...userInfos, jokers: 2 });
   };
-
-  // const filmFinder = async () => {
-  //   setCounter(cooldownDuration);
-  //   try {
-  //     const response = await fetch('/api/getFilm');
-  //     const selectedMovie = await response.json();
-
-  //     // Randomaly select an url in the object
-  //     const randomUrlIndex = Math.floor(Math.random() * selectedMovie.picture_urls.length);
-
-  //     // Send the new url film name to the socket
-  //     socket.emit('new-film-name', selectedMovie.name);
-
-  //     // Send the new url film picture to the socket
-  //     socket.emit('new-film-url', selectedMovie.picture_urls[randomUrlIndex]);
-
-  //     // Send the new random zoom position to the socket
-  //     socket.emit('random-position-zoom', { zoom, filmDimensionsContainer });
-
-  //     socket.emit('reset-countdown');
-
-  //     socket.emit('get-cooldown');
-
-  //     setUserInfos({ ...userInfos, jokers: 2 });
-
-  //     // Solution to have less exchange with the socket but create < 1sec of
-  //     // difference between each player depends on when they enter in the game
-  //     // socket.emit('get-countdown');
-
-  //     // console.log('The film is : ', selectedMovie[0].name);
-  //     // console.log('The new random position is : ',
-  // getRandomPosition().x, getRandomPosition().y);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
 
   return (
     userInfos.pseudo === '' || !userInfos.isUserPlaying ? (

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Header from '../components/header/header';
-import FilmFinder from '../components/filmFinder/searchFilm';
+import SearchFilm from '../components/filmFinder/searchFilm';
 import RoomJoin from '../components/roomJoin';
 import PlayersClassement from '../components/playersClassement';
 import PlayersConnected from '../components/playersConnected';
@@ -12,7 +12,7 @@ function Home() {
     <div className="min-h-screen flex flex-col items-center mt-[80px]">
       <Header />
       <RoomJoin />
-      <FilmFinder />
+      <SearchFilm />
       <PlayersClassement />
       <PlayersConnected />
     </div>

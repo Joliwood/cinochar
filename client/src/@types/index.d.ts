@@ -45,6 +45,16 @@ export interface Props {
   children: ReactNode;
 }
 
+export type Player = {
+  name: string;
+  points: number;
+};
+
+export type RandomFilmPosition = {
+  x: number;
+  y: number;
+};
+
 export interface UserProps {
   children: ReactNode;
   initialPseudo: string;
