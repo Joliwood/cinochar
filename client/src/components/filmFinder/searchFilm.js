@@ -11,7 +11,7 @@ import handleAddPoints from '../../utils/handleAddPoints';
 //! This line MUST BE before the component -> High risk of inifity loop
 const socket = io(process.env.NEXT_PUBLIC_API_URL);
 
-function FilmFinder() {
+function SearchFilm() {
   // Main movie picture
   const [movieUrl, setMovieUrl] = useState('');
   // Random film to find by the user
@@ -168,4 +168,4 @@ function FilmFinder() {
   );
 }
 
-export default FilmFinder;
+export default SearchFilm;

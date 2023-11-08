@@ -41,16 +41,6 @@ export type UserDecodedToken = {
   exp: number;
 };
 
-export type Participant = {
-  pseudo: string;
-  points: number;
-};
-
-export type ParticipantContextType = {
-  participant: Participant[];
-  setParticipant: React.Dispatch<React.SetStateAction<Participant[]>>;
-};
-
 export interface Props {
   children: ReactNode;
 }
