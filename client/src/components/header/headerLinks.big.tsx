@@ -1,8 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
+import { UserInfos } from '@/@types';
 import handleLogout from '../../utils/handleLogout';
 
-function headerLinksBig({ pseudo }: any) {
+function headerLinksBig({ pseudo }: { pseudo: UserInfos['pseudo'] }) {
   return (
     <ul className="menu menu-horizontal px-1 gap-3 py-0 hidden lg:flex">
 

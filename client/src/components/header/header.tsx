@@ -4,9 +4,10 @@ import React, { useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
 import HeaderLinksBig from './headerLinks.big';
 import HeaderLinksSmall from './headerLinks.small';
+import type { UserContextType } from '../../@types';
 
 function Header() {
-  const { userInfos } = useContext(UserContext);
+  const { userInfos } = useContext<UserContextType>(UserContext);
 
   return (
     <header className="fixed top-0 w-screen p-4 shadow-sm z-10 bg-[#ffffffe5]">

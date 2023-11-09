@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useContext } from 'react';
 import { io, Socket } from 'socket.io-client';
-import type { Player, RandomFilmPosition } from '@/@types';
+import type { Player, RandomFilmPosition, UserContextType } from '@/@types';
 import FilmViewer from './filmViewer';
 import UtilityFilmBar from './utilityFilmBar';
 import { UserContext } from '../../context/UserContext';
@@ -27,13 +27,13 @@ function SearchFilm() {
   const [zoomPosition, setZoomPosition] = useState<RandomFilmPosition | null>(null);
   const [countdownValue, setCountdownValue] = useState<number | null>(null);
   const [filmFound, isFilmFound] = useState<boolean>(false);
-  const { userInfos, setUserInfos } = useContext(UserContext);
+  const { userInfos, setUserInfos } = useContext<UserContextType>(UserContext);
   const [playerList, setPlayerList] = useState<Player[]>([]);
   const [isUserPlaying, setIsUserPlaying] = useState<boolean>(false);
   const [pointsEarned, setPointsEarned] = useState<number>(5);
 
   useEffect(() => {
-    socket.on('get-countdown', (countdown) => {
+    socket.on('get-countdown', (countdown: number) => {
       setCountdownValue(countdown);
     });
   }, []);

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Socket, io } from 'socket.io-client';
 import getNewFilm from '@/utils/getNewFilm';
+import { UserContextType } from '@/@types';
 import { UserContext } from '../../context/UserContext';
 
 //! This line MUST BE before the component -> High risk of inifity loop
@@ -15,7 +16,7 @@ function FilmButton({
   zoom: number,
   filmDimensionsContainer: number
 }) {
-  const { userInfos, setUserInfos } = useContext(UserContext);
+  const { userInfos, setUserInfos } = useContext<UserContextType>(UserContext);
   const cooldownDuration: number = 5;
   const [counter, setCounter] = useState<number>(0);
 

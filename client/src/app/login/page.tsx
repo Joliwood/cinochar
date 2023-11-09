@@ -2,7 +2,7 @@
 
 import React, { useState, useContext, FormEvent } from 'react';
 import Link from 'next/link';
-import type { Login } from '@/@types';
+import type { Login, UserContextType } from '@/@types';
 import { useRouter } from 'next/navigation';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import Header from '../../components/header/header';
@@ -13,7 +13,7 @@ function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-  const { userInfos, setUserInfos } = useContext(UserContext);
+  const { userInfos, setUserInfos } = useContext<UserContextType>(UserContext);
   const router: AppRouterInstance = useRouter();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {

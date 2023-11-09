@@ -1,8 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
+import { UserInfos } from '@/@types';
 import handleLogout from '../../utils/handleLogout';
 
-function headerLinksSmall({ pseudo }: any) {
+function headerLinksSmall({ pseudo }: { pseudo: UserInfos['pseudo'] }) {
   return (
     <div className="dropdown dropdown-bottom dropdown-end lg:hidden">
       <button

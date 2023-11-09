@@ -1,13 +1,21 @@
 import React, { useContext } from 'react';
 import Image from 'next/image';
+import { UserContextType } from '@/@types';
 import FilmButton from './filmButton';
 import jokerSvg from '../../../public/images/joker.svg';
 import revealSvg from '../../../public/images/reveal.svg';
 import { UserContext } from '../../context/UserContext';
 
-// eslint-disable-next-line react/prop-types
-function UtilityFilmBar({ zoom, filmDimensionsContainer, countdownValue }) {
-  const { userInfos, setUserInfos } = useContext(UserContext);
+function UtilityFilmBar({
+  zoom,
+  filmDimensionsContainer,
+  countdownValue,
+}: {
+  zoom: number;
+  filmDimensionsContainer: number;
+  countdownValue: number | null;
+}) {
+  const { userInfos, setUserInfos } = useContext<UserContextType>(UserContext);
 
   const handleJokerClick = () => {
     if (userInfos.jokers > 0) {
@@ -17,8 +25,8 @@ function UtilityFilmBar({ zoom, filmDimensionsContainer, countdownValue }) {
 
   return (
     <div className="flex items-center justify-between w-full px-22 h-12">
-      <span className="countdown font-mono text-4xl shadow bg-base-300 rounded-lg h-full flex items-center justify-center px-3">
-        <span style={{ '--value': countdownValue }} />
+      <span className="font-mono text-4xl shadow bg-base-300 rounded-lg h-full flex items-center justify-center px-3">
+        {countdownValue}
       </span>
       <FilmButton
         zoom={zoom}

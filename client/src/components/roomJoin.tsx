@@ -6,13 +6,14 @@
 import React, { useEffect, useContext } from 'react';
 import { io } from 'socket.io-client';
 import Image from 'next/image';
+import { UserContextType } from '@/@types';
 import { UserContext } from '../context/UserContext';
 
 //! This line MUST BE before the component -> High risk of inifity loop
 const socket = io(process.env.NEXT_PUBLIC_API_URL!);
 
 function RoomJoin() {
-  const { userInfos, setUserInfos } = useContext(UserContext);
+  const { userInfos, setUserInfos } = useContext<UserContextType>(UserContext);
 
   useEffect(() => {
     socket.emit('init');

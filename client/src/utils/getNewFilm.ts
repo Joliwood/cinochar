@@ -30,7 +30,13 @@ const getNewFilm = async (
 
     // setUserInfos({ ...userInfos, jokers: 2 });
   } catch (error) {
-    console.error(error);
+    if (axios.isAxiosError(error)) {
+      console.error(`Axios error: ${error.message}`);
+    }
+    if (error instanceof Error) {
+      console.error(`General error: ${error.message}`);
+    }
+    console.error('Unknown error occurred');
   }
 };
 
