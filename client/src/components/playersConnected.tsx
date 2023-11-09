@@ -1,17 +1,18 @@
 'use client';
 
+import { Player } from '@/@types';
 import React, { useState, useEffect } from 'react';
-import { io } from 'socket.io-client';
+import { Socket, io } from 'socket.io-client';
 
 //! This line MUST BE before the component -> High risk of inifity loop
-const socket = io(process.env.NEXT_PUBLIC_API_URL);
+const socket: Socket = io(process.env.NEXT_PUBLIC_API_URL as string);
 
 function PlayersConnected() {
-  const [playerList, setPlayerList] = useState([]);
-  const sortedPlayerList = playerList.slice().sort((a, b) => b.points - a.points);
+  const [playerList, setPlayerList] = useState<Player[]>([]);
+  const sortedPlayerList: Player[] = playerList.slice().sort((a, b) => b.points - a.points);
 
   useEffect(() => {
-    socket.on('player-list', (players) => {
+    socket.on('player-list', (players: Player[]) => {
       setPlayerList(players);
     });
   }, [playerList]);
@@ -30,8 +31,8 @@ function PlayersConnected() {
             </tr>
           </thead>
           <tbody>
-            {sortedPlayerList.map((player, index) => (
-              <tr key={player.id || index}>
+            {sortedPlayerList.map((player: Player, index: number) => (
+              <tr key={player.name}>
                 <th>{index + 1}</th>
                 <td>{player.name}</td>
                 <td>{player.points}</td>
