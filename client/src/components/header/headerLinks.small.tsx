@@ -1,8 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
+import { UserInfos } from '@/@types';
 import handleLogout from '../../utils/handleLogout';
 
-function headerLinksSmall({ pseudo }: any) {
+function headerLinksSmall({ pseudo }: { pseudo: UserInfos['pseudo'] }) {
   return (
     <div className="dropdown dropdown-bottom dropdown-end lg:hidden">
       <button
@@ -20,11 +21,11 @@ function headerLinksSmall({ pseudo }: any) {
           />
         </svg>
       </button>
-      <ul className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-        <li><a href="/">Accueil</a></li>
-        {!pseudo && <li><Link href="/login">Se connecter</Link></li>}
-        {!pseudo && <li><Link href="/signup">S'enregistrer</Link></li>}
-        {pseudo && <li><a href="/" onClick={handleLogout}>Se deconnecter</a></li>}
+      <ul className="dropdown-content z-[1] bg-white menu p-2 shadow rounded-box w-52">
+        <li><Link href="/" replace={false}>Accueil</Link></li>
+        {!pseudo && <li><Link href="/login" replace={false}>Se connecter</Link></li>}
+        {!pseudo && <li><Link href="/signup" replace={false}>S'enregistrer</Link></li>}
+        {pseudo && <li><Link href="/" onClick={handleLogout} replace={false}>Se deconnecter</Link></li>}
       </ul>
     </div>
   );

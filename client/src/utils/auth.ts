@@ -1,5 +1,6 @@
-import axios from 'axios';
-import jwt_decode from 'jwt-decode';
+import axios, { AxiosResponse } from 'axios';
+import type { UserFromMongo, UserDecodedToken } from '@/@types';
+import { jwtDecode } from 'jwt-decode';
 
 const auth = async () => {
   const storedToken: string | null = localStorage.getItem('token');
@@ -9,20 +10,24 @@ const auth = async () => {
   }
 
   // Decode the JWT to access user information
-  const decodedToken: any = jwt_decode(storedToken!);
+  const decodedToken = jwtDecode(storedToken) as UserDecodedToken;
 
-  const { userId } = decodedToken;
+  const { userId }: UserDecodedToken = decodedToken;
 
   try {
-    const response = await axios.get('/api/getUser', {
+    const response: AxiosResponse<{ user: UserFromMongo }> = await axios.get('/api/getUser', {
       params: { userId },
     });
+
     return response.data.user;
-  } catch (error: any) {
-    if (error.response) {
-      return error.response.data.message;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return `Axios error: ${error.message}`;
     }
-    return 'An error occurred while authetification.';
+    if (error instanceof Error) {
+      return `General error: ${error.message}`;
+    }
+    return 'Unknown error occurred';
   }
 };
 

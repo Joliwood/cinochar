@@ -1,37 +1,45 @@
 import bcrypt from 'bcryptjs';
-// import User from '../../models/User';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import type {
+  Collection, Db, MongoClient,
+} from 'mongodb';
+import type { UserFromMongo } from '@/@types';
 import connectToDatabase from '../../utils/mongo';
 
-export default async function handler(req: any, res: any) {
-  const { email, password, pseudo } = req.body;
+export default async function register(req: NextApiRequest, res: NextApiResponse) {
+  const { email, password, pseudo }: {
+    email: UserFromMongo['email'],
+    password: UserFromMongo['password']
+    pseudo: UserFromMongo['pseudo']
+  } = req.body;
 
   if (!email || !password) {
     return res.status(400).json({ message: 'Veuillez remplir les champs s\'\'il vous plaît' });
   }
 
-  const client = await connectToDatabase();
-  const db = client.db();
-  const collection = db.collection('players-ranking');
+  const client: MongoClient = await connectToDatabase();
+  const db: Db = client.db();
+  const collection: Collection<UserFromMongo> = db.collection('players-ranking');
 
-  const existingPseudo = await collection.findOne({ pseudo });
-  const existingEmail = await collection.findOne({ email });
+  const existingUserByPseudo = await collection.findOne<UserFromMongo | null>({ pseudo });
+  const existingUserByEmail = await collection.findOne<UserFromMongo | null>({ email });
 
-  if (existingPseudo) {
+  if (existingUserByPseudo) {
     return res.status(400).json({ message: 'Ce pseudo est déjà utilisé' });
   }
-  if (existingEmail) {
+  if (existingUserByEmail) {
     return res.status(400).json({ message: 'Cette adresse email est déjà enregistrée' });
   }
 
-  const hashedPassword = await bcrypt.hash(password, 10);
-  const user = {
+  const hashedPassword: string = await bcrypt.hash(password, 10);
+  const user: UserFromMongo = {
     pseudo,
     email,
     points: 0,
     password: hashedPassword,
   };
 
-  const newUser = await collection.insertOne(user);
+  await collection.insertOne(user);
 
-  return res.status(201).json({ message: 'Votre compte a bien été créé' }, newUser);
+  return res.status(201).json({ message: 'Votre compte a bien été créé' });
 }

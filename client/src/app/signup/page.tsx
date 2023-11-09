@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState, FormEvent } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import handleSignup from '@/utils/handleSignup';
 import Header from '../../components/header/header';
 
 function Signup() {
@@ -11,8 +12,9 @@ function Signup() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
+  const router = useRouter();
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
@@ -20,21 +22,11 @@ function Signup() {
       return;
     }
 
-    try {
-      const response = await axios.post('/api/register', {
-        pseudo,
-        email,
-        password,
-      });
-      setMessage(response.data.message);
-    } catch (error: any) {
-      if (error.response) {
-        setMessage(error.response.data.message);
-      } else {
-        console.log(error);
-
-        setMessage('An error occurred during registration.');
-      }
+    const result: string = await handleSignup(pseudo, email, password);
+    setMessage(result);
+    // if we receive response, we redirect to main page
+    if (result === 'Votre compte a bien été créé') {
+      router.push('/login');
     }
   };
 

@@ -35,12 +35,13 @@
     "**/*.ts",
     "**/*.js",
     "**/*.tsx",
-    ".next/types/**/*.ts",
     "src/utils/mongo.ts",
     ".eslintrc.js",
-    "tailwind.config.cjs"
+    "tailwind.config.cjs",
+    ".next/types/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "next"
   ]
 }

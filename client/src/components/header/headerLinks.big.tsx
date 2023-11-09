@@ -1,8 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
+import { UserInfos } from '@/@types';
 import handleLogout from '../../utils/handleLogout';
 
-function headerLinksBig({ pseudo }: any) {
+function headerLinksBig({ pseudo }: { pseudo: UserInfos['pseudo'] }) {
   return (
     <ul className="menu menu-horizontal px-1 gap-3 py-0 hidden lg:flex">
 
@@ -13,18 +14,18 @@ function headerLinksBig({ pseudo }: any) {
       {!pseudo && (
       <>
         <button type="button" className="flex items-center">
-          <a className="btn" href="/login">Se connecter</a>
+          <Link className="btn" href="/login" replace={false}>Se connecter</Link>
         </button>
 
         <button type="button" className="flex items-center">
-          <Link className="btn" href="/signup">S'enregistrer</Link>
+          <Link className="btn" href="/signup" replace={false}>S'enregistrer</Link>
         </button>
       </>
       )}
 
       {pseudo && (
       <button type="button" className="flex items-center" onClick={handleLogout}>
-        <a className="btn" href="/">Se deconnecter</a>
+        <Link className="btn" href="/" replace={false}>Se deconnecter</Link>
       </button>
       )}
 

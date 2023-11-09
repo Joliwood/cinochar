@@ -1,24 +1,32 @@
 'use client';
 
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, FormEvent } from 'react';
 import Link from 'next/link';
+import type { Login, UserContextType } from '@/@types';
+import { useRouter } from 'next/navigation';
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import Header from '../../components/header/header';
 import handleLogin from '../../utils/handleLogin';
 import { UserContext } from '../../context/UserContext';
 
-function Login() {
+function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-  const { setPseudo } = useContext(UserContext);
+  const { userInfos, setUserInfos } = useContext<UserContextType>(UserContext);
+  const router: AppRouterInstance = useRouter();
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const result = await handleLogin(email, password);
-
-    setMessage(result.message);
-    setPseudo(result.user.pseudo);
+    const result: Login | string = await handleLogin(email, password);
+    // The result will contains user object only if the login is successful
+    if (typeof result === 'string') {
+      setMessage(result);
+    } else {
+      setUserInfos({ ...userInfos, pseudo: result.user.pseudo });
+      router.push('/');
+    }
   };
 
   return (
@@ -71,4 +79,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginPage;

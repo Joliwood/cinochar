@@ -1,7 +1,8 @@
 import axios from 'axios';
-import jwt_decode from 'jwt-decode';
+import type { UserDecodedToken } from '@/@types';
+import { jwtDecode } from 'jwt-decode';
 
-const handleLogin = async (points: number) => {
+const hendleAddPoints = async (points: number) => {
   const storedToken: string | null = localStorage.getItem('token');
 
   if (!storedToken) {
@@ -9,10 +10,9 @@ const handleLogin = async (points: number) => {
   }
 
   // Decode the JWT to access user information
-  const decodedToken: any = jwt_decode(storedToken!);
+  const decodedToken: any = jwtDecode(storedToken);
 
-  // OK //
-  const { userId } = decodedToken;
+  const { userId }: UserDecodedToken = decodedToken;
 
   await axios.patch('/api/addPoints', {
     userId,
@@ -22,4 +22,4 @@ const handleLogin = async (points: number) => {
   return 'Points added.';
 };
 
-export default handleLogin;
+export default hendleAddPoints;
