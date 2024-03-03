@@ -5,6 +5,8 @@ import axios from "axios";
 const app = express();
 const server = http.createServer(app);
 
+import type { Position } from "#types";
+
 import { Server } from 'socket.io';
 
 const io = new Server(server, {
@@ -19,10 +21,16 @@ let filmNameFromSocket = "";
 let zoomPositionFromSocket = "";
 let cooldownDuration = 5;
 let cooldownCounter = 0;
-let countdown;
+let countdown: number;
+
+type GetRandomPositionProps = {
+  zoom: number;
+  filmDimensionsContainer: number;
+};
 
 // Function to generate random X and Y position
-const getRandomPosition = async (zoom, filmDimensionsContainer) => {
+const getRandomPosition = async (props: GetRandomPositionProps) => {
+  const { zoom, filmDimensionsContainer } = props;
   const response = await axios.get(filmUrlFromSocket, { responseType: 'arraybuffer' });
 
   const image = sharp(response.data);
@@ -31,6 +39,10 @@ const getRandomPosition = async (zoom, filmDimensionsContainer) => {
   const width = metadata.width;
   const height = metadata.height;
   console.log(metadata)
+
+  if (!width || !height) {
+    throw new Error('Invalid image dimensions');
+  }
 
   const widthRendered = filmDimensionsContainer * (width / height);
   const heightRendered = filmDimensionsContainer;
@@ -57,7 +69,7 @@ io.on("connection", (socket) => {
 
   // Initialization players
   socket.on("init", () => {
-    io.emit("player-list", Object.values(players).map((player) => ({ name: player.name, points: player.points })));
+    io.emit("player-list", Object.values(players).map((player) => ({ name: player?.name, points: player?.points })));
     io.emit("new-film-name", filmNameFromSocket);
     io.emit("random-position-zoom", zoomPositionFromSocket);
     io.emit("new-film-url", filmUrlFromSocket);
@@ -171,6 +183,6 @@ io.on("connection", (socket) => {
 
 });
 
-server.listen(5000, () => {
-  console.log('✔️ Server listening on port 5000')
+server.listen(8000, () => {
+  console.log('✔️ Server listening on port 8000')
 });

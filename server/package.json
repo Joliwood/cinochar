@@ -8,17 +8,24 @@
     "server": "nodemon index.mjs"
   },
   "dependencies": {
-    "@types/express": "^4.17.17",
-    "@types/node": "^20.4.4",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.11.24",
     "axios": "^1.4.0",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "nodemon": "^3.0.1",
+    "nodemon": "^3.1.0",
     "sharp": "^0.32.4",
     "socket.io": "^4.7.1",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.1.6"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.1.0",
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^18.0.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-node": "^11.1.0"
+  }
 }
