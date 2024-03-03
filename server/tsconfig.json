@@ -20,11 +20,12 @@
     }
   },
   "include": [
-    "./app/**/*",
+    "./*",
+    "./**/*",
     "./types/*",
     ".eslintrc.cjs",
     "/**/*.ts",
-    "app/index.ts",
+    "index.ts",
   ],
   "exclude": [
     "./dist/**/*",
