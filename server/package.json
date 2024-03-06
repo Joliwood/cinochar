@@ -5,8 +5,12 @@
   "type": "commonjs",
   "license": "MIT",
   "scripts": {
+    "build": "tsc",
+    "check:full": "yarn typescript && yarn eslint",
+    "dev": "ts-node index.ts",
+    "eslint": "eslint .",
     "server": "nodemon index.mjs",
-    "dev": "ts-node index.ts"
+    "typescript": "yarn tsc --noEmit"
   },
   "dependencies": {
     "@types/express": "^4.17.21",

@@ -16,12 +16,15 @@
     "target": "ESNext",
     "noImplicitAny": true,
     "paths": {
-      "#types": ["./types/index.d.ts"]
+      "#types": ["./types/index.d.ts"],
+      "#sockets": ["./sockets/index.ts"],
+      "#utils": ["./utils/index.ts"],
     }
   },
   "include": [
     "./*",
     "./**/*",
+    "./sockets/*",
     "./types/*",
     ".eslintrc.cjs",
     "/**/*.ts",

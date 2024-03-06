@@ -22,6 +22,7 @@
 # next.js (server)
 /server/.next/
 /server/out/
+/server/dist
 
 # production
 /server/build

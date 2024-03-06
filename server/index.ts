@@ -1,8 +1,13 @@
 import express from "express";
 import { createServer } from "http";
-import getRandomPosition from "./utils/getRandomPosition";
+// import getRandomPosition from "./utils/getRandomPosition";
 import { Server } from 'socket.io';
 import { PositionType } from "#types";
+import { 
+  playerConnectSocket, 
+  disconnectSocket, 
+  randomPositionZoomSocket
+ } from "./sockets";
 
 const app = express();
 const server = createServer(app);
@@ -13,7 +18,7 @@ export const io = new Server(server, {
   },
 });
 
-type Player = {
+export type Player = {
   pseudo?: string | null;
   playerId?: string
   name: string | null;
@@ -26,6 +31,14 @@ const players: Player[] = [{
   name: null,
   points: null
 }];
+
+type ServerData = {
+  zoomPositionFromSocket: PositionType
+}
+
+export const serverData: ServerData = {
+  zoomPositionFromSocket: { x: null, y: null },
+}
 
 let filmUrlFromSocket = "";
 let filmNameFromSocket = "";
@@ -47,36 +60,11 @@ io.on("connection", (socket) => {
   });
 
   // Connections in and out
-  socket.on("player-connect", (data) => {
-    // TODO - To change the type so we don't have to convert this way
-    const socketId = Number(socket.id);
-    console.log("Player connected with pseudo:", data.pseudo, "he has : ", data.points, " points.");
+  playerConnectSocket({ io, socket, players });
 
-    const newPlayer: Player = {
-      // name: pseudo?.name ?? 'Unknown Player',
-      name: data.pseudo,
-      // points: data?.points ?? 0,
-      points: data.points,
-    };
+  disconnectSocket({ io, socket, players });
 
-
-    players[socketId] = newPlayer;
-
-    io.emit("player-list", Object.values(players).map((player) => ({ name: player.name, points: player.points })));
-  });
-
-  socket.on('disconnect', () => {
-    const socketId = Number(socket.id);
-
-    if (players[socketId]) {
-      console.log(`${players[socketId].name} has disconnected`);
-      delete players[socketId];
-      io.emit('player-list', Object.values(players).map(
-        (player) => ({ name: player.pseudo, points: player.points })));
-    }
-  });
-
-  // New film name
+  // New film name dev helper
   socket.on("new-film-name", (filmName) => {
     console.log("The film to find is : ", filmName);
     filmNameFromSocket = filmName;
@@ -84,15 +72,16 @@ io.on("connection", (socket) => {
   });
 
   // New random zoom position
-  socket.on('random-position-zoom', async ({ zoom, filmDimensionsContainer }) => {
+  randomPositionZoomSocket({ io, socket, filmUrlFromSocket })
+  // socket.on('random-position-zoom', async ({ zoom, filmDimensionsContainer }) => {
 
-    let randomZoomPosition = await getRandomPosition({ zoom, filmDimensionsContainer, filmUrlFromSocket });
+  //   let randomZoomPosition = await getRandomPosition({ zoom, filmDimensionsContainer, filmUrlFromSocket });
 
-    console.log('The new random position is : ', randomZoomPosition.x, randomZoomPosition.y);
+  //   console.log('The new random position is : ', randomZoomPosition.x, randomZoomPosition.y);
 
-    zoomPositionFromSocket = randomZoomPosition;
-    await io.emit("random-position-zoom", zoomPositionFromSocket);
-  });
+  //   zoomPositionFromSocket = randomZoomPosition;
+  //   await io.emit("random-position-zoom", zoomPositionFromSocket);
+  // });
 
   // New film url
   socket.on("new-film-url", (filmPictureUrl) => {
