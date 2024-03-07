@@ -1,26 +1,19 @@
 import type { Server, Socket } from 'socket.io';
 import { getRandomPosition } from '../utils';
-import { serverData } from '../index';
+import { gameInfos } from '../data';
 
-type Props = {
-  io: Server;
-  socket: Socket;
-  filmUrlFromSocket: any;
-}
-
-const RandomPositionZoomSocket = (props: Props) => {
-  const { io, socket, filmUrlFromSocket } = props;
-  
-  
-  const randomPositionZoom = async (zoom: any, filmDimensionsContainer: any) => {
+const RandomPositionZoomSocket = (io: Server, socket: Socket) => {
+  const randomPositionZoom = async (position: any) => {
+    const { zoom, filmDimensionsContainer } = position;
+    const { filmUrlFromSocket } = gameInfos;
+    
     let randomZoomPosition = await getRandomPosition({ zoom, filmDimensionsContainer, filmUrlFromSocket });
 
     console.log('The new random position is : ', randomZoomPosition.x, randomZoomPosition.y);
 
-    serverData.zoomPositionFromSocket = randomZoomPosition;
-    await io.emit("random-position-zoom", serverData.zoomPositionFromSocket);
+    gameInfos.zoomPositionFromSocket = randomZoomPosition;
+    await io.emit("random-position-zoom", gameInfos.zoomPositionFromSocket);
   }
-
   socket.on("random-position-zoom", randomPositionZoom);
 }
 

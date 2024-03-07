@@ -1,24 +1,18 @@
 {
   "compilerOptions": {
+    "outDir": "./dist/",
+    "noImplicitAny": false,
+    "module": "ESNext",
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "jsx": "preserve",
     "allowJs": true,
-    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "noEmitOnError": true,
     "strict": true,
-    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
     "allowImportingTsExtensions": true,
     "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
+    "skipLibCheck": true,
     "plugins": [
       {
         "name": "next"
@@ -27,8 +21,23 @@
     "paths": {
       "@/*": [
         "./src/*"
+      ],
+      "#types": [
+        "./types/"
+      ],
+      "#utils": [
+        "./src/utils/"
       ]
-    }
+    },
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "incremental": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true
   },
   "include": [
     "next-env.d.ts",
@@ -38,7 +47,8 @@
     "src/utils/mongo.ts",
     ".eslintrc.js",
     "tailwind.config.cjs",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "./public/*"
   ],
   "exclude": [
     "node_modules",

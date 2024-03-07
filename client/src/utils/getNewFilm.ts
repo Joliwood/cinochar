@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { Socket } from 'socket.io-client';
-import type { FilmFromMongo } from '@/@types';
+import type { FilmFromMongo } from '#types';
 
 const getNewFilm = async (
   socket: Socket,

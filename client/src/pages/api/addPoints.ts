@@ -3,8 +3,8 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import type {
   Collection, Db, MongoClient,
 } from 'mongodb';
-import type { UserFromMongo } from '@/@types';
-import connectToDatabase from '../../utils/mongo';
+import type { UserFromMongo } from '#types';
+import { connectToDatabase } from '#utils';
 
 export default async function addPoints(req: NextApiRequest, res: NextApiResponse) {
   const { userId, points } = req.body as { userId: string, points: UserFromMongo['points'] };

@@ -1,8 +1,8 @@
 'use client';
 
-import { Player } from '@/@types';
 import React, { useState, useEffect } from 'react';
 import { Socket, io } from 'socket.io-client';
+import { Player } from '#types';
 
 //! This line MUST BE before the component -> High risk of inifity loop
 const socket: Socket = io(process.env.NEXT_PUBLIC_API_URL as string);

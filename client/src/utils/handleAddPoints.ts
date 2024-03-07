@@ -1,8 +1,8 @@
 import axios from 'axios';
-import type { UserDecodedToken } from '@/@types';
 import { jwtDecode } from 'jwt-decode';
+import type { UserDecodedToken } from '#types';
 
-const hendleAddPoints = async (points: number) => {
+const handleAddPoints = async (points: number) => {
   const storedToken: string | null = localStorage.getItem('token');
 
   if (!storedToken) {
@@ -22,4 +22,4 @@ const hendleAddPoints = async (points: number) => {
   return 'Points added.';
 };
 
-export default hendleAddPoints;
+export default handleAddPoints;

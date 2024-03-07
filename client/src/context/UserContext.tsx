@@ -1,10 +1,10 @@
 import React, {
-  useState,
   createContext,
   FC,
   useMemo,
+  useState,
 } from 'react';
-import type { UserContextType, UserProps, UserInfos } from '@/@types';
+import type { UserContextType, UserProps, UserInfos } from '#types';
 
 const userInitState: UserInfos = {
   pseudo: '',

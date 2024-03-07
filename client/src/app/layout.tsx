@@ -2,7 +2,7 @@
 
 import React from 'react';
 import './globals.css';
-import type { Props } from '@/@types';
+import type { Props } from '#types';
 import { UserContextProvider } from '../context/UserContext';
 import Metadata from './metadata';
 

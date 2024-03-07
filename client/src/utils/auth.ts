@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
-import type { UserFromMongo, UserDecodedToken } from '@/@types';
 import { jwtDecode } from 'jwt-decode';
+import type { UserFromMongo, UserDecodedToken } from '#types';
 
 const auth = async () => {
   const storedToken: string | null = localStorage.getItem('token');

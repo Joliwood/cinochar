@@ -1,7 +1,9 @@
 import React from 'react';
 import Image from 'next/image';
 import { Player } from '@lottiefiles/react-lottie-player';
-import type { RandomFilmPosition } from '@/@types';
+import type { RandomFilmPosition } from '#types';
+// WIP - Find a better config
+// @ts-ignore
 import lkrazakeAnimation from '../../../public/images/animation_lkrazake.json';
 
 function FilmViewer({

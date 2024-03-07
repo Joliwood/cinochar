@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import type { Player } from '@/@types';
 import axios, { AxiosResponse } from 'axios';
+import type { Player } from '#types';
 // import io from 'socket.io-client';
 
 //! This line MUST BE before the component -> High risk of inifity loop

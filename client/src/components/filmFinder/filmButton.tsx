@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Socket, io } from 'socket.io-client';
-import getNewFilm from '@/utils/getNewFilm';
-import { UserContextType } from '@/@types';
+import { getNewFilm } from '#utils';
+import { UserContextType } from '#types';
 import { UserContext } from '../../context/UserContext';
 
 //! This line MUST BE before the component -> High risk of inifity loop

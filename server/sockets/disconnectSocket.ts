@@ -1,25 +1,17 @@
 import type { Server, Socket } from 'socket.io';
+import { players } from '../data';
 
-type Props = {
-  io: Server;
-  socket: Socket;
-  players: any;
-}
-
-const DisconnectSocket = (props: Props) => {
-  const { io, socket, players } = props;
-  
-  
+const DisconnectSocket = (io: Server, socket: Socket) => {
   const disconnect = () => {
     const socketId = Number(socket.id);
 
-  if (players[socketId]) {
-    console.log(`${players[socketId].name} has disconnected`);
-    delete players[socketId];
-    io.emit('player-list', Object.values(players).map(
-      // TODO - Types to precise
-      (player: any) => ({ name: player.pseudo, points: player.points })));
-  }
+    if (players[socketId]) {
+      console.log(`${players[socketId].name} has disconnected`);
+      delete players[socketId];
+      io.emit('player-list', Object.values(players).map(
+        // TODO - Types to precise
+        (player: any) => ({ name: player.pseudo, points: player.points })));
+    }
   }
 
   socket.on("disconnect", disconnect);

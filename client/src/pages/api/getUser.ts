@@ -1,10 +1,10 @@
 import { ObjectId } from 'mongodb';
-import type { UserFromMongo } from '@/@types';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import type {
   Collection, Db, MongoClient,
 } from 'mongodb';
-import connectToDatabase from '../../utils/mongo';
+import type { UserFromMongo } from '#types';
+import { connectToDatabase } from '#utils';
 
 export default async function getUser(req: NextApiRequest, res: NextApiResponse) {
   // Normally, req.query.userId can be string | string[] | undefined

@@ -3,8 +3,8 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import type {
   Collection, Db, MongoClient,
 } from 'mongodb';
-import type { UserFromMongo } from '@/@types';
-import connectToDatabase from '../../utils/mongo';
+import type { UserFromMongo } from '#types';
+import { connectToDatabase } from '#utils';
 
 export default async function register(req: NextApiRequest, res: NextApiResponse) {
   const { email, password, pseudo }: {

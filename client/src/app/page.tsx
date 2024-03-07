@@ -1,11 +1,13 @@
 'use client';
 
 import React from 'react';
-import Header from '../components/header/header';
-import SearchFilm from '../components/filmFinder/searchFilm';
-import RoomJoin from '../components/roomJoin';
-import PlayersClassement from '../components/playersClassement';
-import PlayersConnected from '../components/playersConnected';
+import {
+  Header,
+  SearchFilm,
+  RoomJoin,
+  PlayersClassement,
+  PlayersConnected,
+} from '../components';
 
 function Home() {
   return (

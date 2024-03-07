@@ -4,7 +4,7 @@ import React, { useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
 import HeaderLinksBig from './headerLinks.big';
 import HeaderLinksSmall from './headerLinks.small';
-import type { UserContextType } from '../../@types';
+import type { UserContextType } from '#types';
 
 function Header() {
   const { userInfos } = useContext<UserContextType>(UserContext);

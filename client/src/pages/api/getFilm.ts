@@ -2,8 +2,8 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import type {
   Collection, Db, MongoClient,
 } from 'mongodb';
-import type { FilmFromMongo } from '@/@types';
-import connectToDatabase from '../../utils/mongo';
+import type { FilmFromMongo } from '#types';
+import { connectToDatabase } from '#utils';
 
 export default async function getFilms(_: NextApiRequest, res: NextApiResponse) {
   const client: MongoClient = await connectToDatabase();
