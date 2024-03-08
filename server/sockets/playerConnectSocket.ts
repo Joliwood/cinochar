@@ -6,19 +6,25 @@ const playerConnectSocket = (io: Server, socket: Socket) => {
   const playerConnect = (data: any) => {
     console.log('les players : ', players);
     // TODO - To change the type so we don't have to convert this way
-    const socketId = Number(socket.id);
-    console.log("Player connected with pseudo:", data.pseudo, "he has : ", data.points, " points.");
+    const socketId = socket.id;
+    console.log("Player connected with name:", data.name, "he has : ", data.points, " points.");
     
+    if (data === null) {
+      return;
+    }
+
     const newPlayer: Player = {
-      name: data?.pseudo ?? 'Unknown Player',
-      // name: data.pseudo,
-      points: data?.points ?? 0,
-      // points: data.points,
+      socketId: socketId,
+      name: data.name,
+      points: data.points,
     };
 
-    players[socketId] = newPlayer;
+    if (!players.find((player) => player.name === data.name)) {
+      players.push(newPlayer);
+    }
 
-    io.emit("player-list", Object.values(players).map((player) => ({ name: player.name, points: player.points })));
+    // io.emit("player-list", Object.values(players).map((player) => ({ name: player.name, points: player.points })));
+    io.emit("player-list", players);
   }
   socket.on("player-connect", playerConnect);
 }

@@ -15,7 +15,9 @@ function PlayersClassement() {
     const getPlayers = async () => {
       try {
         const response: AxiosResponse<Player[]> = await axios.get('/api/getPlayersRanking');
-        const players: Player[] = response.data;
+        const { data } = response;
+        const players: Player[] = data;
+
         if (response.status === 200 && players.length > 0) {
           setPlayersList(players);
         } else {
@@ -50,7 +52,8 @@ function PlayersClassement() {
           </thead>
           <tbody>
             {playersList.map((player: Player, index: number) => (
-              <tr key={player.name}>
+              // eslint-disable-next-line react/no-array-index-key
+              <tr key={index}>
                 <th>{index + 1}</th>
                 <td>{player.name}</td>
                 <td>{player.points}</td>

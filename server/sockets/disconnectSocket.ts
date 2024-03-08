@@ -3,14 +3,14 @@ import { players } from '../data';
 
 const DisconnectSocket = (io: Server, socket: Socket) => {
   const disconnect = () => {
-    const socketId = Number(socket.id);
+    const socketId = socket.id;
+    console.log('we are', socketId);
+    const player = players.find((player) => player.socketId === socketId);
 
-    if (players[socketId]) {
-      console.log(`${players[socketId].name} has disconnected`);
-      delete players[socketId];
-      io.emit('player-list', Object.values(players).map(
-        // TODO - Types to precise
-        (player: any) => ({ name: player.pseudo, points: player.points })));
+    if (player) {
+      console.log(`${player.name} has disconnected`);
+      players.splice(players.indexOf(player), 1);
+      io.emit('player-list', players);
     }
   }
 

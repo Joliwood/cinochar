@@ -1,9 +1,9 @@
 import axios, { AxiosResponse } from 'axios';
 
-const handleSignup = async (pseudo: string, email: string, password: string) => {
+const handleSignup = async (name: string, email: string, password: string) => {
   try {
     const response: AxiosResponse<{ status: number, message: string }> = await axios.post('/api/register', {
-      pseudo,
+      name,
       email,
       password,
     });

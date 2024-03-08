@@ -7,10 +7,10 @@ import type { UserFromMongo } from '#types';
 import { connectToDatabase } from '#utils';
 
 export default async function register(req: NextApiRequest, res: NextApiResponse) {
-  const { email, password, pseudo }: {
+  const { email, password, name }: {
     email: UserFromMongo['email'],
     password: UserFromMongo['password']
-    pseudo: UserFromMongo['pseudo']
+    name: UserFromMongo['name']
   } = req.body;
 
   if (!email || !password) {
@@ -21,11 +21,11 @@ export default async function register(req: NextApiRequest, res: NextApiResponse
   const db: Db = client.db();
   const collection: Collection<UserFromMongo> = db.collection('players-ranking');
 
-  const existingUserByPseudo = await collection.findOne<UserFromMongo | null>({ pseudo });
+  const existingUserByName = await collection.findOne<UserFromMongo | null>({ name });
   const existingUserByEmail = await collection.findOne<UserFromMongo | null>({ email });
 
-  if (existingUserByPseudo) {
-    return res.status(400).json({ message: 'Ce pseudo est déjà utilisé' });
+  if (existingUserByName) {
+    return res.status(400).json({ message: 'Ce name est déjà utilisé' });
   }
   if (existingUserByEmail) {
     return res.status(400).json({ message: 'Cette adresse email est déjà enregistrée' });
@@ -33,7 +33,7 @@ export default async function register(req: NextApiRequest, res: NextApiResponse
 
   const hashedPassword: string = await bcrypt.hash(password, 10);
   const user: UserFromMongo = {
-    pseudo,
+    name,
     email,
     points: 0,
     password: hashedPassword,

@@ -20,16 +20,16 @@ function RoomJoin() {
   }, []);
 
   const handleJoin = () => {
-    socket.emit('player-connect', { pseudo: userInfos.pseudo, points: 0 });
+    socket.emit('player-connect', { name: userInfos.name, points: 0 });
     setUserInfos({ ...userInfos, isUserPlaying: true });
   };
 
   return (
-    <div className={`${userInfos.pseudo && 'none'} flex w-auto lg:flex-row m-1 sm:m-5 flex-wrap justify-center gap-2`}>
-      {userInfos.pseudo && (
+    <div className={`${userInfos.name && 'none'} flex w-auto lg:flex-row m-1 sm:m-5 flex-wrap justify-center gap-2`}>
+      {userInfos.name && (
         <>
           <div className="avatar flex gap-3 items-center">
-            <h3 className="font-bold text-primary-content">{userInfos.pseudo}</h3>
+            <h3 className="font-bold text-primary-content">{userInfos.name}</h3>
 
             <div className="w-[48px] rounded h-[48px]">
               <Image

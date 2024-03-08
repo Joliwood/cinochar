@@ -7,7 +7,7 @@ import React, {
 import type { UserContextType, UserProps, UserInfos } from '#types';
 
 const userInitState: UserInfos = {
-  pseudo: '',
+  name: '',
   points: 0,
   jokers: 2,
   revealImg: false,

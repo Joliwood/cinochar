@@ -8,7 +8,7 @@ export type Login = {
 };
 
 export type UserInfos = {
-  pseudo: string;
+  name: string;
   points?: number;
   jokers: number;
   revealImg: boolean,
@@ -20,10 +20,21 @@ export type UserContextType = {
   setUserInfos: React.Dispatch<React.SetStateAction<UserInfos>>;
 };
 
+export type UsersFromMongo = {
+  data: [{
+    // _id? to accept user creation (so the _id doesn't exists yet)
+    _id?: ObjectId
+    name: string;
+    email: string;
+    points: number;
+    password: string;
+  }]
+};
+
 export type UserFromMongo = {
   // _id? to accept user creation (so the _id doesn't exists yet)
   _id?: ObjectId
-  pseudo: string;
+  name: string;
   email: string;
   points: number;
   password: string;
@@ -57,7 +68,7 @@ export type RandomFilmPosition = {
 
 export interface UserProps {
   children: ReactNode;
-  initialPseudo: string;
+  initialName: string;
   initialJokers: number;
   initialRevealImg: boolean;
   initialIsPlaying: boolean;

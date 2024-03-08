@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { UserInfos } from '#types';
 import { handleLogout } from '#utils';
 
-function headerLinksSmall({ pseudo }: { pseudo: UserInfos['pseudo'] }) {
+function headerLinksSmall({ name }: { name: UserInfos['name'] }) {
   return (
     <div className="dropdown dropdown-bottom dropdown-end lg:hidden">
       <button
@@ -23,9 +23,9 @@ function headerLinksSmall({ pseudo }: { pseudo: UserInfos['pseudo'] }) {
       </button>
       <ul className="dropdown-content z-[1] bg-white menu p-2 shadow rounded-box w-52">
         <li><Link href="/" replace={false}>Accueil</Link></li>
-        {!pseudo && <li><Link href="/login" replace={false}>Se connecter</Link></li>}
-        {!pseudo && <li><Link href="/signup" replace={false}>S'enregistrer</Link></li>}
-        {pseudo && <li><Link href="/" onClick={handleLogout} replace={false}>Se deconnecter</Link></li>}
+        {!name && <li><Link href="/login" replace={false}>Se connecter</Link></li>}
+        {!name && <li><Link href="/signup" replace={false}>S'enregistrer</Link></li>}
+        {name && <li><Link href="/" onClick={handleLogout} replace={false}>Se deconnecter</Link></li>}
       </ul>
     </div>
   );

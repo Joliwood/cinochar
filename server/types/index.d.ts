@@ -4,8 +4,8 @@ export type PositionType = {
 };
 
 export type Player = {
-  pseudo?: string | null;
-  playerId?: string;
+  // name?: string | null;
+  socketId: string;
   name: string | null;
   points: number | null;
 };

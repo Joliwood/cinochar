@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { UserInfos } from '#types';
 import { handleLogout } from '#utils';
 
-function headerLinksBig({ pseudo }: { pseudo: UserInfos['pseudo'] }) {
+function headerLinksBig({ name }: { name: UserInfos['name'] }) {
   return (
     <ul className="menu menu-horizontal px-1 gap-3 py-0 hidden lg:flex">
 
@@ -11,7 +11,7 @@ function headerLinksBig({ pseudo }: { pseudo: UserInfos['pseudo'] }) {
         <a className="btn" href="/">Accueil</a>
       </button>
 
-      {!pseudo && (
+      {!name && (
       <>
         <button type="button" className="flex items-center">
           <Link className="btn" href="/login" replace={false}>Se connecter</Link>
@@ -23,7 +23,7 @@ function headerLinksBig({ pseudo }: { pseudo: UserInfos['pseudo'] }) {
       </>
       )}
 
-      {pseudo && (
+      {name && (
       <button type="button" className="flex items-center" onClick={handleLogout}>
         <Link className="btn" href="/" replace={false}>Se deconnecter</Link>
       </button>

@@ -62,17 +62,17 @@ function SearchFilm() {
       setPlayerList(players);
     });
 
-    // Check if the pseudo is in the playerList
-    const isPseudoInPlayerList: boolean = playerList.some(
-      (player: Player) => player.name === userInfos.pseudo,
+    // Check if the name is in the playerList
+    const isNameInPlayerList: boolean = playerList.some(
+      (player: Player) => player.name === userInfos.name,
     );
 
-    if (isPseudoInPlayerList) {
+    if (isNameInPlayerList) {
       setIsUserPlaying(true);
     } else {
       setIsUserPlaying(false);
     }
-  }, [playerList, userInfos.pseudo]);
+  }, [playerList, userInfos.name]);
 
   useEffect(() => {
     // It is the first emit send to the socket, so we reset all
@@ -99,7 +99,7 @@ function SearchFilm() {
       setMatchResult('Vous avez dépassé le temps imparti.');
     } else if (userAnswer === randomMovieName) {
       if (filmFound === false) {
-        socket.emit('player-add-points', { pseudo: userInfos.pseudo, points: pointsEarned });
+        socket.emit('player-add-points', { name: userInfos.name, points: pointsEarned });
         setMatchResult('Bien joué !');
         handleAddPoints(pointsEarned);
         isFilmFound(true);

@@ -32,7 +32,7 @@ function UtilityFilmBar({
         zoom={zoom}
         filmDimensionsContainer={filmDimensionsContainer}
       />
-      {(userInfos.pseudo === '' || !userInfos.isUserPlaying) ? (
+      {(userInfos.name === '' || !userInfos.isUserPlaying) ? (
         <div className="tooltip" data-tip="Vous devez vous connecter et rejoindre la partie pour participer">
           <button
             type="button"

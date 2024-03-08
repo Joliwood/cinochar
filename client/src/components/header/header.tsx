@@ -14,8 +14,8 @@ function Header() {
       <div className="flex-none">
         <nav className="flex items-center justify-between">
           <div className="font-semibold text-xl">Cinochar</div>
-          <HeaderLinksSmall pseudo={userInfos.pseudo} />
-          <HeaderLinksBig pseudo={userInfos.pseudo} />
+          <HeaderLinksSmall name={userInfos.name} />
+          <HeaderLinksBig name={userInfos.name} />
         </nav>
       </div>
     </header>

@@ -24,7 +24,7 @@ function LoginPage() {
     if (typeof result === 'string') {
       setMessage(result);
     } else {
-      setUserInfos({ ...userInfos, pseudo: result.user.pseudo });
+      setUserInfos({ ...userInfos, name: result.user.name });
       router.push('/');
     }
   };

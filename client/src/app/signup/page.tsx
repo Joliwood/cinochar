@@ -7,7 +7,7 @@ import { handleSignup } from '#utils';
 import Header from '../../components/header/header';
 
 function Signup() {
-  const [pseudo, setPseudo] = useState('');
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -22,7 +22,7 @@ function Signup() {
       return;
     }
 
-    const result: string = await handleSignup(pseudo, email, password);
+    const result: string = await handleSignup(name, email, password);
     setMessage(result);
     // if we receive response, we redirect to main page
     if (result === 'Votre compte a bien été créé') {
@@ -49,8 +49,8 @@ function Signup() {
                 className="w-full input input-bordered"
                 name="pseudo"
                 placeholder="Votre pseudo"
-                value={pseudo}
-                onChange={(e) => setPseudo(e.target.value)}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 required
               />
             </label>

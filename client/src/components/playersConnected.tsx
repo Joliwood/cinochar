@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Socket, io } from 'socket.io-client';
 import { Player } from '#types';
 
@@ -9,13 +9,22 @@ const socket: Socket = io(process.env.NEXT_PUBLIC_API_URL as string);
 
 function PlayersConnected() {
   const [playerList, setPlayerList] = useState<Player[]>([]);
-  const sortedPlayerList: Player[] = playerList.slice().sort((a, b) => b.points - a.points);
 
   useEffect(() => {
     socket.on('player-list', (players: Player[]) => {
       setPlayerList(players);
     });
   }, [playerList]);
+
+  const sortedPlayerList = useMemo(() => (
+    playerList.slice().sort((a, b) => b.points - a.points).map((player: Player, index: number) => (
+      <tr key={player.name}>
+        <th>{index + 1}</th>
+        <td>{player.name}</td>
+        <td>{player.points}</td>
+      </tr>
+    ))
+  ), [playerList]);
 
   return (
     <div className="lg:absolute my-5 top-[150px] left-5 shadow rounded-lg p-5 flex flex-col bg-white items-center w-[85vw] xs:w-auto">
@@ -31,13 +40,7 @@ function PlayersConnected() {
             </tr>
           </thead>
           <tbody>
-            {sortedPlayerList.map((player: Player, index: number) => (
-              <tr key={player.name}>
-                <th>{index + 1}</th>
-                <td>{player.name}</td>
-                <td>{player.points}</td>
-              </tr>
-            ))}
+            {sortedPlayerList}
           </tbody>
         </table>
       </div>

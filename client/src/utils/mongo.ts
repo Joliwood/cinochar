@@ -1,3 +1,5 @@
+'use server';
+
 import { MongoClient } from 'mongodb';
 
 const MONGODB_URI: string | undefined = process.env.MONGO_DB_CONNECT;
