@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState, useContext, FormEvent } from 'react';
+import React, { useState, useContext, type FormEvent } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+import { type AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
 import { Header } from '../../components';
 import { UserContext } from '../../context/UserContext';

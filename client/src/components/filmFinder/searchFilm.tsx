@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useContext } from 'react';
-import { io, Socket } from 'socket.io-client';
+import { io, type Socket } from 'socket.io-client';
 
 import { UserContext } from '../../context/UserContext';
 
@@ -151,6 +151,7 @@ function SearchFilm() {
           />
           <button
             type="submit"
+            aria-label="submit answer"
             className="btn btn-square border-1 border-l-0 border-gray-300  hover:bg-gray-300"
             onClick={testMatchingResult}
             disabled={!isUserPlaying}

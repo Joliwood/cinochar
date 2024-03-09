@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-import { UserInfos } from '#types';
+import { type UserInfos } from '#types';
 import { handleLogout } from '#utils';
 
 function headerLinksBig({ name }: { name: UserInfos['name'] }) {

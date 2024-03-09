@@ -1,5 +1,5 @@
-import axios from "axios";
-import sharp from "sharp";
+import axios from 'axios';
+import sharp from 'sharp';
 
 type Props = {
   zoom: number;
@@ -15,9 +15,9 @@ const getRandomPosition = async (props: Props) => {
   const image = sharp(response.data);
   const metadata = await image.metadata();
 
-  const width = metadata.width;
-  const height = metadata.height;
-  console.log(metadata)
+  const { width } = metadata;
+  const { height } = metadata;
+  console.log(metadata);
 
   if (!width || !height) {
     throw new Error('Invalid image dimensions');
@@ -35,8 +35,8 @@ const getRandomPosition = async (props: Props) => {
   const xMax = widthRendered - (filmDimensionsContainer / zoom);
   const yMax = heightRendered - (heightRendered / zoom);
 
-  console.log("zoom : ", zoom, ". FilmDimensionsContainer : ", filmDimensionsContainer)
-  console.log("Width pixel : ", width, "px. Height pixel : ", height, "px. Aspect ratio is : ", aspectRatio, ". Xmax = ", xMax, ". Ymax = ", yMax);
+  console.log('zoom : ', zoom, '. FilmDimensionsContainer : ', filmDimensionsContainer);
+  console.log('Width pixel : ', width, 'px. Height pixel : ', height, 'px. Aspect ratio is : ', aspectRatio, '. Xmax = ', xMax, '. Ymax = ', yMax);
 
   const randomX = Math.floor(Math.random() * xMax);
   const randomY = Math.floor(Math.random() * yMax);

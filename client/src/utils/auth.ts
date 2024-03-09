@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { type AxiosResponse } from 'axios';
 import { jwtDecode } from 'jwt-decode';
 
 import type { UserFromMongo, UserDecodedToken } from '#types';

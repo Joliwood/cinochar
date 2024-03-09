@@ -7,7 +7,7 @@ import { UserContext } from '../../context/UserContext';
 
 import FilmButton from './filmButton';
 
-import { UserContextType } from '#types';
+import { type UserContextType } from '#types';
 
 function UtilityFilmBar({
   zoom,

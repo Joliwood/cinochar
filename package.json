@@ -8,7 +8,8 @@
   "scripts": {
     "dev:client": "yarn workspace client dev:client",
     "dev:server": "yarn workspace server dev:server",
-    "dev": "concurrently \"yarn start-server\" \"yarn start-client\""
+    "dev": "concurrently \"yarn start-server\" \"yarn start-client\"",
+    "eslint": "concurrently \"yarn workspace client eslint\" \"yarn workspace server eslint\""
   },
   "workspaces": [
     "client",

@@ -11,15 +11,15 @@ const ResetCountdownSocket = (io: Server, socket: Socket) => {
         clearInterval(countDownInterval);
       } else
 
-      if (gameInfos.countdown > 0) {
-        gameInfos.countdown--;
-        io.emit('get-countdown', gameInfos.countdown);
-      } else {
-        clearInterval(countDownInterval);
-      }
+        if (gameInfos.countdown > 0) {
+          gameInfos.countdown -= 1;
+          io.emit('get-countdown', gameInfos.countdown);
+        } else {
+          clearInterval(countDownInterval);
+        }
     }, 1000);
-  }
-  socket.on("reset-countdown", resetCountdown);
-}
+  };
+  socket.on('reset-countdown', resetCountdown);
+};
 
 export default ResetCountdownSocket;

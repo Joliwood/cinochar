@@ -1,8 +1,8 @@
-import express from "express";
-import { createServer } from "http";
+import express from 'express';
+import { createServer } from 'http';
 import { Server } from 'socket.io';
-import { 
-  disconnectSocket, 
+import {
+  disconnectSocket,
   getCooldownSocket,
   InitSocket,
   newFilmNameSocket,
@@ -11,7 +11,7 @@ import {
   playerConnectSocket,
   randomPositionZoomSocket,
   resetCountdownSocket,
- } from "./sockets";
+} from './sockets';
 
 const app = express();
 const server = createServer(app);
@@ -22,7 +22,7 @@ export const io = new Server(server, {
   },
 });
 
-io.on("connection", (socket) => {
+io.on('connection', (socket) => {
   disconnectSocket(io, socket);
   getCooldownSocket(io, socket);
   InitSocket(io, socket);
@@ -30,10 +30,10 @@ io.on("connection", (socket) => {
   newFilmUrlSocket(io, socket);
   playerAddPointsSocket(io, socket);
   playerConnectSocket(io, socket);
-  randomPositionZoomSocket(io, socket)
+  randomPositionZoomSocket(io, socket);
   resetCountdownSocket(io, socket);
 });
 
 server.listen(8000, () => {
-  console.log('✔️ Server listening on port 8000')
+  console.log('✔️ Server listening on port 8000');
 });

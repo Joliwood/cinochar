@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { type AxiosResponse } from 'axios';
 
 const handleSignup = async (name: string, email: string, password: string) => {
   try {

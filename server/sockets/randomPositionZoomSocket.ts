@@ -6,15 +6,19 @@ const RandomPositionZoomSocket = (io: Server, socket: Socket) => {
   const randomPositionZoom = async (position: any) => {
     const { zoom, filmDimensionsContainer } = position;
     const { filmUrlFromSocket } = gameInfos;
-    
-    let randomZoomPosition = await getRandomPosition({ zoom, filmDimensionsContainer, filmUrlFromSocket });
+
+    const randomZoomPosition = await getRandomPosition({
+      zoom,
+      filmDimensionsContainer,
+      filmUrlFromSocket,
+    });
 
     console.log('The new random position is : ', randomZoomPosition.x, randomZoomPosition.y);
 
     gameInfos.zoomPositionFromSocket = randomZoomPosition;
-    await io.emit("random-position-zoom", gameInfos.zoomPositionFromSocket);
-  }
-  socket.on("random-position-zoom", randomPositionZoom);
-}
+    await io.emit('random-position-zoom', gameInfos.zoomPositionFromSocket);
+  };
+  socket.on('random-position-zoom', randomPositionZoom);
+};
 
 export default RandomPositionZoomSocket;

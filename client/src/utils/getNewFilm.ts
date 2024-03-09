@@ -1,5 +1,5 @@
-import axios, { AxiosResponse } from 'axios';
-import { Socket } from 'socket.io-client';
+import axios, { type AxiosResponse } from 'axios';
+import { type Socket } from 'socket.io-client';
 
 import type { FilmFromMongo } from '#types';
 

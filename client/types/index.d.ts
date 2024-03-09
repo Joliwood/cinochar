@@ -1,4 +1,4 @@
-import { ObjectId } from 'mongodb';
+import { type ObjectId } from 'mongodb';
 
 export type Login = {
   // If the login fails, it will return only a message

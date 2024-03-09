@@ -1,13 +1,14 @@
 import React from 'react';
 import Link from 'next/link';
 
-import { UserInfos } from '#types';
+import { type UserInfos } from '#types';
 import { handleLogout } from '#utils';
 
 function headerLinksSmall({ name }: { name: UserInfos['name'] }) {
   return (
     <div className="dropdown dropdown-bottom dropdown-end lg:hidden">
       <button
+        aria-label="open menu"
         className="block lg:hidden"
         type="button"
       >
