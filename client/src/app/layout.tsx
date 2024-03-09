@@ -12,7 +12,7 @@ import type { Props } from '#types';
 export default function RootLayout({
   children,
 }: {
-  children: Props
+  children: Props | any
 }) {
   return (
     <html lang="en">

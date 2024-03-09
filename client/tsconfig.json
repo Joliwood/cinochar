@@ -17,7 +17,7 @@
     // "esModuleInterop": true,
     "resolveJsonModule": true,
     // "isolatedModules": true
-    "outDir": "./dist/",
+    "outDir": "./.next/",
     "noImplicitAny": false,
     "module": "ESNext",
     "target": "es5",

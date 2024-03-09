@@ -9,7 +9,6 @@
     "check:full": "yarn typescript && yarn eslint",
     "dev:server": "nodemon --ext ts --exec ts-node ./index.ts",
     "eslint": "eslint .",
-    "server": "nodemon index.mjs",
     "typescript": "yarn tsc --noEmit"
   },
   "dependencies": {
