@@ -46,6 +46,14 @@
         "./src/utils/"
       ]
     },
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "incremental": true,
+    "esModuleInterop": true,
+    "isolatedModules": true
     // "lib": [
     //   "dom",
     //   "dom.iterable",
@@ -61,7 +69,8 @@
     ".eslintrc.js",
     "tailwind.config.cjs",
     // ".next/types/**/*.ts",
-    "./public/*"
+    "./public/*",
+    ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",

@@ -2,10 +2,10 @@
   "default": [
     [
       [
-        "cd client && yarn dev"
+        "yarn dev:client"
       ],
       [
-        "cd server && yarn dev"
+        "yarn dev:server"
       ]
     ]
   ]

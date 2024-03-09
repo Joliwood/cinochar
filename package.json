@@ -1,15 +1,19 @@
 {
   "name": "cinochar",
   "version": "1.0.0",
-  "main": "index.js",
+  "private": true,
   "repository": "git@github.com:Joliwood/cinochar.git",
   "author": "Guillaume <jolibois.contact@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "front": "cd client && yarn dev",
-    "back": "cd server && yarn server",
+    "dev:client": "yarn workspace client dev:client",
+    "dev:server": "yarn workspace server dev:server",
     "dev": "concurrently \"yarn start-server\" \"yarn start-client\""
   },
+  "workspaces": [
+    "client",
+    "server"
+  ],
   "devDependencies": {
     "concurrently": "^8.2.0"
   }
