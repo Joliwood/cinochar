@@ -6,7 +6,7 @@ import type {
 import type { FilmFromMongo } from '#types';
 import { connectToDatabase } from '#utils';
 
-export default async function getFilms(_: NextApiRequest, res: NextApiResponse) {
+export default async function getFilms(_req: NextApiRequest, res: NextApiResponse) {
   const client: MongoClient = await connectToDatabase();
   const db: Db = client.db();
   const collection: Collection<FilmFromMongo> = db.collection('films-collection');

@@ -44,7 +44,10 @@
       ],
       "#utils": [
         "./src/utils/"
-      ]
+      ],
+      "#components": [
+        "./src/components/"
+      ],
     },
     "lib": [
       "dom",

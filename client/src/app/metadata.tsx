@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Metadata() {
+const Metadata = () => {
   return (
     <>
       <title>Cinochar</title>
@@ -25,6 +25,6 @@ function Metadata() {
       <link rel="manifest" href="/manifest.json" />
     </>
   );
-}
+};
 
 export default Metadata;

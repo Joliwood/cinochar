@@ -4,12 +4,11 @@ import React, { useContext } from 'react';
 
 import { UserContext } from '../../context/UserContext';
 
-import HeaderLinksBig from './headerLinks.big';
-import HeaderLinksSmall from './headerLinks.small';
+import { HeaderLinksBig, HeaderLinksSmall } from '#components';
 
 import type { UserContextType } from '#types';
 
-function Header() {
+const Header = () => {
   const { userInfos } = useContext<UserContextType>(UserContext);
 
   return (
@@ -23,6 +22,6 @@ function Header() {
       </div>
     </header>
   );
-}
+};
 
 export default Header;

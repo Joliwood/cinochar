@@ -6,7 +6,7 @@ import type {
 import type { UsersFromMongo } from '#types';
 import { connectToDatabase } from '#utils';
 
-export default async function getPlayersRanking(_: NextApiRequest, res: NextApiResponse) {
+export default async function getPlayersRanking(_req: NextApiRequest, res: NextApiResponse) {
   const client: MongoClient = await connectToDatabase();
   const db: Db = client.db();
   const collection: Collection<UsersFromMongo> = db.collection('players-ranking');

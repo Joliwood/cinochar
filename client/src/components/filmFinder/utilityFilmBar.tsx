@@ -7,19 +7,17 @@ import jokerSvg from '../../../public/images/joker.svg';
 import revealSvg from '../../../public/images/reveal.svg';
 import { UserContext } from '../../context/UserContext';
 
-import FilmButton from './filmButton';
-
+import { FilmButton } from '#components';
 import { type UserContextType } from '#types';
 
-function UtilityFilmBar({
-  zoom,
-  filmDimensionsContainer,
-  countdownValue,
-}: {
+type Props = {
   zoom: number;
   filmDimensionsContainer: number;
   countdownValue: number | null;
-}) {
+};
+
+const UtilityFilmBar = (props: Props) => {
+  const { zoom, filmDimensionsContainer, countdownValue } = props;
   const { userInfos, setUserInfos } = useContext<UserContextType>(UserContext);
 
   const handleJokerClick = () => {
@@ -83,6 +81,6 @@ function UtilityFilmBar({
       )}
     </div>
   );
-}
+};
 
 export default UtilityFilmBar;

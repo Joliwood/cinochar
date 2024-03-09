@@ -14,7 +14,7 @@ import { type UserContextType } from '#types';
 //! This line MUST BE before the component -> High risk of inifity loop
 const socket: Socket = io(process.env.NEXT_PUBLIC_API_URL as string);
 
-function RoomJoin() {
+const RoomJoin = () => {
   const { userInfos, setUserInfos } = useContext<UserContextType>(UserContext);
 
   useEffect(() => {
@@ -53,6 +53,6 @@ function RoomJoin() {
       )}
     </div>
   );
-}
+};
 
 export default RoomJoin;

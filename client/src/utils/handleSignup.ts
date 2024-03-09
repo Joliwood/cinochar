@@ -1,6 +1,6 @@
 import axios, { type AxiosResponse } from 'axios';
 
-const handleSignup = async (name: string, email: string, password: string) => {
+async function handleSignup(name: string, email: string, password: string) {
   try {
     const response: AxiosResponse<{ status: number, message: string }> = await axios.post('/api/register', {
       name,
@@ -17,6 +17,6 @@ const handleSignup = async (name: string, email: string, password: string) => {
     }
     return 'Unknown error occurred';
   }
-};
+}
 
 export default handleSignup;

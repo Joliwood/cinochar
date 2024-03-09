@@ -12,14 +12,13 @@ import { type UserContextType } from '#types';
 // Socket.io types provded : Socket<DefaultEventsMap, DefaultEventsMap>  generate TS error
 const socket: Socket = io(process.env.NEXT_PUBLIC_API_URL as string);
 
-// eslint-disable-next-line react/prop-types
-function FilmButton({
-  zoom,
-  filmDimensionsContainer,
-}:{
-  zoom: number,
-  filmDimensionsContainer: number
-}) {
+type Props = {
+  zoom: number;
+  filmDimensionsContainer: number;
+};
+
+const FilmButton = (props: Props) => {
+  const { zoom, filmDimensionsContainer } = props;
   const { userInfos, setUserInfos } = useContext<UserContextType>(UserContext);
   const cooldownDuration: number = 5;
   const [counter, setCounter] = useState<number>(0);
@@ -97,6 +96,6 @@ function FilmButton({
       </button>
     )
   );
-}
+};
 
 export default FilmButton;

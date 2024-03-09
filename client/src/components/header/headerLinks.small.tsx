@@ -4,7 +4,13 @@ import Link from 'next/link';
 import { type UserInfos } from '#types';
 import { handleLogout } from '#utils';
 
-function headerLinksSmall({ name }: { name: UserInfos['name'] }) {
+type Props = {
+  name: UserInfos['name'];
+};
+
+const headerLinksSmall = (props: Props) => {
+  const { name } = props;
+
   return (
     <div className="dropdown dropdown-bottom dropdown-end lg:hidden">
       <button
@@ -31,6 +37,6 @@ function headerLinksSmall({ name }: { name: UserInfos['name'] }) {
       </ul>
     </div>
   );
-}
+};
 
 export default headerLinksSmall;

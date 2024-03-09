@@ -8,21 +8,25 @@ import lkrazakeAnimation from '../../../public/images/animation_lkrazake.json';
 
 import type { RandomFilmPosition } from '#types';
 
-function FilmViewer({
-  filmDimensionsContainer,
-  randomMovieName,
-  movieUrl,
-  zoomPosition,
-  zoom,
-  revealImg,
-}: {
+type Props = {
   filmDimensionsContainer: number;
   randomMovieName: string | undefined;
   movieUrl: string;
   zoomPosition: RandomFilmPosition | null;
   zoom: number;
   revealImg: boolean;
-}) {
+};
+
+const FilmViewer = (props: Props) => {
+  const {
+    filmDimensionsContainer,
+    randomMovieName,
+    movieUrl,
+    zoomPosition,
+    zoom,
+    revealImg,
+  } = props;
+
   return (
     <div
       className="film-square shadow-md flex max-w-[95vw]"
@@ -58,6 +62,6 @@ function FilmViewer({
       )}
     </div>
   );
-}
+};
 
 export default FilmViewer;

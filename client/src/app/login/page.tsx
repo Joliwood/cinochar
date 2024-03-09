@@ -5,13 +5,13 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { type AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
-import { Header } from '../../components';
 import { UserContext } from '../../context/UserContext';
 
+import { Header } from '#components';
 import type { Login, UserContextType } from '#types';
 import { handleLogin } from '#utils';
 
-function LoginPage() {
+const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -79,6 +79,6 @@ function LoginPage() {
       </form>
     </div>
   );
-}
+};
 
 export default LoginPage;

@@ -3,11 +3,11 @@ import { type Socket } from 'socket.io-client';
 
 import type { FilmFromMongo } from '#types';
 
-const getNewFilm = async (
+async function getNewFilm(
   socket: Socket,
   zoom: number,
   filmDimensionsContainer: number,
-) => {
+) {
   try {
     // const response = await fetch('/api/getFilm');
     const response: AxiosResponse<FilmFromMongo> = await axios.get('/api/getFilm');
@@ -39,6 +39,6 @@ const getNewFilm = async (
     }
     console.error('Unknown error occurred');
   }
-};
+}
 
 export default getNewFilm;

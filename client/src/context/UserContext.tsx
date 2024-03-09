@@ -8,11 +8,11 @@ import React, {
 import type { UserContextType, UserProps, UserInfos } from '#types';
 
 const userInitState: UserInfos = {
+  isUserPlaying: false,
+  jokers: 2,
   name: '',
   points: 0,
-  jokers: 2,
   revealImg: false,
-  isUserPlaying: false,
 };
 
 const UserContext = createContext<UserContextType>({

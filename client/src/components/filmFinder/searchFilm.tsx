@@ -5,18 +5,14 @@ import { io, type Socket } from 'socket.io-client';
 
 import { UserContext } from '../../context/UserContext';
 
-import FilmViewer from './filmViewer';
-
-import UtilityFilmBar from './utilityFilmBar';
-
+import { FilmViewer, UtilityFilmBar } from '#components';
 import type { Player, RandomFilmPosition, UserContextType } from '#types';
-
 import { handleAddPoints } from '#utils';
 
 //! This line MUST BE before the component -> High risk of inifity loop
 const socket: Socket = io(process.env.NEXT_PUBLIC_API_URL as string);
 
-function SearchFilm() {
+const SearchFilm = () => {
   // Main movie picture
   const [movieUrl, setMovieUrl] = useState<string>('');
   // Random film to find by the user
@@ -163,6 +159,6 @@ function SearchFilm() {
       </div>
     </div>
   );
-}
+};
 
 export default SearchFilm;

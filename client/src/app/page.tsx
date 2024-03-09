@@ -8,9 +8,9 @@ import {
   RoomJoin,
   PlayersClassement,
   PlayersConnected,
-} from '../components';
+} from '#components';
 
-function Home() {
+const Home = () => {
   return (
     <div className="min-h-screen flex flex-col items-center mt-[80px]">
       <Header />
@@ -20,6 +20,6 @@ function Home() {
       <PlayersConnected />
     </div>
   );
-}
+};
 
 export default Home;

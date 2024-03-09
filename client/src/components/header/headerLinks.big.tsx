@@ -4,7 +4,13 @@ import Link from 'next/link';
 import { type UserInfos } from '#types';
 import { handleLogout } from '#utils';
 
-function headerLinksBig({ name }: { name: UserInfos['name'] }) {
+type Props = {
+  name: UserInfos['name'];
+};
+
+const headerLinksBig = (props: Props) => {
+  const { name } = props;
+
   return (
     <ul className="menu menu-horizontal px-1 gap-3 py-0 hidden lg:flex">
 
@@ -32,6 +38,6 @@ function headerLinksBig({ name }: { name: UserInfos['name'] }) {
 
     </ul>
   );
-}
+};
 
 export default headerLinksBig;

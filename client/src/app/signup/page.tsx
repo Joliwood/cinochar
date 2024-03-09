@@ -4,11 +4,10 @@ import React, { useState, type FormEvent } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-import Header from '../../components/header/header';
-
+import { Header } from '#components';
 import { handleSignup } from '#utils';
 
-function Signup() {
+const Signup = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -116,6 +115,6 @@ function Signup() {
       </div>
     </div>
   );
-}
+};
 
 export default Signup;

@@ -3,7 +3,7 @@ import { jwtDecode } from 'jwt-decode';
 
 import type { UserDecodedToken } from '#types';
 
-const handleAddPoints = async (points: number) => {
+async function handleAddPoints(points: number) {
   const storedToken: string | null = localStorage.getItem('token');
 
   if (!storedToken) {
@@ -21,6 +21,6 @@ const handleAddPoints = async (points: number) => {
   });
 
   return 'Points added.';
-};
+}
 
 export default handleAddPoints;

@@ -3,7 +3,7 @@ import { jwtDecode } from 'jwt-decode';
 
 import type { UserFromMongo, UserDecodedToken } from '#types';
 
-const auth = async () => {
+async function auth() {
   const storedToken: string | null = localStorage.getItem('token');
 
   if (!storedToken) {
@@ -30,6 +30,6 @@ const auth = async () => {
     }
     return 'Unknown error occurred';
   }
-};
+}
 
 export default auth;

@@ -4,7 +4,6 @@ import { players } from '../data';
 const DisconnectSocket = (io: Server, socket: Socket) => {
   const disconnect = () => {
     const socketId = socket.id;
-    console.log('we are', socketId);
     const playerDisconnected = players.find((player) => player.socketId === socketId);
 
     if (playerDisconnected) {

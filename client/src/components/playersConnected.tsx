@@ -8,7 +8,7 @@ import { type Player } from '#types';
 //! This line MUST BE before the component -> High risk of inifity loop
 const socket: Socket = io(process.env.NEXT_PUBLIC_API_URL as string);
 
-function PlayersConnected() {
+const PlayersConnected = () => {
   const [playerList, setPlayerList] = useState<Player[]>([]);
 
   useEffect(() => {
@@ -47,6 +47,6 @@ function PlayersConnected() {
       </div>
     </div>
   );
-}
+};
 
 export default PlayersConnected;
