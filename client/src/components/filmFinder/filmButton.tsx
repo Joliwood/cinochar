@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Socket, io } from 'socket.io-client';
+
+import { UserContext } from '../../context/UserContext';
+
 import { getNewFilm } from '#utils';
 import { UserContextType } from '#types';
-import { UserContext } from '../../context/UserContext';
 
 //! This line MUST BE before the component -> High risk of inifity loop
 // Socket.io types provded : Socket<DefaultEventsMap, DefaultEventsMap>  generate TS error

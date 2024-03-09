@@ -1,13 +1,13 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "index.ts",
   "type": "commonjs",
   "license": "MIT",
   "scripts": {
     "build": "tsc",
     "check:full": "yarn typescript && yarn eslint",
-    "dev": "ts-node index.ts",
+    "dev": "nodemon --ext ts --exec ts-node ./index.ts",
     "eslint": "eslint .",
     "server": "nodemon index.mjs",
     "typescript": "yarn tsc --noEmit"

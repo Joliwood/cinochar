@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import type {
   Collection, Db, MongoClient,
 } from 'mongodb';
+
 import type { FilmFromMongo } from '#types';
 import { connectToDatabase } from '#utils';
 

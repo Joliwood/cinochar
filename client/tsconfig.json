@@ -1,5 +1,22 @@
 {
   "compilerOptions": {
+    // "outDir": "./dist/",
+    // "noImplicitAny": false,
+    // "module": "ESNext",
+    // "target": "es5",
+    // "jsx": "preserve",
+    // "allowJs": true,
+    // "moduleResolution": "node",
+    // "noEmitOnError": true,
+    // "strict": true,
+    // "allowSyntheticDefaultImports": true,
+    // "allowImportingTsExtensions": true,
+    // "noEmit": true,
+    // "skipLibCheck": true,
+    // "incremental": true,
+    // "esModuleInterop": true,
+    "resolveJsonModule": true,
+    // "isolatedModules": true
     "outDir": "./dist/",
     "noImplicitAny": false,
     "module": "ESNext",
@@ -29,25 +46,21 @@
         "./src/utils/"
       ]
     },
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "incremental": true,
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true
+    // "lib": [
+    //   "dom",
+    //   "dom.iterable",
+    //   "esnext"
+    // ],
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.js",
     "**/*.tsx",
-    "src/utils/mongo.ts",
+    // "src/utils/mongo.ts",
     ".eslintrc.js",
     "tailwind.config.cjs",
-    ".next/types/**/*.ts",
+    // ".next/types/**/*.ts",
     "./public/*"
   ],
   "exclude": [

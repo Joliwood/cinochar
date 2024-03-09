@@ -4,10 +4,12 @@ import React, { useState, useContext, FormEvent } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
-import type { Login, UserContextType } from '#types';
+
 import { Header } from '../../components';
-import { handleLogin } from '#utils';
 import { UserContext } from '../../context/UserContext';
+
+import type { Login, UserContextType } from '#types';
+import { handleLogin } from '#utils';
 
 function LoginPage() {
   const [email, setEmail] = useState('');

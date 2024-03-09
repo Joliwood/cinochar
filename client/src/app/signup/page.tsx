@@ -3,8 +3,10 @@
 import React, { useState, FormEvent } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { handleSignup } from '#utils';
+
 import Header from '../../components/header/header';
+
+import { handleSignup } from '#utils';
 
 function Signup() {
   const [name, setName] = useState('');

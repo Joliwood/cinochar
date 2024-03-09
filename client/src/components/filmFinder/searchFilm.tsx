@@ -2,10 +2,15 @@
 
 import React, { useState, useEffect, useContext } from 'react';
 import { io, Socket } from 'socket.io-client';
-import type { Player, RandomFilmPosition, UserContextType } from '#types';
-import FilmViewer from './filmViewer';
-import UtilityFilmBar from './utilityFilmBar';
+
 import { UserContext } from '../../context/UserContext';
+
+import FilmViewer from './filmViewer';
+
+import UtilityFilmBar from './utilityFilmBar';
+
+import type { Player, RandomFilmPosition, UserContextType } from '#types';
+
 import { handleAddPoints } from '#utils';
 
 //! This line MUST BE before the component -> High risk of inifity loop

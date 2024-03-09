@@ -6,8 +6,10 @@
 import React, { useEffect, useContext } from 'react';
 import { Socket, io } from 'socket.io-client';
 import Image from 'next/image';
-import { UserContextType } from '#types';
+
 import { UserContext } from '../context/UserContext';
+
+import { UserContextType } from '#types';
 
 //! This line MUST BE before the component -> High risk of inifity loop
 const socket: Socket = io(process.env.NEXT_PUBLIC_API_URL as string);

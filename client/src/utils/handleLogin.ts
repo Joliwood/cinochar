@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
+
 import type { Login } from '#types';
 
 const handleLogin = async (email: string, password: string) => {

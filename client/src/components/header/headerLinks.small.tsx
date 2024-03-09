@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+
 import { UserInfos } from '#types';
 import { handleLogout } from '#utils';
 

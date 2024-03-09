@@ -1,10 +1,13 @@
 import React, { useContext } from 'react';
 import Image from 'next/image';
-import { UserContextType } from '#types';
-import FilmButton from './filmButton';
+
 import jokerSvg from '../../../public/images/joker.svg';
 import revealSvg from '../../../public/images/reveal.svg';
 import { UserContext } from '../../context/UserContext';
+
+import FilmButton from './filmButton';
+
+import { UserContextType } from '#types';
 
 function UtilityFilmBar({
   zoom,

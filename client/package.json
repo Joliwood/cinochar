@@ -3,12 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
+    "check:full": "yarn typescript && yarn eslint",
+    "dev": "next dev",
+    "eslint": "eslint .",
     "start": "next start",
-    "lint": "next lint"
+    "typescript": "yarn tsc --noEmit"
   },
-  "main": "index.js",
+  "main": "index.ts",
   "repository": "git@github.com:Joliwood/cinochar.git",
   "author": "Guillaume <jolibois.contact@gmail.com>",
   "license": "MIT",
