@@ -14,6 +14,12 @@ import {
 } from './sockets';
 
 const app = express();
+
+// const options = {
+//   key: readFileSync('key.pem'),
+//   cert: readFileSync('cert.pem'),
+// };
+
 const server = createServer(app);
 
 export const io = new Server(server, {
