@@ -30,4 +30,12 @@ module.exports = {
     ],
   },
   ignorePatterns: ['tailwind.config.js'],
+  settings: {
+    'import/resolver': {
+      typescript: {
+        alwaysTryTypes: true,
+        project: `${__dirname}/tsconfig.json`,
+      },
+    },
+  },
 };

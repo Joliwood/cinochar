@@ -1,15 +1,13 @@
 import React from 'react';
 import Link from 'next/link';
+import { useRecoilValue } from 'recoil';
 
-import { type UserInfos } from '#types';
 import { handleLogout } from '#utils';
+import { userInfosState } from '#store';
 
-type Props = {
-  name: UserInfos['name'];
-};
-
-const headerLinksSmall = (props: Props) => {
-  const { name } = props;
+const HeaderLinksSmall = (): JSX.Element => {
+  const userInfos = useRecoilValue(userInfosState);
+  const { name } = userInfos;
 
   return (
     <div className="dropdown dropdown-bottom dropdown-end lg:hidden">
@@ -39,4 +37,4 @@ const headerLinksSmall = (props: Props) => {
   );
 };
 
-export default headerLinksSmall;
+export default HeaderLinksSmall;

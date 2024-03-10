@@ -3,9 +3,11 @@
 import React from 'react';
 import Image from 'next/image';
 import { Player } from '@lottiefiles/react-lottie-player';
+import { useRecoilValue } from 'recoil';
 
 import lkrazakeAnimation from '../../../public/images/animation_lkrazake.json';
 
+import { userInfosState } from '#store';
 import type { RandomFilmPosition } from '#types';
 
 type Props = {
@@ -14,7 +16,6 @@ type Props = {
   movieUrl: string;
   zoomPosition: RandomFilmPosition | null;
   zoom: number;
-  revealImg: boolean;
 };
 
 const FilmViewer = (props: Props) => {
@@ -24,8 +25,9 @@ const FilmViewer = (props: Props) => {
     movieUrl,
     zoomPosition,
     zoom,
-    revealImg,
   } = props;
+
+  const userInfos = useRecoilValue(userInfosState);
 
   return (
     <div
@@ -33,7 +35,7 @@ const FilmViewer = (props: Props) => {
       style={{
         width: `${filmDimensionsContainer}px`,
         /* , height: `${filmDimensionsContainer}px` */
-        overflowX: revealImg ? 'scroll' : 'hidden',
+        overflowX: userInfos.revealImg ? 'scroll' : 'hidden',
       }}
     >
       {randomMovieName && movieUrl ? (
@@ -46,7 +48,7 @@ const FilmViewer = (props: Props) => {
           priority
           style={{
             display: zoomPosition !== null ? 'inherit' : 'none',
-            transform: zoomPosition !== null && !revealImg
+            transform: zoomPosition !== null && !userInfos.revealImg
               ? `scale(${zoom}) translate(${zoomPosition.x}px, ${zoomPosition.y}px)`
               : 'none',
           }}

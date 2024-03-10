@@ -1,15 +1,13 @@
 import React from 'react';
 import Link from 'next/link';
+import { useRecoilValue } from 'recoil';
 
-import { type UserInfos } from '#types';
 import { handleLogout } from '#utils';
+import { userInfosState } from '#store';
 
-type Props = {
-  name: UserInfos['name'];
-};
-
-const headerLinksBig = (props: Props) => {
-  const { name } = props;
+const HeaderLinksBig = (): JSX.Element => {
+  const userInfos = useRecoilValue(userInfosState);
+  const { name } = userInfos;
 
   return (
     <ul className="menu menu-horizontal px-1 gap-3 py-0 hidden lg:flex">
@@ -40,4 +38,4 @@ const headerLinksBig = (props: Props) => {
   );
 };
 
-export default headerLinksBig;
+export default HeaderLinksBig;

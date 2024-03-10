@@ -7,7 +7,8 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import jokerSvg from '../../../public/images/joker.svg';
 import revealSvg from '../../../public/images/reveal.svg';
 
-import { FilmButton } from '#components';
+import FilmButton from './filmButton';
+
 import { userInfosState } from '#store';
 
 type Props = {

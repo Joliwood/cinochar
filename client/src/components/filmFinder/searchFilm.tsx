@@ -2,11 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { io, type Socket } from 'socket.io-client';
-
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
+import FilmViewer from './filmViewer';
+import UtilityFilmBar from './utilityFilmBar';
+
 import { userInfosState } from '#store';
-import { FilmViewer, UtilityFilmBar } from '#components';
 import type { Player, RandomFilmPosition } from '#types';
 import { handleAddPoints } from '#utils';
 
@@ -129,7 +130,6 @@ const SearchFilm = () => {
         movieUrl={movieUrl}
         zoomPosition={zoomPosition}
         zoom={zoom}
-        revealImg={userInfos.revealImg}
       />
 
       {/* Only show the message if the matchResult isn't null */}
