@@ -1,9 +1,11 @@
 'use client';
 
 import React from 'react';
+import {
+  RecoilRoot,
+} from 'recoil';
 
 import './globals.css';
-import { UserContextProvider } from '../context/UserContext';
 
 import Metadata from './metadata';
 
@@ -18,9 +20,9 @@ export default function RootLayout({
     <html lang="en">
       <Metadata />
       <body>
-        <UserContextProvider>
+        <RecoilRoot>
           {children}
-        </UserContextProvider>
+        </RecoilRoot>
       </body>
     </html>
   );

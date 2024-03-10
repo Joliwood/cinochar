@@ -1,15 +1,14 @@
 'use client';
 
-import React, { useContext } from 'react';
-
-import { UserContext } from '../../context/UserContext';
+import React from 'react';
+import { useRecoilValue } from 'recoil';
 
 import { HeaderLinksBig, HeaderLinksSmall } from '#components';
 
-import type { UserContextType } from '#types';
+import { userInfosState } from '#store';
 
 const Header = () => {
-  const { userInfos } = useContext<UserContextType>(UserContext);
+  const userInfos = useRecoilValue(userInfosState);
 
   return (
     <header className="fixed top-0 w-screen p-4 shadow-sm z-10 bg-[#ffffffe5]">

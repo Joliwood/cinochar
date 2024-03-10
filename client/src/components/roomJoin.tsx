@@ -3,19 +3,20 @@
 // Since the Next.js version >= 13, every component in the app folder is
 // considered to be a server file To tell Next it is a client file, we have to
 // use that before any import
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import { type Socket, io } from 'socket.io-client';
 import Image from 'next/image';
 
-import { UserContext } from '../context/UserContext';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
-import { type UserContextType } from '#types';
+import { userInfosState } from '#store';
 
 //! This line MUST BE before the component -> High risk of inifity loop
 const socket: Socket = io(process.env.NEXT_PUBLIC_API_URL as string);
 
 const RoomJoin = () => {
-  const { userInfos, setUserInfos } = useContext<UserContextType>(UserContext);
+  const userInfos = useRecoilValue(userInfosState);
+  const setUserInfos = useSetRecoilState(userInfosState);
 
   useEffect(() => {
     socket.emit('init');

@@ -10,7 +10,8 @@ export default async function getPlayersRanking(_req: NextApiRequest, res: NextA
   const client: MongoClient = await connectToDatabase();
   const db: Db = client.db();
   const collection: Collection<UsersFromMongo> = db.collection('players-ranking');
-  const response: UsersFromMongo[] | any = await collection.find({}).toArray();
+  // const response: UsersFromMongo[] | any = await collection.find({}).toArray();
+  const response: UsersFromMongo[] | any = await collection.find({}).sort({ points: -1 }).toArray();
 
   res.status(200).json(response);
 }

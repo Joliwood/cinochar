@@ -1,21 +1,23 @@
 'use client';
 
-import React, { useState, useContext, type FormEvent } from 'react';
+import React, { useState, type FormEvent } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { type AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
-import { UserContext } from '../../context/UserContext';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
+import { userInfosState } from '#store';
 import { Header } from '#components';
-import type { Login, UserContextType } from '#types';
+import type { Login } from '#types';
 import { handleLogin } from '#utils';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-  const { userInfos, setUserInfos } = useContext<UserContextType>(UserContext);
+  const userInfos = useRecoilValue(userInfosState);
+  const setUserInfos = useSetRecoilState(userInfosState);
   const router: AppRouterInstance = useRouter();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {

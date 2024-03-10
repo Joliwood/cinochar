@@ -1,12 +1,12 @@
 'use client';
 
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { type Socket, io } from 'socket.io-client';
 
-import { UserContext } from '../../context/UserContext';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { getNewFilm } from '#utils';
-import { type UserContextType } from '#types';
+import { userInfosState } from '#store';
 
 //! This line MUST BE before the component -> High risk of inifity loop
 // Socket.io types provded : Socket<DefaultEventsMap, DefaultEventsMap>  generate TS error
@@ -19,9 +19,10 @@ type Props = {
 
 const FilmButton = (props: Props) => {
   const { zoom, filmDimensionsContainer } = props;
-  const { userInfos, setUserInfos } = useContext<UserContextType>(UserContext);
   const cooldownDuration: number = 5;
   const [counter, setCounter] = useState<number>(0);
+  const userInfos = useRecoilValue(userInfosState);
+  const setUserInfos = useSetRecoilState(userInfosState);
 
   useEffect(() => {
     // Listen for cooldown updates from the server

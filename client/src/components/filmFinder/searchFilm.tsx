@@ -1,18 +1,22 @@
 'use client';
 
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { io, type Socket } from 'socket.io-client';
 
-import { UserContext } from '../../context/UserContext';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
+import { userInfosState } from '#store';
 import { FilmViewer, UtilityFilmBar } from '#components';
-import type { Player, RandomFilmPosition, UserContextType } from '#types';
+import type { Player, RandomFilmPosition } from '#types';
 import { handleAddPoints } from '#utils';
 
 //! This line MUST BE before the component -> High risk of inifity loop
 const socket: Socket = io(process.env.NEXT_PUBLIC_API_URL as string);
 
 const SearchFilm = () => {
+  const userInfos = useRecoilValue(userInfosState);
+  const setUserInfos = useSetRecoilState(userInfosState);
+
   // Main movie picture
   const [movieUrl, setMovieUrl] = useState<string>('');
   // Random film to find by the user
@@ -28,7 +32,7 @@ const SearchFilm = () => {
   const [zoomPosition, setZoomPosition] = useState<RandomFilmPosition | null>(null);
   const [countdownValue, setCountdownValue] = useState<number | null>(null);
   const [filmFound, isFilmFound] = useState<boolean>(false);
-  const { userInfos, setUserInfos } = useContext<UserContextType>(UserContext);
+  // const { userInfos, setUserInfos } = useContext<UserContextType>(UserContext);
   const [playerList, setPlayerList] = useState<Player[]>([]);
   const [isUserPlaying, setIsUserPlaying] = useState<boolean>(false);
   const [pointsEarned, setPointsEarned] = useState<number>(5);
@@ -136,11 +140,11 @@ const SearchFilm = () => {
       )}
 
       <div className="form-control w-full">
-        <div className="input-group">
+        <div className="join">
           <input
             type="text"
             placeholder="Entre le nom du film..."
-            className="input input-bordered w-full rounded-lg"
+            className="input input-bordered join-item w-full rounded-full"
             value={userAnswer}
             disabled={!isUserPlaying}
             onChange={(e) => setUserAnswer(e.target.value)}
@@ -148,7 +152,7 @@ const SearchFilm = () => {
           <button
             type="submit"
             aria-label="submit answer"
-            className="btn btn-square border-1 border-l-0 border-gray-300  hover:bg-gray-300"
+            className="btn join-item border-1 border-l-0 border-gray-300  hover:bg-gray-300"
             onClick={testMatchingResult}
             disabled={!isUserPlaying}
           >
