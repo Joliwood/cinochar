@@ -11,6 +11,9 @@
     "eslint": "eslint .",
     "typescript": "yarn tsc --noEmit"
   },
+  "engine": {
+    "node": ">=18.0.0"
+  },
   "dependencies": {
     "@types/express": "^4.17.21",
     "@types/node": "^20.11.24",

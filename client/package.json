@@ -10,6 +10,9 @@
     "start": "next start",
     "typescript": "yarn tsc --noEmit"
   },
+  "engine": {
+    "node": ">=18.0.0"
+  },
   "main": "index.ts",
   "repository": "git@github.com:Joliwood/cinochar.git",
   "author": "Guillaume <jolibois.contact@gmail.com>",
