@@ -15,9 +15,19 @@ async function handleAddPoints(points: number) {
 
   const { userId }: UserDecodedToken = decodedToken;
 
-  await axios.patch('/api/addPoints', {
-    userId,
-    points,
+  // await axios.patch('/api/addPoints', {
+  //   userId,
+  //   points,
+  // });
+
+  // WIP - Test
+  axios({
+    method: 'post',
+    url: `${process.env.NEXT_PUBLIC_MONGO_API_URL}/mongo/addPoints`,
+    data: {
+      userId,
+      points,
+    },
   });
 
   return 'Points added.';

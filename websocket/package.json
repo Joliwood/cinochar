@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "websocket",
   "version": "1.0.0",
   "main": "index.ts",
   "type": "commonjs",
@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc",
     "check:full": "yarn typescript && yarn eslint",
-    "dev:server": "nodemon --ext ts --exec ts-node ./index.ts",
+    "dev:websocket": "nodemon --ext ts --exec ts-node ./index.ts",
     "eslint": "eslint .",
     "typescript": "yarn tsc --noEmit"
   },

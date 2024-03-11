@@ -76,7 +76,7 @@
     "tailwind.config.cjs",
     // ".next/types/**/*.ts",
     "./public/*",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
   ],
   "exclude": [
     "node_modules",

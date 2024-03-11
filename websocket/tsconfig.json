@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "composite": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "Node",
+    // noEmit prevent the compiler from generating files
+    "noEmit": false,
+    "outDir": "./dist",
+    "resolveJsonModule": true,
+    "rootDir": ".",
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "ESNext",
+    "noImplicitAny": true,
+    "paths": {
+      "#types": ["./types/index.d.ts"],
+      "#sockets": ["./sockets/index.ts"],
+      "#utils": ["./utils/index.ts"],
+    }
+  },
+  "include": [
+    "./*",
+    "./**/*",
+    "./sockets/*",
+    "./types/*",
+    ".eslintrc.cjs",
+    "/**/*.ts",
+    "index.ts", "../client/src/addPoints.ts",
+  ],
+  "exclude": [
+    "./dist/**/*",
+    "node_modules",
+  ]
+}

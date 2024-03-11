@@ -5,7 +5,10 @@
         "yarn dev:client"
       ],
       [
-        "yarn dev:server"
+        "yarn dev:websocket"
+      ],
+      [
+        "yarn dev:mongo"
       ]
     ]
   ]

@@ -6,7 +6,6 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "Node",
-    // noEmit prevent the compiler from generating files
     "noEmit": false,
     "outDir": "./dist",
     "resolveJsonModule": true,
@@ -15,16 +14,10 @@
     "strict": true,
     "target": "ESNext",
     "noImplicitAny": true,
-    "paths": {
-      "#types": ["./types/index.d.ts"],
-      "#sockets": ["./sockets/index.ts"],
-      "#utils": ["./utils/index.ts"],
-    }
   },
   "include": [
     "./*",
     "./**/*",
-    "./sockets/*",
     "./types/*",
     ".eslintrc.cjs",
     "/**/*.ts",

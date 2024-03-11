@@ -1,7 +1,7 @@
 # dependencies
 /node_modules
 /client/node_modules
-/server/node_modules
+/websocket/node_modules
 /.pnp
 .pnp.js
 
@@ -20,15 +20,18 @@
 /client/next-env.d.ts
 
 # next.js (server)
-/server/.next/
-/server/out/
-/server/dist
+/websocket/.next/
+/websocket/out/
+/websocket/dist
+
+# next.js (dbServer)
+/mongo/node_modules
 
 # production
-/server/build
+/websocket/build
 
 # typescript (server)
-/server/*.tsbuildinfo
+/websocket/*.tsbuildinfo
 
 # misc
 .DS_Store
