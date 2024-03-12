@@ -1,11 +1,8 @@
 import React, { useState, type FormEvent } from 'react';
 import Link from 'next/link';
-// import { useRouter } from 'next/navigation';
-// import { type AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+import { useRouter } from 'next/navigation';
 
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-
-// import { redirect } from 'next/navigation';
 
 import { userInfosState } from '../../store';
 import { Header } from '../../components';
@@ -20,7 +17,7 @@ const LoginPage = () => {
   const [message, setMessage] = useState('');
   const userInfos = useRecoilValue(userInfosState);
   const setUserInfos = useSetRecoilState(userInfosState);
-  // const router: AppRouterInstance = useRouter();
+  const router = useRouter();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,8 +28,7 @@ const LoginPage = () => {
       setMessage(result);
     } else {
       setUserInfos({ ...userInfos, name: result.user.name });
-      // router.push('/');
-      // redirect('/');
+      router.push('/');
     }
   };
 
