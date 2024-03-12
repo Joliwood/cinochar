@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 
 import {
@@ -8,7 +6,7 @@ import {
   RoomJoin,
   PlayersClassement,
   PlayersConnected,
-} from '#components';
+} from '../components';
 
 const Home = () => {
   return (

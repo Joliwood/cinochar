@@ -43,13 +43,13 @@
         "./types/"
       ],
       "#utils": [
-        "./src/utils/"
+        "./utils"
       ],
       "#components": [
-        "./src/components/"
+        "./components"
       ],
       "#store": [
-        "./src/store/"
+        "./store"
       ],
     },
     "lib": [
@@ -75,8 +75,6 @@
     ".eslintrc.js",
     "tailwind.config.cjs",
     // ".next/types/**/*.ts",
-    "./public/*",
-    ".next/types/**/*.ts",
   ],
   "exclude": [
     "node_modules",

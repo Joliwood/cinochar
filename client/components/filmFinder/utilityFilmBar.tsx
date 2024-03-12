@@ -1,15 +1,14 @@
-'use client';
-
 import React from 'react';
-import Image from 'next/image';
+// import Image from 'next/image';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
-import jokerSvg from '../../../public/images/joker.svg';
-import revealSvg from '../../../public/images/reveal.svg';
+// import revealSvg from '../../../../../../../../images/reveal.svg';
+
+// import jokerSvg from '../../../../../../../../images/joker.svg';
+
+import { userInfosState } from '../../store';
 
 import FilmButton from './filmButton';
-
-import { userInfosState } from '#store';
 
 type Props = {
   zoom: number;
@@ -51,13 +50,14 @@ const UtilityFilmBar = (props: Props) => {
             {userInfos.jokers > 0 && (
               <span className="pl-3">{userInfos.jokers}</span>
             )}
-            <Image
-              src={userInfos.jokers > 0 ? jokerSvg : revealSvg}
+            {/* <Image
+              // src={userInfos.jokers > 0 ? jokerSvg : revealSvg}
+              src="picsum.photos/200/300"
               width={50}
               height={50}
               alt="joker chance"
               className={`p-1 pr-1 ${userInfos.jokers === 0 && 'mx-2'}`}
-            />
+            /> */}
           </button>
         </div>
       ) : (
@@ -72,13 +72,14 @@ const UtilityFilmBar = (props: Props) => {
           {userInfos.jokers > 0 && (
             <span className="pl-3">{userInfos.jokers}</span>
           )}
-          <Image
-            src={userInfos.jokers > 0 ? jokerSvg : revealSvg}
+          {/* <Image
+            // src={userInfos.jokers > 0 ? jokerSvg : revealSvg}
+            src="picsum.photos/200/300"
             width={50}
             height={50}
             alt="joker chance"
             className={`p-1 pr-1 ${userInfos.jokers === 0 && 'mx-2'}`}
-          />
+          /> */}
         </button>
       )}
     </div>

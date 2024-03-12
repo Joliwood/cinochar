@@ -1,16 +1,18 @@
-'use client';
-
 import React, { useState, type FormEvent } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { type AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+// import { useRouter } from 'next/navigation';
+// import { type AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
-import { userInfosState } from '#store';
-import { Header } from '#components';
+// import { redirect } from 'next/navigation';
+
+import { userInfosState } from '../../store';
+import { Header } from '../../components';
+
+import { handleLogin } from '../../utils';
+
 import type { Login } from '#types';
-import { handleLogin } from '#utils';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -18,7 +20,7 @@ const LoginPage = () => {
   const [message, setMessage] = useState('');
   const userInfos = useRecoilValue(userInfosState);
   const setUserInfos = useSetRecoilState(userInfosState);
-  const router: AppRouterInstance = useRouter();
+  // const router: AppRouterInstance = useRouter();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -29,7 +31,8 @@ const LoginPage = () => {
       setMessage(result);
     } else {
       setUserInfos({ ...userInfos, name: result.user.name });
-      router.push('/');
+      // router.push('/');
+      // redirect('/');
     }
   };
 
@@ -73,7 +76,7 @@ const LoginPage = () => {
           <Link href="/signup" className="px-3 py-1 rounded">S'inscrire</Link>
         </div>
         <div>
-          <a href="/" className="px-3 py-1 rounded">Retourner à l'accueil</a>
+          <Link href="/" className="px-3 py-1 rounded">Retourner à l'accueil</Link>
         </div>
         <div>
           <p>{message}</p>

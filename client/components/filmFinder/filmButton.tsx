@@ -1,12 +1,10 @@
-'use client';
-
 import React, { useState, useEffect } from 'react';
 import { type Socket, io } from 'socket.io-client';
 
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
-import { getNewFilm } from '#utils';
-import { userInfosState } from '#store';
+import { getNewFilm } from '../../utils';
+import { userInfosState } from '../../store';
 
 //! This line MUST BE before the component -> High risk of inifity loop
 // Socket.io types provded : Socket<DefaultEventsMap, DefaultEventsMap>  generate TS error

@@ -1,13 +1,12 @@
-'use client';
-
 import React from 'react';
 import Image from 'next/image';
-import { Player } from '@lottiefiles/react-lottie-player';
+// import { Player } from '@lottiefiles/react-lottie-player';
 import { useRecoilValue } from 'recoil';
 
-import lkrazakeAnimation from '../../../public/images/animation_lkrazake.json';
+// import lkrazakeAnimation from '../../public/images/animation_lkrazake.json';
 
-import { userInfosState } from '#store';
+import { userInfosState } from '../../store';
+
 import type { RandomFilmPosition } from '#types';
 
 type Props = {
@@ -54,13 +53,14 @@ const FilmViewer = (props: Props) => {
           }}
         />
       ) : (
-        <Player
-          autoplay
-          loop
-          renderer="svg"
-          src={lkrazakeAnimation}
-          className="w-full h-full"
-        />
+        // <Player
+        //   autoplay
+        //   loop
+        //   renderer="svg"
+        //   src={lkrazakeAnimation}
+        //   className="w-full h-full"
+        // />
+        <div className="w-full h-full bg-primary-content" />
       )}
     </div>
   );

@@ -2,8 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import { useRecoilValue } from 'recoil';
 
-import { handleLogout } from '#utils';
-import { userInfosState } from '#store';
+import { handleLogout } from '../../utils';
+import { userInfosState } from '../../store';
 
 const HeaderLinksBig = (): JSX.Element => {
   const userInfos = useRecoilValue(userInfosState);
@@ -13,7 +13,7 @@ const HeaderLinksBig = (): JSX.Element => {
     <ul className="menu menu-horizontal px-1 gap-3 py-0 hidden lg:flex">
 
       <button type="button" className="flex items-center">
-        <a className="btn" href="/">Accueil</a>
+        <Link className="btn" href="/">Accueil</Link>
       </button>
 
       {!name && (

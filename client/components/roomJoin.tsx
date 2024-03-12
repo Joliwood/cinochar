@@ -1,5 +1,3 @@
-'use client';
-
 // Since the Next.js version >= 13, every component in the app folder is
 // considered to be a server file To tell Next it is a client file, we have to
 // use that before any import
@@ -9,7 +7,7 @@ import Image from 'next/image';
 
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
-import { userInfosState } from '#store';
+import { userInfosState } from '../store';
 
 //! This line MUST BE before the component -> High risk of inifity loop
 const socket: Socket = io(process.env.NEXT_PUBLIC_API_URL as string);

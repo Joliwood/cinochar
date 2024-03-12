@@ -1,11 +1,9 @@
-'use client';
-
 import React, { useState, type FormEvent } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-import { Header } from '#components';
-import { handleSignup } from '#utils';
+import { Header } from '../../components';
+import { handleSignup } from '../../utils';
 
 const Signup = () => {
   const [name, setName] = useState('');

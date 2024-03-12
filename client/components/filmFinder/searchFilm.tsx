@@ -1,15 +1,15 @@
-'use client';
-
 import React, { useState, useEffect } from 'react';
 import { io, type Socket } from 'socket.io-client';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
+import { userInfosState } from '../../store';
+
+import { handleAddPoints } from '../../utils';
+
 import FilmViewer from './filmViewer';
 import UtilityFilmBar from './utilityFilmBar';
 
-import { userInfosState } from '#store';
 import type { Player, RandomFilmPosition } from '#types';
-import { handleAddPoints } from '#utils';
 
 //! This line MUST BE before the component -> High risk of inifity loop
 const socket: Socket = io(process.env.NEXT_PUBLIC_API_URL as string);
