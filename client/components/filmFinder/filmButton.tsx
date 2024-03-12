@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { type Socket, io } from 'socket.io-client';
-
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
-import { getNewFilm } from '../../utils';
-import { userInfosState } from '../../store';
+import { getNewFilm } from '#utils';
+import { userInfosState } from '#store';
 
 //! This line MUST BE before the component -> High risk of inifity loop
 // Socket.io types provded : Socket<DefaultEventsMap, DefaultEventsMap>  generate TS error
@@ -15,7 +14,7 @@ type Props = {
   filmDimensionsContainer: number;
 };
 
-const FilmButton = (props: Props) => {
+const FilmButton = (props: Props): JSX.Element => {
   const { zoom, filmDimensionsContainer } = props;
   const cooldownDuration: number = 5;
   const [counter, setCounter] = useState<number>(0);
@@ -31,7 +30,7 @@ const FilmButton = (props: Props) => {
 
   const filmFinder = () => {
     setCounter(cooldownDuration);
-    getNewFilm(socket, zoom, filmDimensionsContainer);
+    getNewFilm({ socket, zoom, filmDimensionsContainer });
     setUserInfos({ ...userInfos, jokers: 2 });
   };
 

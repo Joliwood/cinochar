@@ -3,7 +3,12 @@ import { jwtDecode } from 'jwt-decode';
 
 import type { UserDecodedToken } from '#types';
 
-async function handleAddPoints(points: number) {
+type Args = {
+  pointsEarned: number;
+};
+
+async function handleAddPoints(args: Args): Promise<string> {
+  const { pointsEarned } = args;
   const storedToken: string | null = localStorage.getItem('token');
 
   if (!storedToken) {
@@ -20,7 +25,7 @@ async function handleAddPoints(points: number) {
     url: `${process.env.NEXT_PUBLIC_MONGO_API_URL}/mongo/addPoints`,
     data: {
       userId,
-      points,
+      pointsEarned,
     },
   });
 

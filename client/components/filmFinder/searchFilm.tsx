@@ -2,19 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { io, type Socket } from 'socket.io-client';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
-import { userInfosState } from '../../store';
-
-import { handleAddPoints } from '../../utils';
-
 import FilmViewer from './filmViewer';
 import UtilityFilmBar from './utilityFilmBar';
 
+import { userInfosState } from '#store';
+import { handleAddPoints } from '#utils';
 import type { Player, RandomFilmPosition } from '#types';
 
 //! This line MUST BE before the component -> High risk of inifity loop
 const socket: Socket = io(process.env.NEXT_PUBLIC_API_URL as string);
 
-const SearchFilm = () => {
+const SearchFilm = (): JSX.Element => {
   const userInfos = useRecoilValue(userInfosState);
   const setUserInfos = useSetRecoilState(userInfosState);
 
@@ -107,7 +105,7 @@ const SearchFilm = () => {
       if (filmFound === false) {
         socket.emit('player-add-points', { name: userInfos.name, points: pointsEarned });
         setMatchResult('Bien joué !');
-        handleAddPoints(pointsEarned);
+        handleAddPoints({ pointsEarned });
         isFilmFound(true);
       } else {
         setMatchResult('Vous avez déjà trouvé ce film.');

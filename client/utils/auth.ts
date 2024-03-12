@@ -3,7 +3,7 @@ import { jwtDecode } from 'jwt-decode';
 
 import type { UserFromMongo, UserDecodedToken } from '#types';
 
-async function auth() {
+async function auth(): Promise<string | UserFromMongo> {
   const storedToken: string | null = localStorage.getItem('token');
 
   if (!storedToken) {

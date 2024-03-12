@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Header } from '../../components';
+import { Header } from '#components';
 
-const Dashboard = () => {
+const Dashboard = (): JSX.Element => {
   return (
     <>
       <Header />

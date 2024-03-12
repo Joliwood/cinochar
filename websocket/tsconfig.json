@@ -28,7 +28,6 @@
     "./types/*",
     ".eslintrc.cjs",
     "/**/*.ts",
-    "index.ts", "../client/src/addPoints.ts",
   ],
   "exclude": [
     "./dist/**/*",

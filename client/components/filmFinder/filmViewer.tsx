@@ -5,8 +5,7 @@ import { useRecoilValue } from 'recoil';
 
 // import lkrazakeAnimation from '../../public/images/animation_lkrazake.json';
 
-import { userInfosState } from '../../store';
-
+import { userInfosState } from '#store';
 import type { RandomFilmPosition } from '#types';
 
 type Props = {
@@ -17,7 +16,7 @@ type Props = {
   zoom: number;
 };
 
-const FilmViewer = (props: Props) => {
+const FilmViewer = (props: Props): JSX.Element => {
   const {
     filmDimensionsContainer,
     randomMovieName,

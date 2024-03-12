@@ -2,10 +2,10 @@ import React, { useState, type FormEvent } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-import { Header } from '../../components';
-import { handleSignup } from '../../utils';
+import { Header } from '#components';
+import { handleSignup } from '#utils';
 
-const Signup = () => {
+const Signup = (): JSX.Element => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -21,7 +21,7 @@ const Signup = () => {
       return;
     }
 
-    const result: string = await handleSignup(name, email, password);
+    const result: string = await handleSignup({ name, email, password });
     setMessage(result);
     // if we receive response, we redirect to main page
     if (result === 'Votre compte a bien été créé') {

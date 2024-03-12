@@ -3,7 +3,7 @@ import {
   Html, Head, Main, NextScript,
 } from 'next/document';
 
-export default function Document() {
+const Document = (): JSX.Element => {
   return (
     <Html lang="fr">
       <Head>
@@ -34,4 +34,6 @@ export default function Document() {
       </body>
     </Html>
   );
-}
+};
+
+export default Document;

@@ -1,3 +1,4 @@
+import dotenv from 'dotenv';
 import express from 'express';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
@@ -13,6 +14,7 @@ import {
   resetCountdownSocket,
 } from './sockets';
 
+dotenv.config();
 const app = express();
 
 // const options = {
@@ -24,7 +26,7 @@ const server = createServer(app);
 
 export const io = new Server(server, {
   cors: {
-    origin: '*',
+    origin: process.env.CLIENT_URL,
   },
 });
 

@@ -1,17 +1,14 @@
 import React, { useState, type FormEvent } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
-import { userInfosState } from '../../store';
-import { Header } from '../../components';
-
-import { handleLogin } from '../../utils';
-
+import { userInfosState } from '#store';
+import { Header } from '#components';
+import { handleLogin } from '#utils';
 import type { Login } from '#types';
 
-const LoginPage = () => {
+const LoginPage = (): JSX.Element => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -22,7 +19,7 @@ const LoginPage = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const result: Login | string = await handleLogin(email, password);
+    const result: Login | string = await handleLogin({ email, password });
     // The result will contains user object only if the login is successful
     if (typeof result === 'string') {
       setMessage(result);

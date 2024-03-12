@@ -6,7 +6,7 @@ import { type Player } from '#types';
 //! This line MUST BE before the component -> High risk of inifity loop
 const socket: Socket = io(process.env.NEXT_PUBLIC_API_URL as string);
 
-const PlayersConnected = () => {
+const PlayersConnected = (): JSX.Element => {
   const [playerList, setPlayerList] = useState<Player[]>([]);
 
   useEffect(() => {

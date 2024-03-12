@@ -5,12 +5,12 @@ import { RecoilRoot } from 'recoil';
 import '../styles/globals.css';
 import React from 'react';
 
-function App({ Component, pageProps }) {
+const App = ({ Component, pageProps }): JSX.Element => {
   return (
     <RecoilRoot>
       <Component {...pageProps} />
     </RecoilRoot>
   );
-}
+};
 
 export default App;

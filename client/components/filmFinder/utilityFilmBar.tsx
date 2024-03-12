@@ -6,9 +6,9 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 // import jokerSvg from '../../../../../../../../images/joker.svg';
 
-import { userInfosState } from '../../store';
-
 import FilmButton from './filmButton';
+
+import { userInfosState } from '#store';
 
 type Props = {
   zoom: number;
@@ -16,7 +16,7 @@ type Props = {
   countdownValue: number | null;
 };
 
-const UtilityFilmBar = (props: Props) => {
+const UtilityFilmBar = (props: Props): JSX.Element => {
   const { zoom, filmDimensionsContainer, countdownValue } = props;
   const userInfos = useRecoilValue(userInfosState);
   const setUserInfos = useSetRecoilState(userInfosState);

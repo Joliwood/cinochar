@@ -3,7 +3,7 @@ import axios, { type AxiosResponse } from 'axios';
 
 import type { Player } from '#types';
 
-const PlayersClassement = () => {
+const PlayersClassement = (): JSX.Element => {
   const [playersList, setPlayersList] = useState<Player[]>([]);
 
   useEffect(() => {

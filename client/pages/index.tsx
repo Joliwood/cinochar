@@ -6,9 +6,9 @@ import {
   RoomJoin,
   PlayersClassement,
   PlayersConnected,
-} from '../components';
+} from '#components';
 
-const Home = () => {
+const Home = (): JSX.Element => {
   return (
     <div className="min-h-screen flex flex-col items-center mt-[80px]">
       <Header />

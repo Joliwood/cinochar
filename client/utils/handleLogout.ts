@@ -1,4 +1,4 @@
-async function handleLogout() {
+async function handleLogout(): Promise<void> {
   try {
     localStorage.removeItem('token');
   } catch (error) {

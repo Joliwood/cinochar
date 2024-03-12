@@ -2,7 +2,14 @@ import axios, { type AxiosResponse } from 'axios';
 
 import type { Login } from '#types';
 
-async function handleLogin(email: string, password: string) {
+type Args = {
+  email: string;
+  password: string;
+};
+
+async function handleLogin(args : Args): Promise<Login | string> {
+  const { email, password } = args;
+
   try {
     const response: AxiosResponse<Login> = await axios
       .post(`${process.env.NEXT_PUBLIC_MONGO_API_URL}/mongo/login`, {

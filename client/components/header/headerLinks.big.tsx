@@ -2,8 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import { useRecoilValue } from 'recoil';
 
-import { handleLogout } from '../../utils';
-import { userInfosState } from '../../store';
+import { handleLogout } from '#utils';
+import { userInfosState } from '#store';
 
 const HeaderLinksBig = (): JSX.Element => {
   const userInfos = useRecoilValue(userInfosState);

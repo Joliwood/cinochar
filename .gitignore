@@ -14,6 +14,7 @@
 
 # production
 /client/build
+/mongo/dist
 
 # typescript (client)
 /client/*.tsbuildinfo

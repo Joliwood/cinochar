@@ -1,7 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-
+import cors from 'cors';
 import router from './src/routes/mainRouter';
 
 dotenv.config();
@@ -9,8 +9,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3800;
 
-const cors = require('cors');
-app.use(cors());
+app.use(cors({ credentials: true, origin: process.env.CLIENT_URL }));
 
 // Middlewares
 app.use(express.json());
