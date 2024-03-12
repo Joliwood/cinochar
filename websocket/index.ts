@@ -26,9 +26,8 @@ const server = createServer(app);
 
 export const io = new Server(server, {
   cors: {
+    credentials: true,
     origin: process.env.CLIENT_URL,
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['*'],
   },
 });
 
