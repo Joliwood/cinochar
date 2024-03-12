@@ -3,7 +3,6 @@ import addPoints from '../utils/addPoints';
 
 export const addPointsController = async (req: Request, res: Response) => {
   const { userId, points } = req.body;
-  console.log('req : ', req.body);
 
   if (!userId) {
     return res.status(400).json({ message: 'User ID is required.' });
