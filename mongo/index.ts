@@ -12,8 +12,6 @@ const PORT = process.env.PORT || 3800;
 app.use(cors({ 
   credentials: true,
   origin: process.env.CLIENT_URL,
-  allowedHeaders: ['*'],
-  methods: ['GET', 'POST'],
 }));
 
 // Middlewares
