@@ -1,12 +1,5 @@
 import { Request, Response } from 'express';
-// import UserModel from '../models/user.model';
-import { connectToDatabase } from '../utils/mongo';
-
-import { ObjectId } from 'mongodb';
-// import type { NextApiRequest, NextApiResponse } from 'next';
-import type {
-  Collection, Db, MongoClient,
-} from 'mongodb';
+import addPoints from '../utils/addPoints';
 
 export const addPointsController = async (req: Request, res: Response) => {
   const { userId, points } = req.body;
@@ -17,10 +10,9 @@ export const addPointsController = async (req: Request, res: Response) => {
   }
 
   try {
-    // const user = await UserModel.findByIdAndUpdate(userId, { $inc: { points: points } }, { new: true });
-    const serverAction = await addPoints(userId, points);
+    const response = await addPoints(userId, points);
     
-    if (!serverAction) {
+    if (!response) {
       return res.status(404).json({ message: 'User not found.' });
     }
 
@@ -30,26 +22,3 @@ export const addPointsController = async (req: Request, res: Response) => {
     res.status(500).json({ message: 'An error occurred while adding points.' });
   }
 };
-
-// import { ObjectId } from 'mongodb';
-// import type { NextApiRequest, NextApiResponse } from 'next';
-// import type {
-//   Collection, Db, MongoClient,
-// } from 'mongodb';
-
-// import type { UserFromMongo } from '#types';
-// import { connectToDatabase } from '#utils';
-
-async function addPoints(userId: any, points: any): Promise<boolean> {
-
-  const client: MongoClient = await connectToDatabase();
-  const db: Db = client.db();
-  const collection: Collection<any> = db.collection('players-ranking');
-
-  await collection.updateOne(
-    { _id: new ObjectId(userId) },
-    { $inc: { points } },
-  );
-
-  return true;
-}

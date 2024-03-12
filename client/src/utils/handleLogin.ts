@@ -4,10 +4,11 @@ import type { Login } from '#types';
 
 async function handleLogin(email: string, password: string) {
   try {
-    const response: AxiosResponse<Login> = await axios.post('/api/login', {
-      email,
-      password,
-    });
+    const response: AxiosResponse<Login> = await axios
+      .post(`${process.env.NEXT_PUBLIC_MONGO_API_URL}/mongo/login`, {
+        email,
+        password,
+      });
 
     if (response.data.token) {
       // Store the JWT in local storage or a secure cookie

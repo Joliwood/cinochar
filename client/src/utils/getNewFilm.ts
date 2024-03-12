@@ -9,35 +9,30 @@ async function getNewFilm(
   filmDimensionsContainer: number,
 ) {
   try {
-    // const response = await fetch('/api/getFilm');
-    const response: AxiosResponse<FilmFromMongo> = await axios.get('/api/getFilm');
+    // Correctly await the Axios call and directly assign the response to selectedMovie
+    const response: AxiosResponse<FilmFromMongo> = await axios.get(`${process.env.NEXT_PUBLIC_MONGO_API_URL}/mongo/getFilm`);
     const selectedMovie: FilmFromMongo = response.data;
 
-    // Randomaly select an url in the object
+    // Ensure selectedMovie and picture_urls are defined and not empty
+    if (!selectedMovie || !selectedMovie.picture_urls || selectedMovie.picture_urls.length === 0) {
+      throw new Error('No film found or film has no pictures.');
+    }
+
     const randomUrlIndex: number = Math.floor(Math.random() * selectedMovie.picture_urls.length);
 
-    // Send the new url film name to the socket
     socket.emit('new-film-name', selectedMovie.name);
-
-    // Send the new url film picture to the socket
     socket.emit('new-film-url', selectedMovie.picture_urls[randomUrlIndex]);
-
-    // Send the new random zoom position to the socket
     socket.emit('random-position-zoom', { zoom, filmDimensionsContainer });
-
     socket.emit('reset-countdown');
-
     socket.emit('get-cooldown');
-
-    // setUserInfos({ ...userInfos, jokers: 2 });
   } catch (error) {
     if (axios.isAxiosError(error)) {
       console.error(`Axios error: ${error.message}`);
-    }
-    if (error instanceof Error) {
+    } else if (error instanceof Error) {
       console.error(`General error: ${error.message}`);
+    } else {
+      console.error('Unknown error occurred');
     }
-    console.error('Unknown error occurred');
   }
 }
 

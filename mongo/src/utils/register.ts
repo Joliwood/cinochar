@@ -1,17 +1,15 @@
 import bcrypt from 'bcryptjs';
-import type { NextApiRequest, NextApiResponse } from 'next';
+import jwt from 'jsonwebtoken';
 import type {
   Collection, Db, MongoClient,
 } from 'mongodb';
+import { connectToDatabase } from '../utils/mongo';
 
-import type { UserFromMongo } from '#types';
-import { connectToDatabase } from '#utils';
-
-export default async function register(req: NextApiRequest, res: NextApiResponse) {
+export default async function register(req: Request | any, res: Response | any): Promise<boolean> {
   const { email, password, name }: {
-    email: UserFromMongo['email'],
-    password: UserFromMongo['password']
-    name: UserFromMongo['name']
+    email: any
+    password: any
+    name: any
   } = req.body;
 
   if (!email || !password) {
@@ -20,10 +18,10 @@ export default async function register(req: NextApiRequest, res: NextApiResponse
 
   const client: MongoClient = await connectToDatabase();
   const db: Db = client.db();
-  const collection: Collection<UserFromMongo> = db.collection('players-ranking');
+  const collection: Collection<any> = db.collection('players-ranking');
 
-  const existingUserByName = await collection.findOne<UserFromMongo | null>({ name });
-  const existingUserByEmail = await collection.findOne<UserFromMongo | null>({ email });
+  const existingUserByName = await collection.findOne<any | null>({ name });
+  const existingUserByEmail = await collection.findOne<any | null>({ email });
 
   if (existingUserByName) {
     return res.status(400).json({ message: 'Ce name est déjà utilisé' });
@@ -33,7 +31,7 @@ export default async function register(req: NextApiRequest, res: NextApiResponse
   }
 
   const hashedPassword: string = await bcrypt.hash(password, 10);
-  const user: UserFromMongo = {
+  const user: any = {
     name,
     email,
     points: 0,
@@ -42,5 +40,5 @@ export default async function register(req: NextApiRequest, res: NextApiResponse
 
   await collection.insertOne(user);
 
-  return res.status(201).json({ message: 'Votre compte a bien été créé' });
+  return true;
 }

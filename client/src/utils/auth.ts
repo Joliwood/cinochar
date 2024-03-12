@@ -16,7 +16,7 @@ async function auth() {
   const { userId }: UserDecodedToken = decodedToken;
 
   try {
-    const response: AxiosResponse<{ user: UserFromMongo }> = await axios.get('/api/getUser', {
+    const response: AxiosResponse<{ user: UserFromMongo }> = await axios.get(`${process.env.NEXT_PUBLIC_MONGO_API_URL}/mongo/getUser`, {
       params: { userId },
     });
 

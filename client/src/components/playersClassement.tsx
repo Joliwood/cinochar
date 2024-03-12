@@ -11,7 +11,7 @@ const PlayersClassement = () => {
   useEffect(() => {
     const getPlayers = async () => {
       try {
-        const response: AxiosResponse<Player[]> = await axios.get('/api/getPlayersRanking');
+        const response: AxiosResponse<Player[]> = await axios.get(`${process.env.NEXT_PUBLIC_MONGO_API_URL}/mongo/getPlayersRanking`);
         const { data } = response;
         const players: Player[] = data;
 

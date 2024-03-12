@@ -10,8 +10,8 @@
     "dev:websocket": "yarn workspace websocket dev:websocket",
     "dev:mongo": "yarn workspace mongo dev:mongo",
     "dev": "concurrently \"yarn start-server\" \"yarn start-client\"",
-    "eslint": "concurrently \"yarn workspace client eslint\" \"yarn workspace server eslint\"",
-    "typescript": "concurrently \"yarn workspace client typescript\" \"yarn workspace server typescript\"",
+    "eslint": "concurrently \"yarn workspace client eslint\" \"yarn workspace websocket eslint\" \"yarn workspace mongo eslint\"",
+    "typescript": "concurrently \"yarn workspace client typescript\" \"yarn workspace websocket typescript\" \"yarn workspace mongo typescript\"",
     "check:full": "yarn eslint && yarn typescript"
   },
   "workspaces": [
