@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import Link from 'next/link';
 import { useRecoilValue } from 'recoil';
 
@@ -8,6 +8,21 @@ import { userInfosState } from '#store';
 const HeaderLinksSmall = (): JSX.Element => {
   const userInfos = useRecoilValue(userInfosState);
   const { name } = userInfos;
+
+  const buttonsIfConnected = useMemo(() => {
+    if (name) {
+      return (
+        <li><Link href="/" onClick={handleLogout} replace={false}>Se deconnecter</Link></li>
+      );
+    }
+
+    return (
+      <>
+        <li><Link href="/login" replace={false}>Se connecter</Link></li>
+        <li><Link href="/signup" replace={false}>S'enregistrer</Link></li>
+      </>
+    );
+  }, [name]);
 
   return (
     <div className="dropdown dropdown-bottom dropdown-end lg:hidden">
@@ -29,9 +44,7 @@ const HeaderLinksSmall = (): JSX.Element => {
       </button>
       <ul className="dropdown-content z-[1] bg-white menu p-2 shadow rounded-box w-52">
         <li><Link href="/" replace={false}>Accueil</Link></li>
-        {!name && <li><Link href="/login" replace={false}>Se connecter</Link></li>}
-        {!name && <li><Link href="/signup" replace={false}>S'enregistrer</Link></li>}
-        {name && <li><Link href="/" onClick={handleLogout} replace={false}>Se deconnecter</Link></li>}
+        {buttonsIfConnected}
       </ul>
     </div>
   );

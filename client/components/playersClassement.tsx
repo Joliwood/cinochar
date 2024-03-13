@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import axios, { type AxiosResponse } from 'axios';
 
 import type { Player } from '#types';
@@ -31,6 +31,21 @@ const PlayersClassement = (): JSX.Element => {
     getPlayers();
   }, []);
 
+  const playersListClassement = useMemo(() => {
+    return (
+      <>
+        {playersList.map((player: Player, index: number) => (
+        // eslint-disable-next-line react/no-array-index-key
+          <tr key={index}>
+            <th>{index + 1}</th>
+            <td>{player.name}</td>
+            <td>{player.points}</td>
+          </tr>
+        ))}
+      </>
+    );
+  }, [playersList]);
+
   return (
     <div className="my-5 lg:my-0 lg:absolute top-[150px] min-h-[400px] h-[50vh]
     right-5 bg-white shadow rounded-lg p-5 flex flex-col items-center w-[85vw] sm:w-[70vw] md:w-auto"
@@ -48,14 +63,7 @@ const PlayersClassement = (): JSX.Element => {
             </tr>
           </thead>
           <tbody>
-            {playersList.map((player: Player, index: number) => (
-              // eslint-disable-next-line react/no-array-index-key
-              <tr key={index}>
-                <th>{index + 1}</th>
-                <td>{player.name}</td>
-                <td>{player.points}</td>
-              </tr>
-            ))}
+            {playersListClassement}
           </tbody>
         </table>
       </div>

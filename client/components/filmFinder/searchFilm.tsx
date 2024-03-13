@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { io, type Socket } from 'socket.io-client';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
@@ -31,7 +31,6 @@ const SearchFilm = (): JSX.Element => {
   const [zoomPosition, setZoomPosition] = useState<RandomFilmPosition | null>(null);
   const [countdownValue, setCountdownValue] = useState<number | null>(null);
   const [filmFound, isFilmFound] = useState<boolean>(false);
-  // const { userInfos, setUserInfos } = useContext<UserContextType>(UserContext);
   const [playerList, setPlayerList] = useState<Player[]>([]);
   const [isUserPlaying, setIsUserPlaying] = useState<boolean>(false);
   const [pointsEarned, setPointsEarned] = useState<number>(5);
@@ -115,6 +114,21 @@ const SearchFilm = (): JSX.Element => {
     }
   };
 
+  const matchResultMessage = useMemo(() => {
+    if (matchResult) {
+      return <h4>{matchResult}</h4>;
+    }
+    return <h4>Essayez de trouver le film.</h4>;
+  }, [matchResult]);
+
+  const infoMessage = useMemo(() => {
+    if (!isUserPlaying) {
+      return <p>Vous devez rejoindre la partie pour participer</p>;
+    }
+
+    return null;
+  }, [isUserPlaying]);
+
   return (
     <div className="flex justify-center flex-col items-center gap-5 py-3 mt-5 max-w-[90vw]">
       <UtilityFilmBar
@@ -130,12 +144,7 @@ const SearchFilm = (): JSX.Element => {
         zoom={zoom}
       />
 
-      {/* Only show the message if the matchResult isn't null */}
-      {matchResult ? (
-        <h4>{matchResult}</h4>
-      ) : (
-        <h4>Essayez de trouver le film.</h4>
-      )}
+      {matchResultMessage}
 
       <div className="form-control w-full">
         <div className="join">
@@ -157,7 +166,8 @@ const SearchFilm = (): JSX.Element => {
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
           </button>
         </div>
-        {!isUserPlaying && <p className="text-xs text-gray-500 mx-auto my-1">Vous devez rejoindre la partie pour participer</p>}
+
+        {infoMessage}
       </div>
     </div>
   );

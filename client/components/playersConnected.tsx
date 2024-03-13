@@ -15,7 +15,7 @@ const PlayersConnected = (): JSX.Element => {
     });
   }, [playerList]);
 
-  const sortedPlayerList = useMemo(() => (
+  const playerListConnected = useMemo(() => (
     playerList.slice().sort((a, b) => b.points - a.points).map((player: Player, index: number) => (
       <tr key={player.name}>
         <th>{index + 1}</th>
@@ -41,7 +41,7 @@ const PlayersConnected = (): JSX.Element => {
             </tr>
           </thead>
           <tbody>
-            {sortedPlayerList}
+            {playerListConnected}
           </tbody>
         </table>
       </div>
