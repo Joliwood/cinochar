@@ -1,24 +1,7 @@
 {
+  "extends": "../tsconfig.json",
   "compilerOptions": {
-    "resolveJsonModule": true,
     "outDir": "./.next/",
-    "noImplicitAny": false,
-    "module": "ESNext",
-    "target": "es5",
-    "jsx": "preserve",
-    "allowJs": true,
-    "moduleResolution": "node",
-    "noEmitOnError": true,
-    "strict": true,
-    "allowSyntheticDefaultImports": true,
-    "allowImportingTsExtensions": true,
-    "noEmit": true,
-    "skipLibCheck": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
     "paths": {
       "@/*": [
         "./src/*"
@@ -36,25 +19,18 @@
         "./store"
       ],
     },
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "incremental": true,
-    "esModuleInterop": true,
-    "isolatedModules": true
   },
   "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.js",
-    "**/*.tsx",
+    "./public/**/*.json",
+    "./tailwind.config.cjs",
     ".eslintrc.js",
-    "tailwind.config.cjs",
+    "**/*.js",
+    "**/*.ts",
+    "**/*.tsx",
+    "next-env.d.ts",
   ],
   "exclude": [
-    "node_modules",
-    "next"
+    "next",
+    "node_modules"
   ]
 }

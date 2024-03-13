@@ -1,13 +1,21 @@
 module.exports = {
+  env: {
+    es6: true,
+  },
   extends: [
     'next/core-web-vitals',
     'airbnb',
     'airbnb-typescript',
   ],
+  plugins: ['import'],
   parserOptions: {
-    project: `${__dirname}/tsconfig.json`,
+    project: [
+      './tsconfig.json',
+      './client/tsconfig.json',
+      './websocket/tsconfig.json',
+      './mongo/tsconfig.json',
+    ],
   },
-  plugins: ['import', 'jsx-a11y', 'react'],
   rules: {
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', 'ts', '.tsx'] }],
     'no-console': 'off',
@@ -28,13 +36,24 @@ module.exports = {
       'error',
       { fixStyle: 'inline-type-imports' },
     ],
+    'react/no-array-index-key': 'off',
   },
-  ignorePatterns: ['tailwind.config.js'],
+  ignorePatterns: [
+    '*/tailwind.config.js',
+    '*/node_modules/',
+    '*/dist/',
+    '*/.next/',
+  ],
   settings: {
     'import/resolver': {
       typescript: {
         alwaysTryTypes: true,
-        project: `${__dirname}/tsconfig.json`,
+        project: [
+          `${__dirname}/tsconfig.json`,
+          `${__dirname}/client/tsconfig.json`,
+          `${__dirname}/websocket/tsconfig.json`,
+          `${__dirname}/mongo/tsconfig.json`,
+        ],
       },
     },
   },

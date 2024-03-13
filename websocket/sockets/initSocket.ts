@@ -1,4 +1,5 @@
 import type { Server, Socket } from 'socket.io';
+
 import { gameInfos, players } from '../data';
 
 const InitSocket = (io: Server, socket: Socket) => {

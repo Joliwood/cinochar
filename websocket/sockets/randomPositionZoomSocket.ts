@@ -1,4 +1,5 @@
 import type { Server, Socket } from 'socket.io';
+
 import { getRandomPosition } from '../utils';
 import { gameInfos } from '../data';
 

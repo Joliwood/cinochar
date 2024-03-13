@@ -6,13 +6,13 @@
   "author": "Guillaume <jolibois.contact@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "check:full": "yarn eslint && yarn typescript",
     "dev:client": "yarn workspace client dev:client",
-    "dev:websocket": "yarn workspace websocket dev:websocket",
     "dev:mongo": "yarn workspace mongo dev:mongo",
+    "dev:websocket": "yarn workspace websocket dev:websocket",
     "dev": "concurrently \"yarn start-server\" \"yarn start-client\"",
-    "eslint": "concurrently \"yarn workspace client eslint\" \"yarn workspace websocket eslint\" \"yarn workspace mongo eslint\"",
-    "typescript": "concurrently \"yarn workspace client typescript\" \"yarn workspace websocket typescript\" \"yarn workspace mongo typescript\"",
-    "check:full": "yarn eslint && yarn typescript"
+    "eslint": "eslint .",
+    "typescript": "concurrently \"yarn workspace client typescript\" \"yarn workspace websocket typescript\" \"yarn workspace mongo typescript\""
   },
   "workspaces": [
     "client",

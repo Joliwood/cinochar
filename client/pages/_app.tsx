@@ -1,11 +1,12 @@
 /* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable react/prop-types */
 
 import { RecoilRoot } from 'recoil';
-import '../styles/globals.css';
 import React from 'react';
+import { type AppProps } from 'next/app';
 
-const App = ({ Component, pageProps }): JSX.Element => {
+import '../styles/globals.css';
+
+const App = ({ Component, pageProps }: AppProps): JSX.Element => {
   return (
     <RecoilRoot>
       <Component {...pageProps} />

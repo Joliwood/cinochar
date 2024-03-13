@@ -2,13 +2,14 @@ import { ObjectId } from 'mongodb';
 import type {
   Collection, Db, MongoClient,
 } from 'mongodb';
-import { connectToDatabase } from '../utils/mongo';
 
-export default async function getUser(req: Request | any, res: Response | any) {
+import { connectToDatabase } from './mongo';
+
+export default async function getUser(req: Request | any) {
   // Normally, req.query.userId can be string | string[] | undefined
   // but for only one user, it is just a string
   console.log('req : ', req);
-  
+
   // @ts-ignore
   const { userId } = req.query;
 

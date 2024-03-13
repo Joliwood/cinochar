@@ -1,6 +1,8 @@
 import type { Server, Socket } from 'socket.io';
-import { players } from '../data';
+
 import type { Player } from '#types';
+
+import { players } from '../data';
 
 const playerConnectSocket = (io: Server, socket: Socket) => {
   const playerConnect = (data: any) => {

@@ -1,4 +1,5 @@
 import type { Server, Socket } from 'socket.io';
+
 import { players } from '../data';
 
 const DisconnectSocket = (io: Server, socket: Socket) => {

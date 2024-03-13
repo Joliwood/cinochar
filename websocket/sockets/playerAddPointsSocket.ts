@@ -1,4 +1,5 @@
 import type { Server, Socket } from 'socket.io';
+
 import { players } from '../data';
 
 const PlayerAddPointsSocket = (io: Server, socket: Socket) => {

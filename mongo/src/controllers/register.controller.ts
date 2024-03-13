@@ -1,19 +1,20 @@
-import { Request, Response } from 'express';
+import { type Request, type Response } from 'express';
+
 import register from '../utils/register';
 
 export const registerController = async (req: Request, res: Response) => {
   try {
-  const response = await register(req, res);
+    const response = await register(req, res);
 
-  if (!response) {
-    return res.status(404).json({ message: 'User not found' });
-  }
+    if (!response) {
+      return res.status(404).json({ message: 'User not found' });
+    }
 
-  console.log('response', response);
-  
+    console.log('response', response);
+
     return res.status(201).json({ message: 'Votre compte a bien été créé' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'An error occurred while user infos reeding infos.' });
+    return res.status(500).json({ message: 'An error occurred while user infos reeding infos.' });
   }
 };

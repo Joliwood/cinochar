@@ -3,9 +3,10 @@ import jwt from 'jsonwebtoken';
 import type {
   Collection, Db, MongoClient,
 } from 'mongodb';
-import { connectToDatabase } from '../utils/mongo';
 
-export default async function login(req: Request | any, res: Response | any) {
+import { connectToDatabase } from './mongo';
+
+export default async function login(req: Request | any) {
   const { email, password }: {
     email: any,
     password: any
@@ -25,7 +26,7 @@ export default async function login(req: Request | any, res: Response | any) {
   const isPasswordValid: boolean = await bcrypt.compare(password, user.password);
 
   if (!isPasswordValid) {
-    return { message: 'Invalid credentials' }
+    return { message: 'Invalid credentials' };
   }
 
   // Generate a JWT

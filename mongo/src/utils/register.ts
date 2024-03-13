@@ -1,9 +1,9 @@
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 import type {
   Collection, Db, MongoClient,
 } from 'mongodb';
-import { connectToDatabase } from '../utils/mongo';
+
+import { connectToDatabase } from './mongo';
 
 export default async function register(req: Request | any, res: Response | any): Promise<boolean> {
   const { email, password, name }: {

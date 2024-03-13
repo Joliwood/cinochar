@@ -1,4 +1,4 @@
-import type { ServerData } from '#types';
+import { type ServerData } from '#types';
 
 export const gameInfos: ServerData = {
   cooldownCounter: 0,

@@ -1,32 +1,22 @@
 {
+  "extends": "../tsconfig.json",
   "compilerOptions": {
-    "allowJs": true,
-    "composite": true,
-    "declaration": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "Node",
-    // noEmit prevent the compiler from generating files
-    "noEmit": false,
+    "module": "CommonJS",
+    "noEmit": true,
     "outDir": "./dist",
-    "resolveJsonModule": true,
     "rootDir": ".",
-    "skipLibCheck": true,
-    "strict": true,
-    "target": "ESNext",
-    "noImplicitAny": true,
     "paths": {
-      "#types": ["./types/index.d.ts"],
       "#sockets": ["./sockets/index.ts"],
+      "#types": ["./types/index.d.ts"],
       "#utils": ["./utils/index.ts"],
     }
   },
   "include": [
+    "_.eslintrc._cjs",
     "./*",
     "./**/*",
     "./sockets/*",
     "./types/*",
-    ".eslintrc.cjs",
     "/**/*.ts",
   ],
   "exclude": [

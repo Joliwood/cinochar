@@ -12,7 +12,6 @@ import { userInfosState, counterState, zoomState } from '#store';
 const socket: Socket = io(process.env.NEXT_PUBLIC_API_URL as string);
 
 const FilmButton = (): JSX.Element => {
-  // const { zoom, filmDimensionsContainer } = props;
   const [counter, setCounter] = useRecoilState(counterState);
   const [userInfos, setUserInfos] = useRecoilState(userInfosState);
   const zoom = useRecoilValue(zoomState);

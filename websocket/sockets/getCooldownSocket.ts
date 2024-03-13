@@ -1,4 +1,5 @@
 import type { Server, Socket } from 'socket.io';
+
 import { gameInfos } from '../data';
 
 const GetCooldownSocket = (io: Server, socket: Socket) => {

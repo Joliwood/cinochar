@@ -1,4 +1,5 @@
-import express, { Router } from 'express';
+import express, { type Router } from 'express';
+
 import { addPointsController } from '../controllers/addPoints.controller';
 import { getFilmController } from '../controllers/getFilm.controller';
 import { getPlayersRankingController } from '../controllers/getPlayersRanking.controller';

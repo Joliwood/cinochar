@@ -1,10 +1,11 @@
-import { Request, Response } from 'express';
+import { type Request, type Response } from 'express';
+
 import getUser from '../utils/getUser';
 
 export const getUserController = async (req: Request, res: Response) => {
   try {
-    const user = await getUser(req, res);
-    
+    const user = await getUser(req);
+
     if (!user) {
       return res.status(404).json({ message: 'Cann\'t find the user informations' });
     }
@@ -12,6 +13,6 @@ export const getUserController = async (req: Request, res: Response) => {
     return res.status(200).json(user);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'An error occurred while user infos reeding infos.' });
+    return res.status(500).json({ message: 'An error occurred while user infos reeding infos.' });
   }
 };

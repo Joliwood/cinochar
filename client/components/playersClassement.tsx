@@ -41,7 +41,6 @@ const PlayersClassement = (): JSX.Element => {
     return (
       <>
         {playersListClassement.map((player: Player, index: number) => (
-        // eslint-disable-next-line react/no-array-index-key
           <tr key={index}>
             <th>{index + 1}</th>
             <td>{player.name}</td>
@@ -59,10 +58,8 @@ const PlayersClassement = (): JSX.Element => {
       <h2 className="mb-3 font-bold">Classement global</h2>
       <div className="overflow-x-auto w-full">
         <table className="table">
-          {/* head */}
           <thead>
             <tr>
-              {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
               <th>Rank</th>
               <th>Joueur</th>
               <th>Points</th>

@@ -1,8 +1,8 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
 import type {
   Collection, Db, MongoClient,
 } from 'mongodb';
-import { connectToDatabase } from '../utils/mongo';
+
+import { connectToDatabase } from './mongo';
 
 export default async function getPlayersRanking() {
   const client: MongoClient = await connectToDatabase();
