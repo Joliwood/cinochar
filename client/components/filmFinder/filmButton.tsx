@@ -1,46 +1,34 @@
 import React, {
-  useState, useEffect, useMemo, useCallback,
+  useEffect, useMemo, useCallback,
 } from 'react';
 import { type Socket, io } from 'socket.io-client';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
-import { getNewFilm } from '#utils';
-import { userInfosState } from '#store';
+import { COOLDOWN_DURATION, getNewFilm, FILM_DIMENSIONS_CONTAINER } from '#utils';
+import { userInfosState, counterState, zoomState } from '#store';
 
 //! This line MUST BE before the component -> High risk of inifity loop
 // Socket.io types provded : Socket<DefaultEventsMap, DefaultEventsMap>  generate TS error
 const socket: Socket = io(process.env.NEXT_PUBLIC_API_URL as string);
 
-type Props = {
-  zoom: number;
-  filmDimensionsContainer: number;
-};
-
-const FilmButton = (props: Props): JSX.Element => {
-  const { zoom, filmDimensionsContainer } = props;
-  const cooldownDuration: number = 5;
-  const [counter, setCounter] = useState<number>(0);
-  const userInfos = useRecoilValue(userInfosState);
-  const setUserInfos = useSetRecoilState(userInfosState);
+const FilmButton = (): JSX.Element => {
+  // const { zoom, filmDimensionsContainer } = props;
+  const [counter, setCounter] = useRecoilState(counterState);
+  const [userInfos, setUserInfos] = useRecoilState(userInfosState);
+  const zoom = useRecoilValue(zoomState);
 
   useEffect(() => {
     // Listen for cooldown updates from the server
     socket.on('cooldown', (counterFromSocket: number) => {
       setCounter(counterFromSocket);
     });
-  }, []);
+  }, [setCounter]);
 
   const filmFinder = useCallback(() => {
-    setCounter(cooldownDuration);
-    getNewFilm({ socket, zoom, filmDimensionsContainer });
+    setCounter(COOLDOWN_DURATION);
+    getNewFilm({ socket, zoom, FILM_DIMENSIONS_CONTAINER });
     setUserInfos({ ...userInfos, jokers: 2 });
-  }, [
-    cooldownDuration,
-    zoom,
-    filmDimensionsContainer,
-    setUserInfos,
-    userInfos,
-  ]);
+  }, [setCounter, setUserInfos, userInfos, zoom]);
 
   const newFilmButton = useMemo(
     () => {

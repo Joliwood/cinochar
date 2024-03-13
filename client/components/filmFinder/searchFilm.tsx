@@ -1,11 +1,24 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { io, type Socket } from 'socket.io-client';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import FilmViewer from './filmViewer';
 import UtilityFilmBar from './utilityFilmBar';
 
-import { userInfosState } from '#store';
+import {
+  countdownValueState,
+  filmFoundState,
+  isUserPlayingState,
+  matchResultState,
+  movieUrlState,
+  playerListState,
+  pointsEarnedState,
+  randomMovieNameState,
+  userAnswerState,
+  userInfosState,
+  zoomPositionState,
+  zoomState,
+} from '#store';
 import { handleAddPoints } from '#utils';
 import type { Player, RandomFilmPosition } from '#types';
 
@@ -13,33 +26,24 @@ import type { Player, RandomFilmPosition } from '#types';
 const socket: Socket = io(process.env.NEXT_PUBLIC_API_URL as string);
 
 const SearchFilm = (): JSX.Element => {
-  const userInfos = useRecoilValue(userInfosState);
-  const setUserInfos = useSetRecoilState(userInfosState);
-
-  // Main movie picture
-  const [movieUrl, setMovieUrl] = useState<string>('');
-  // Random film to find by the user
-  const [randomMovieName, setRandomMovieName] = useState<string | undefined>();
-  // User result
-  const [userAnswer, setUserAnswer] = useState<string>('');
-  // Match between film to find and user result, null at initialization and
-  // bollean after a first try
-  const [matchResult, setMatchResult] = useState<string | null>(null);
-  // Others basic requests
-  const [zoom, setZoom] = useState<number>(3);
-  const filmDimensionsContainer: number = 350;
-  const [zoomPosition, setZoomPosition] = useState<RandomFilmPosition | null>(null);
-  const [countdownValue, setCountdownValue] = useState<number | null>(null);
-  const [filmFound, isFilmFound] = useState<boolean>(false);
-  const [playerList, setPlayerList] = useState<Player[]>([]);
-  const [isUserPlaying, setIsUserPlaying] = useState<boolean>(false);
-  const [pointsEarned, setPointsEarned] = useState<number>(5);
+  const [userInfos, setUserInfos] = useRecoilState(userInfosState);
+  const setMovieUrl = useSetRecoilState(movieUrlState);
+  const [randomMovieName, setRandomMovieName] = useRecoilState(randomMovieNameState);
+  const [userAnswer, setUserAnswer] = useRecoilState(userAnswerState);
+  const [matchResult, setMatchResult] = useRecoilState(matchResultState);
+  const setZoom = useSetRecoilState(zoomState);
+  const setZoomPosition = useSetRecoilState(zoomPositionState);
+  const [countdownValue, setCountdownValue] = useRecoilState(countdownValueState);
+  const [filmFound, isFilmFound] = useRecoilState(filmFoundState);
+  const [playerList, setPlayerList] = useRecoilState(playerListState);
+  const [isUserPlaying, setIsUserPlaying] = useRecoilState(isUserPlayingState);
+  const [pointsEarned, setPointsEarned] = useRecoilState(pointsEarnedState);
 
   useEffect(() => {
     socket.on('get-countdown', (countdown: number) => {
       setCountdownValue(countdown);
     });
-  }, []);
+  }, [setCountdownValue]);
 
   useEffect(() => {
     if (userInfos.jokers === 2) {
@@ -58,7 +62,7 @@ const SearchFilm = (): JSX.Element => {
       setZoom(1);
       setPointsEarned(0);
     }
-  }, [userInfos]);
+  }, [setPointsEarned, setZoom, userInfos]);
 
   useEffect(() => {
     socket.on('player-list', (players: Player[]) => {
@@ -75,7 +79,7 @@ const SearchFilm = (): JSX.Element => {
     } else {
       setIsUserPlaying(false);
     }
-  }, [playerList, userInfos.name]);
+  }, [playerList, setIsUserPlaying, setPlayerList, userInfos.name]);
 
   useEffect(() => {
     // It is the first emit send to the socket, so we reset all
@@ -94,7 +98,15 @@ const SearchFilm = (): JSX.Element => {
     socket.on('random-position-zoom', (position: RandomFilmPosition) => {
       setZoomPosition(position);
     });
-  }, [userInfos, setUserInfos]);
+  }, [
+    userInfos,
+    setUserInfos,
+    setRandomMovieName,
+    setMatchResult,
+    setZoomPosition,
+    setMovieUrl,
+    isFilmFound,
+  ]);
 
   // Compare film to find and user result
   const testMatchingResult = () => {
@@ -131,18 +143,8 @@ const SearchFilm = (): JSX.Element => {
 
   return (
     <div className="flex justify-center flex-col items-center gap-5 py-3 mt-5 max-w-[90vw]">
-      <UtilityFilmBar
-        zoom={zoom}
-        filmDimensionsContainer={filmDimensionsContainer}
-        countdownValue={countdownValue}
-      />
-      <FilmViewer
-        filmDimensionsContainer={filmDimensionsContainer}
-        randomMovieName={randomMovieName}
-        movieUrl={movieUrl}
-        zoomPosition={zoomPosition}
-        zoom={zoom}
-      />
+      <UtilityFilmBar />
+      <FilmViewer />
 
       {matchResultMessage}
 

@@ -7,18 +7,12 @@ import jokerSvg from '../../public/images/joker.svg';
 
 import FilmButton from './filmButton';
 
-import { userInfosState } from '#store';
+import { userInfosState, countdownValueState } from '#store';
 
-type Props = {
-  zoom: number;
-  filmDimensionsContainer: number;
-  countdownValue: number | null;
-};
-
-const UtilityFilmBar = (props: Props): JSX.Element => {
-  const { zoom, filmDimensionsContainer, countdownValue } = props;
+const UtilityFilmBar = (): JSX.Element => {
   const userInfos = useRecoilValue(userInfosState);
   const setUserInfos = useSetRecoilState(userInfosState);
+  const countdownValue = useRecoilValue(countdownValueState);
 
   const handleJokerClick = useCallback(() => {
     if (userInfos.jokers > 0) {
@@ -82,10 +76,7 @@ const UtilityFilmBar = (props: Props): JSX.Element => {
       <span className="font-mono text-4xl shadow bg-base-300 rounded-lg h-full flex items-center justify-center px-3">
         {countdownValue}
       </span>
-      <FilmButton
-        zoom={zoom}
-        filmDimensionsContainer={filmDimensionsContainer}
-      />
+      <FilmButton />
       {jokerButton}
     </div>
   );

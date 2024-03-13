@@ -5,29 +5,23 @@ import { useRecoilValue } from 'recoil';
 
 import lkrazakeAnimation from '../../public/images/animation_lkrazake.json';
 
-import { userInfosState } from '#store';
-import type { RandomFilmPosition } from '#types';
+import {
+  userInfosState,
+  randomMovieNameState,
+  zoomState,
+  zoomPositionState,
+  movieUrlState,
+} from '#store';
+import { FILM_DIMENSIONS_CONTAINER } from '#utils';
 
 const Lottie = dynamic(() => import('react-lottie-player'), { ssr: false });
 
-type Props = {
-  filmDimensionsContainer: number;
-  randomMovieName: string | undefined;
-  movieUrl: string;
-  zoomPosition: RandomFilmPosition | null;
-  zoom: number;
-};
-
-const FilmViewer = (props: Props): JSX.Element => {
-  const {
-    filmDimensionsContainer,
-    randomMovieName,
-    movieUrl,
-    zoomPosition,
-    zoom,
-  } = props;
-
+const FilmViewer = (): JSX.Element => {
   const userInfos = useRecoilValue(userInfosState);
+  const randomMovieName = useRecoilValue(randomMovieNameState);
+  const zoom = useRecoilValue(zoomState);
+  const zoomPosition = useRecoilValue(zoomPositionState);
+  const movieUrl = useRecoilValue(movieUrlState);
 
   const ImageViewer: JSX.Element = useMemo(
     () => {
@@ -66,8 +60,8 @@ const FilmViewer = (props: Props): JSX.Element => {
     <div
       className="film-square shadow-md flex max-w-[95vw]"
       style={{
-        width: `${filmDimensionsContainer}px`,
-        height: `${filmDimensionsContainer}px`,
+        width: `${FILM_DIMENSIONS_CONTAINER}px`,
+        height: `${FILM_DIMENSIONS_CONTAINER}px`,
         overflowX: userInfos.revealImg ? 'scroll' : 'hidden',
       }}
     >

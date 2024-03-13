@@ -1,29 +1,34 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { type Socket, io } from 'socket.io-client';
 
+import { useRecoilState } from 'recoil';
+
 import { type Player } from '#types';
+import { playersListConnectedState } from '#store';
 
 //! This line MUST BE before the component -> High risk of inifity loop
 const socket: Socket = io(process.env.NEXT_PUBLIC_API_URL as string);
 
 const PlayersConnected = (): JSX.Element => {
-  const [playerList, setPlayerList] = useState<Player[]>([]);
+  const [playersConnectedList, setPlayersConnectedList] = useRecoilState(playersListConnectedState);
 
   useEffect(() => {
     socket.on('player-list', (players: Player[]) => {
-      setPlayerList(players);
+      setPlayersConnectedList(players);
     });
-  }, [playerList]);
+  }, [playersConnectedList, setPlayersConnectedList]);
 
-  const playerListConnected = useMemo(() => (
-    playerList.slice().sort((a, b) => b.points - a.points).map((player: Player, index: number) => (
+  const players = useMemo(() => (
+    playersConnectedList.slice().sort(
+      (a, b) => b.points - a.points,
+    ).map((player: Player, index: number) => (
       <tr key={player.name}>
         <th>{index + 1}</th>
         <td>{player.name}</td>
         <td>{player.points}</td>
       </tr>
     ))
-  ), [playerList]);
+  ), [playersConnectedList]);
 
   return (
     <div className="lg:absolute my-5 top-[150px] min-h-[400px] h-[50vh] left-5 shadow
@@ -32,7 +37,6 @@ const PlayersConnected = (): JSX.Element => {
       <h2 className="mb-3 font-bold">Joueurs connectés</h2>
       <div className="overflow-x-auto w-full">
         <table className="table">
-          {/* head */}
           <thead>
             <tr>
               <th>Rank</th>
@@ -41,7 +45,7 @@ const PlayersConnected = (): JSX.Element => {
             </tr>
           </thead>
           <tbody>
-            {playerListConnected}
+            {players}
           </tbody>
         </table>
       </div>

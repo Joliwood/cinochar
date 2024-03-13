@@ -1,10 +1,16 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import axios, { type AxiosResponse } from 'axios';
+
+import { useRecoilState } from 'recoil';
+
+import { playersListClassementState } from '#store';
 
 import type { Player } from '#types';
 
 const PlayersClassement = (): JSX.Element => {
-  const [playersList, setPlayersList] = useState<Player[]>([]);
+  const [playersListClassement, setPlayersListClassement] = useRecoilState(
+    playersListClassementState,
+  );
 
   useEffect(() => {
     const getPlayers = async () => {
@@ -14,7 +20,7 @@ const PlayersClassement = (): JSX.Element => {
         const players: Player[] = data;
 
         if (response.status === 200 && players.length > 0) {
-          setPlayersList(players);
+          setPlayersListClassement(players);
         } else {
           console.error('Failed to fetch players data');
         }
@@ -29,12 +35,12 @@ const PlayersClassement = (): JSX.Element => {
       }
     };
     getPlayers();
-  }, []);
+  }, [setPlayersListClassement]);
 
-  const playersListClassement = useMemo(() => {
+  const players = useMemo(() => {
     return (
       <>
-        {playersList.map((player: Player, index: number) => (
+        {playersListClassement.map((player: Player, index: number) => (
         // eslint-disable-next-line react/no-array-index-key
           <tr key={index}>
             <th>{index + 1}</th>
@@ -44,7 +50,7 @@ const PlayersClassement = (): JSX.Element => {
         ))}
       </>
     );
-  }, [playersList]);
+  }, [playersListClassement]);
 
   return (
     <div className="my-5 lg:my-0 lg:absolute top-[150px] min-h-[400px] h-[50vh]
@@ -63,7 +69,7 @@ const PlayersClassement = (): JSX.Element => {
             </tr>
           </thead>
           <tbody>
-            {playersListClassement}
+            {players}
           </tbody>
         </table>
       </div>

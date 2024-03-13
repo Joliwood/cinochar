@@ -5,3 +5,5 @@ export { default as handleLogin } from './handleLogin';
 export { default as handleLogout } from './handleLogout';
 export { default as handleSignup } from './handleSignup';
 export { default as instance } from './axios';
+
+export * from './constants';

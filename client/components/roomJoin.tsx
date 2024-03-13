@@ -35,7 +35,7 @@ const RoomJoin = (): JSX.Element => {
   }, [handleJoin, userInfos.isUserPlaying]);
 
   const user = useMemo(() => {
-    if (userInfos.name && userInfos.isUserPlaying) {
+    if (userInfos.name) {
       return (
         <div className="avatar flex gap-3 items-center">
           <h3 className="font-bold text-primary-content">{userInfos.name}</h3>
@@ -54,7 +54,7 @@ const RoomJoin = (): JSX.Element => {
     }
 
     return null;
-  }, [userInfos.name, userInfos.isUserPlaying, partyJoinButton]);
+  }, [userInfos, partyJoinButton]);
 
   return (
     <div className={`${userInfos.name && 'none'} flex w-auto lg:flex-row m-1 sm:m-5 flex-wrap justify-center gap-2`}>

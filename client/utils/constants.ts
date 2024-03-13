@@ -1,0 +1,3 @@
+export const COOLDOWN_DURATION = 5;
+
+export const FILM_DIMENSIONS_CONTAINER = 350;

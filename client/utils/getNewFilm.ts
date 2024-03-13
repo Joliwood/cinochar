@@ -6,11 +6,11 @@ import type { FilmFromMongo } from '#types';
 type Args = {
   socket: Socket;
   zoom: number;
-  filmDimensionsContainer: number;
+  FILM_DIMENSIONS_CONTAINER: number;
 };
 
 async function getNewFilm(args: Args): Promise<void> {
-  const { socket, zoom, filmDimensionsContainer } = args;
+  const { socket, zoom, FILM_DIMENSIONS_CONTAINER } = args;
 
   try {
     // Correctly await the Axios call and directly assign the response to selectedMovie
@@ -26,7 +26,7 @@ async function getNewFilm(args: Args): Promise<void> {
 
     socket.emit('new-film-name', selectedMovie.name);
     socket.emit('new-film-url', selectedMovie.picture_urls[randomUrlIndex]);
-    socket.emit('random-position-zoom', { zoom, filmDimensionsContainer });
+    socket.emit('random-position-zoom', { zoom, FILM_DIMENSIONS_CONTAINER });
     socket.emit('reset-countdown');
     socket.emit('get-cooldown');
   } catch (error) {
