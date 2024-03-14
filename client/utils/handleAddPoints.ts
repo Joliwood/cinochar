@@ -9,6 +9,7 @@ type Args = {
 
 async function handleAddPoints(args: Args): Promise<string> {
   const { pointsEarned } = args;
+
   const storedToken: string | null = localStorage.getItem('token');
 
   if (!storedToken) {
@@ -25,7 +26,7 @@ async function handleAddPoints(args: Args): Promise<string> {
     url: `${process.env.NEXT_PUBLIC_MONGO_API_URL}/mongo/addPoints`,
     data: {
       userId,
-      pointsEarned,
+      points: pointsEarned,
     },
   });
 
