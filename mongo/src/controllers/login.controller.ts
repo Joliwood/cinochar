@@ -10,11 +10,9 @@ export const loginController = async (req: Request, res: Response) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    console.log('response', response);
-
-    // if (!response.token || !response.user) {
-    //   return res.status(401).json({ message: response.message });
-    // }
+    if (!response.token || !response.user) {
+      return res.status(401).json({ message: response.message });
+    }
 
     return res.status(200).json(response);
   } catch (error) {

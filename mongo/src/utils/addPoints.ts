@@ -10,12 +10,20 @@ async function addPoints(userId: any, points: any): Promise<boolean> {
   const db: Db = client.db();
   const collection: Collection<any> = db.collection('players-ranking');
 
-  await collection.updateOne(
+  const result = await collection.updateOne(
     { _id: new ObjectId(userId) },
     { $inc: { points } },
   );
+
+  if (result.matchedCount === 0) {
+    console.log('No document found with the given userId or points not incremented');
+    return false;
+  }
 
   return true;
 }
 
 export default addPoints;
+
+// 65e49cb3c758ae02a7612b5e
+// 65e49cb3c758ae02a7612b5e

@@ -10,8 +10,6 @@ export const registerController = async (req: Request, res: Response) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    console.log('response', response);
-
     return res.status(201).json({ message: 'Votre compte a bien été créé' });
   } catch (error) {
     console.error(error);

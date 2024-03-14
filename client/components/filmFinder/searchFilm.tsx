@@ -88,7 +88,7 @@ const SearchFilm = (): JSX.Element => {
       setRandomMovieName(name);
       setMatchResult(null);
       isFilmFound(false);
-      setUserInfos({ ...userInfos, revealImg: false });
+      setUserInfos({ ...userInfos, revealImg: false, jokers: 2 });
     });
 
     socket.on('new-film-url', (url: string) => {

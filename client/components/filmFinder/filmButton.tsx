@@ -4,7 +4,7 @@ import React, {
 import { type Socket, io } from 'socket.io-client';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
-import { COOLDOWN_DURATION, getNewFilm, FILM_DIMENSIONS_CONTAINER } from '#utils';
+import { COOLDOWN_DURATION, getNewFilm } from '#utils';
 import { userInfosState, counterState, zoomState } from '#store';
 
 //! This line MUST BE before the component -> High risk of inifity loop
@@ -25,7 +25,7 @@ const FilmButton = (): JSX.Element => {
 
   const filmFinder = useCallback(() => {
     setCounter(COOLDOWN_DURATION);
-    getNewFilm({ socket, zoom, FILM_DIMENSIONS_CONTAINER });
+    getNewFilm({ socket, zoom });
     setUserInfos({ ...userInfos, jokers: 2 });
   }, [setCounter, setUserInfos, userInfos, zoom]);
 

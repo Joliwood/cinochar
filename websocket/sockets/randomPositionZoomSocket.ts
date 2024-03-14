@@ -5,7 +5,7 @@ import { gameInfos } from '../data';
 
 const RandomPositionZoomSocket = (io: Server, socket: Socket) => {
   const randomPositionZoom = async (position: any) => {
-    const { zoom, filmDimensionsContainer } = position;
+    const { zoom, FILM_DIMENSIONS_CONTAINER: filmDimensionsContainer } = position;
     const { filmUrlFromSocket } = gameInfos;
 
     const randomZoomPosition = await getRandomPosition({

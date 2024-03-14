@@ -5,7 +5,7 @@ import {
 
 const Document = (): JSX.Element => {
   return (
-    <Html lang="fr">
+    <Html lang="fr" style={{ overflowX: 'hidden' }}>
       <Head>
         <meta name="theme-color" content="#000000" />
         <link rel="icon" type="image/png" sizes="192x192" href="/logo192.png" />
@@ -28,7 +28,7 @@ const Document = (): JSX.Element => {
         <link rel="manifest" href="/manifest.json" />
       </Head>
 
-      <body>
+      <body style={{ overflowX: 'hidden' }}>
         <Main />
         <NextScript />
       </body>

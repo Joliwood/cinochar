@@ -1,16 +1,17 @@
 import axios, { type AxiosResponse } from 'axios';
 import { type Socket } from 'socket.io-client';
 
+import { FILM_DIMENSIONS_CONTAINER } from './constants';
+
 import type { FilmFromMongo } from '#types';
 
 type Args = {
   socket: Socket;
   zoom: number;
-  FILM_DIMENSIONS_CONTAINER: number;
 };
 
 async function getNewFilm(args: Args): Promise<void> {
-  const { socket, zoom, FILM_DIMENSIONS_CONTAINER } = args;
+  const { socket, zoom } = args;
 
   try {
     // Correctly await the Axios call and directly assign the response to selectedMovie
