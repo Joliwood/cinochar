@@ -18,8 +18,7 @@ const PlayerAddPointsSocket = (io: Server, socket: Socket) => {
 
       if (players[playerId].name === name) {
         // TODO - Fix this
-        // @ts-expect-error Object can be null
-        players[playerId].points += points;
+        players[playerId].points += points as any;
         foundPlayer = true;
         console.log(`${name} received ${points} points. Total points now: ${players[playerId].points}`);
       }
