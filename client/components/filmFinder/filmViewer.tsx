@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { useRecoilValue } from 'recoil';
@@ -23,39 +23,6 @@ const FilmViewer = (): JSX.Element => {
   const zoomPosition = useRecoilValue(zoomPositionState);
   const movieUrl = useRecoilValue(movieUrlState);
 
-  const ImageViewer: JSX.Element = useMemo(
-    () => {
-      if (randomMovieName && movieUrl) {
-        return (
-          <Image
-            src={movieUrl}
-            width={1920}
-            height={1080}
-            alt="film to find"
-            className="film-img"
-            priority
-            style={{
-              display: zoomPosition !== null ? 'inherit' : 'none',
-              transform: zoomPosition !== null && !userInfos.revealImg
-                ? `scale(${zoom}) translate(${zoomPosition.x}px, ${zoomPosition.y}px)`
-                : 'none',
-            }}
-          />
-        );
-      }
-      return (
-        <Lottie
-          loop
-          renderer="svg"
-          animationData={lkrazakeAnimation}
-          play
-          className="w-full h-full"
-        />
-      );
-    },
-    [randomMovieName, movieUrl, zoomPosition, zoom, userInfos.revealImg],
-  );
-
   return (
     <div
       className="film-square shadow-md flex max-w-[95vw]"
@@ -65,7 +32,30 @@ const FilmViewer = (): JSX.Element => {
         overflowX: userInfos.revealImg ? 'scroll' : 'hidden',
       }}
     >
-      {ImageViewer}
+      {randomMovieName && movieUrl ? (
+        <Image
+          src={movieUrl}
+          width={1920}
+          height={1080}
+          alt="film to find"
+          className="film-img"
+          priority
+          style={{
+            display: zoomPosition !== null ? 'inherit' : 'none',
+            transform: zoomPosition !== null && !userInfos.revealImg
+              ? `scale(${zoom}) translate(${zoomPosition.x}px, ${zoomPosition.y}px)`
+              : 'none',
+          }}
+        />
+      ) : (
+        <Lottie
+          loop
+          renderer="svg"
+          animationData={lkrazakeAnimation}
+          play
+          className="w-full h-full"
+        />
+      )}
     </div>
   );
 };
